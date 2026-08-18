@@ -1,0 +1,3 @@
+.site-body {
+  @apply bg-white font-body text-black md:pl-64;
+}

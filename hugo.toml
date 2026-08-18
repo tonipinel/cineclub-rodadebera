@@ -15,19 +15,23 @@ enableRobotsTXT = true
 [[menu.main]]
   name = "Inici"
   url = "/"
+  pageRef = "/"
   weight = 1
 
 [[menu.main]]
   name = "Programació"
   url = "/programacio/"
+  pageRef = "/programacio"
   weight = 2
 
 [[menu.main]]
   name = "Fes-te soci/a"
   url = "/fes-te-socia/"
+  pageRef = "/fes-te-socia"
   weight = 3
 
 [[menu.main]]
   name = "Preguntes freqüents"
   url = "/preguntes-frequents/"
+  pageRef = "/preguntes-frequents"
   weight = 4
