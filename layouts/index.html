@@ -1,9 +1,18 @@
 {{ define "main" }}
 <section class="hero">
+  <img class="hero__logo" src="{{ .Site.Params.logo | relURL }}" alt="">
   <p class="hero__tagline">{{ .Site.Params.tagline }}</p>
 </section>
 <section class="intro prose-ca">
   {{ .Content }}
+</section>
+<section class="features">
+  {{ range .Params.features }}
+    <div class="features__item">
+      <h2 class="features__title">{{ .titol }}</h2>
+      <p>{{ .text }}</p>
+    </div>
+  {{ end }}
 </section>
 {{ $upcoming := where (where .Site.RegularPages "Section" "programacio") "Date" "ge" now }}
 {{ with (first 1 $upcoming.ByDate) }}
@@ -15,6 +24,16 @@
   {{ end }}
 {{ end }}
 <section class="membership-teaser">
-  <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Fes-te sòcia/soci</a>
+  <h2 class="membership-teaser__title">Fes-te sòcia/soci!</h2>
+  <ul class="membership-teaser__list">
+    {{ range .Params.membership_benefits }}
+      <li>{{ . }}</li>
+    {{ end }}
+  </ul>
+  <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Vull ser sòcia/soci</a>
+</section>
+<section class="faq-teaser">
+  <h2>Encara tens dubtes?</h2>
+  <a class="btn btn--outline" href="{{ "/preguntes-frequents/" | relLangURL }}">Accedeix a Preguntes Freqüents</a>
 </section>
 {{ end }}

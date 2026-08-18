@@ -1,8 +1,11 @@
 .hero {
-  @apply bg-black px-6 py-16 text-center text-white;
+  @apply flex flex-col items-center gap-6 bg-black px-6 py-20 text-center text-white;
+}
+.hero__logo {
+  @apply h-24 w-auto invert;
 }
 .hero__tagline {
-  @apply font-display text-2xl font-bold text-gold sm:text-3xl;
+  @apply font-display text-3xl font-bold uppercase tracking-tight text-gold sm:text-5xl;
 }
 .intro {
   @apply mx-auto max-w-2xl px-6 py-12 text-black;
@@ -10,12 +13,30 @@
 .intro p {
   @apply mb-4;
 }
+.features {
+  @apply mx-auto grid max-w-5xl grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-3;
+}
+.features__title {
+  @apply mb-2 font-display text-lg font-bold uppercase text-gold-dark;
+}
 .next-session {
   @apply mx-auto max-w-sm px-6 pb-12;
 }
 .next-session h2 {
-  @apply mb-4 font-display text-xl font-bold text-black;
+  @apply mb-4 font-display text-xl font-bold uppercase text-black;
 }
 .membership-teaser {
-  @apply flex justify-center pb-16;
+  @apply mx-auto max-w-2xl px-6 pb-16 text-center;
+}
+.membership-teaser__title {
+  @apply mb-4 font-display text-2xl font-bold uppercase text-black;
+}
+.membership-teaser__list {
+  @apply mb-6 list-disc space-y-1 pl-5 text-left;
+}
+.faq-teaser {
+  @apply bg-gold/10 px-6 py-16 text-center;
+}
+.faq-teaser h2 {
+  @apply mb-4 font-display text-xl font-bold uppercase text-black;
 }
