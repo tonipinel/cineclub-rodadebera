@@ -1701,6 +1701,564 @@ La revisió final de tot el conjunt de canvis (abans de tancar el projecte) va t
 
 Nota per a un futur contribuïdor: un cop hi hagi sessions amb data futura, el llistat de `/programacio/` (ordenat `.ByDate.Reverse`, més recent primer) mostrarà la sessió futura més llunyana a dalt de tot, mentre que la home ja mostra la més propera — és una inconsistència de disseny menor detectada però no corregida, pendent de decisió.
 
+---
+
+## Fase 2: Redisseny (identitat visual real, navegació, muntatges)
+
+**Context**: la Fase 1 (Tasques 1-10) va deixar un lloc funcional però massa auster: no feia servir el logo real del cineclub, no reproduïa cap dels mòduls visuals de la home (icones+text, xarxes socials), i les fitxes de sessió no tenien ni el carrusel d'imatges ni el tràiler de YouTube incrustat que sí té el lloc antic. Aquesta fase corregeix això amb una direcció més "forta gràficament" (inspirada en https://phenomena-experience.com), sense trencar cap de les Global Constraints ni Tasques 1-10 ja aprovades — només se substitueix la capçalera (de barra lateral a barra horitzontal unificada) i s'amplien home/fitxa/footer.
+
+**Actius reals obtinguts** (no substitucions ni placeholders):
+- Logo oficial del cineclub (marca en arc amb estrelles, PNG amb transparència, negre sòlid): desat a `static/images/logo.png`. Com que és negre sobre transparent i s'usa sobre fons negre, s'aplica el filtre CSS `invert` perquè aparegui en blanc — no cal cap altra versió del fitxer.
+- 6 IDs de tràiler de YouTube (extrets dels `<iframe>` reals del lloc antic), un per sessió — veure Tasca 13.
+- Enllaços socials reals: Instagram `https://www.instagram.com/cineclub.rodadebera`, Facebook `https://www.facebook.com/cineclub.rodadebera`, correu `cineclub.rodadebera@gmail.com`.
+- El fons fotogràfic del splash original (bobines/claqueta) sembla banc d'imatges de tercers sense llicència clara identificable — **no es replica**; l'impacte visual es construeix amb el logo real + tipografia contundent + color, no amb aquesta foto.
+- Pòsters de les 6 pel·lícules: es demanen per separat (font oficial via cerca web — Wikipedia/TMDB —, no el carrusel del lloc antic, que és pràcticament impossible d'extreure de manera fiable), i es desen a la mateixa ruta `poster.*` que ja fa servir la Tasca 6/`session-card`/`session-hero`.
+
+### Global Constraints addicionals (Fase 2)
+
+- El logo (`.Site.Params.logo` = `/images/logo.png`) sempre es renderitza amb la classe utilitària `invert` quan va sobre fons negre (header, footer, hero) — mai una segona versió del fitxer.
+- La capçalera passa a ser **una sola** barra horitzontal (`.site-header`), igual a totes les mides de pantalla — se substitueix la parella `.site-header` (barra lateral, Tasca 3) + `.site-header-mobile` (Tasca 10) per un únic component. `md:pl-64` desapareix de `.site-body` (Tasca 3) perquè ja no hi ha barra lateral fixa que compensar.
+- Tipografia més contundent a partir d'aquí: titulars principals (`hero__tagline`, `session-hero__title`, `page__title` a mòduls destacats) en majúscules (`uppercase`) i pes `font-bold`, mida més gran que a la Fase 1.
+- El tràiler de YouTube s'incrusta sempre via `youtube-nocookie.com` (no `youtube.com`), per no carregar cookies de tercers fins que la persona usuària interactuï amb el reproductor.
+- Nou camp de front matter de sessió: `trailer_youtube_id` (l'ID de vídeo, no la URL sencera). S'afegeix a l'esquema existent (Tasca 5/6) sense eliminar cap camp previ.
+
+---
+
+### Task 11: Logo real, capçalera horitzontal unificada i footer potent
+
+**Files:**
+- Modify: `hugo.toml`
+- Modify: `layouts/partials/header.html`
+- Modify: `layouts/partials/footer.html`
+- Modify: `layouts/_default/baseof.html`
+- Modify: `assets/css/components/header.css`
+- Modify: `assets/css/components/footer.css`
+- Modify: `assets/css/components/layout.css`
+- Ja present (no cal crear-lo): `static/images/logo.png` (466 B, PNG RGBA, ja descarregat)
+
+**Interfaces:**
+- Consumes: `.Site.Menus.main` (Tasca 1), `IsMenuCurrent`/`pageRef` (Tasca 3 fix).
+- Produces: `.Site.Params.logo`, `.Site.Params.instagramURL`, `.Site.Params.facebookURL`, `.Site.Params.contactEmail`, consumits també per la Tasca 12 (hero de la home).
+
+- [ ] **Step 1: Afegir els nous params a `hugo.toml`**
+
+Afegir dins el bloc `[params]` ja existent (sense tocar els params previs `tagline`, `venueName`, `venueAddress`, `membershipFormURL`):
+
+```toml
+  logo = "/images/logo.png"
+  instagramURL = "https://www.instagram.com/cineclub.rodadebera"
+  facebookURL = "https://www.facebook.com/cineclub.rodadebera"
+  contactEmail = "cineclub.rodadebera@gmail.com"
+```
+
+- [ ] **Step 2: Reescriure `layouts/partials/header.html` com a barra única horitzontal**
+
+```html
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ "/" | relLangURL }}">
+      <img class="site-header__logo" src="{{ .Site.Params.logo | relURL }}" alt="">
+      <span class="site-header__brand-text">{{ .Site.Title }}</span>
+    </a>
+    <nav class="site-header__nav">
+      {{ range .Site.Menus.main }}
+        <a class="site-header__link{{ if $.IsMenuCurrent "main" . }} site-header__link--active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+  </div>
+</header>
+```
+
+- [ ] **Step 3: Reescriure `assets/css/components/header.css` (substitueix TOT el contingut anterior, incloent-hi `.site-header-mobile*`, que desapareix)**
+
+```css
+.site-header {
+  @apply sticky top-0 z-20 bg-black text-white;
+}
+.site-header__inner {
+  @apply mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6;
+}
+.site-header__brand {
+  @apply flex items-center gap-3 no-underline;
+}
+.site-header__logo {
+  @apply h-10 w-auto invert;
+}
+.site-header__brand-text {
+  @apply font-display text-lg font-bold text-white sm:text-xl;
+}
+.site-header__nav {
+  @apply flex flex-wrap gap-x-6 gap-y-1;
+}
+.site-header__link {
+  @apply text-sm font-semibold uppercase tracking-wide text-white/70 no-underline hover:text-gold;
+}
+.site-header__link--active {
+  @apply text-gold;
+}
+```
+
+- [ ] **Step 4: Actualitzar `assets/css/components/layout.css` (treure `md:pl-64`, ja no hi ha barra lateral)**
+
+```css
+.site-body {
+  @apply bg-white font-body text-black;
+}
+```
+
+- [ ] **Step 5: Reescriure `layouts/partials/footer.html`**
+
+```html
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <img class="site-footer__logo" src="{{ .Site.Params.logo | relURL }}" alt="">
+      <span>{{ .Site.Title }}</span>
+    </div>
+    <nav class="site-footer__nav">
+      {{ range .Site.Menus.main }}
+        <a class="site-footer__link" href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+    <div class="site-footer__social">
+      <a class="site-footer__icon" href="{{ .Site.Params.instagramURL }}" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 4.95 4.95.06 1.3.07 1.6.07 4.8s0 3.5-.07 4.8c-.15 3.25-1.65 4.8-4.95 4.95-1.3.06-1.6.07-4.9.07s-3.6 0-4.9-.07c-3.3-.15-4.8-1.7-4.95-4.95C2.08 15.5 2.07 15.2 2.07 12s0-3.5.07-4.8c.15-3.25 1.65-4.8 4.95-4.95C8.4 2.2 8.7 2.2 12 2.2zm0 1.8c-3.14 0-3.5 0-4.74.07-2.32.1-3.4 1.2-3.5 3.5C3.7 8.5 3.7 8.86 3.7 12s0 3.5.06 4.43c.1 2.3 1.18 3.4 3.5 3.5.94.05 1.3.06 4.44.06s3.5 0 4.44-.06c2.32-.1 3.4-1.2 3.5-3.5.05-.93.06-1.3.06-4.43s0-3.5-.06-4.43c-.1-2.3-1.18-3.4-3.5-3.5A67 67 0 0 0 12 4zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2zm0 1.8a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6zm5.9-2a1.08 1.08 0 1 1-2.15 0 1.08 1.08 0 0 1 2.15 0z"/></svg>
+      </a>
+      <a class="site-footer__icon" href="{{ .Site.Params.facebookURL }}" aria-label="Facebook" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H16.7V3.7C16.4 3.66 15.4 3.6 14.3 3.6c-2.3 0-3.9 1.4-3.9 4v2.3H7.7v3.1h2.7v8h3.1z"/></svg>
+      </a>
+      <a class="site-footer__icon" href="mailto:{{ .Site.Params.contactEmail }}" aria-label="Correu electrònic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg>
+      </a>
+    </div>
+  </div>
+  <p class="site-footer__copyright">&copy; {{ now.Format "2006" }} {{ .Site.Title }}</p>
+</footer>
+```
+
+- [ ] **Step 6: Reescriure `assets/css/components/footer.css`**
+
+```css
+.site-footer {
+  @apply bg-black text-white;
+}
+.site-footer__inner {
+  @apply mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-10 text-center sm:flex-row sm:justify-between sm:text-left;
+}
+.site-footer__brand {
+  @apply flex items-center gap-3;
+}
+.site-footer__logo {
+  @apply h-8 w-auto invert;
+}
+.site-footer__brand span {
+  @apply font-display text-base font-bold;
+}
+.site-footer__nav {
+  @apply flex flex-wrap justify-center gap-4 text-sm;
+}
+.site-footer__link {
+  @apply text-white/70 no-underline hover:text-gold;
+}
+.site-footer__social {
+  @apply flex gap-4;
+}
+.site-footer__icon {
+  @apply flex h-9 w-9 items-center justify-center rounded-full border border-white/30 text-white transition hover:border-gold hover:text-gold;
+}
+.site-footer__icon svg {
+  @apply h-4 w-4;
+}
+.site-footer__copyright {
+  @apply border-t border-white/10 py-4 text-center text-xs text-white/50;
+}
+```
+
+- [ ] **Step 7: Actualitzar `layouts/_default/baseof.html` (el `<body>` ja no necessita res relacionat amb la barra lateral — el fitxer no canvia de contingut perquè ja usava `class="site-body"`, però cal confirmar-ho i eliminar el `{{ partial "header.html" . }}` duplicat si Task 10 n'havia deixat dos)**
+
+Confirmar que `layouts/_default/baseof.html` crida `{{ partial "header.html" . }}` una sola vegada (ja hauria de ser així des de la Tasca 3; la duplicació de capçalera mòbil vivia dins del partial, no a `baseof.html`, així que aquest fitxer no hauria de necessitar cap canvi — verificar-ho i deixar-ho tal qual si ja és correcte).
+
+- [ ] **Step 8: Build i verificació**
+
+Run: `npm run css:build && hugo build`
+
+Expected: exit 0.
+
+Run: `grep -o 'site-header[^"]*' public/index.html | sort -u`
+
+Expected: veure `site-header`, `site-header__inner`, `site-header__brand`, `site-header__logo`, `site-header__brand-text`, `site-header__nav`, `site-header__link` i `site-header__link--active` (per a "Inici"), i **NO** `site-header-mobile` (ha de quedar eliminat).
+
+Run: `test -f public/images/logo.png && echo OK`
+
+Expected: `OK`.
+
+- [ ] **Step 9: Verificació visual (desktop i mòbil)**
+
+Run: `hugo server --port 1414 &`
+
+Comprovar a `http://localhost:1414/` que la barra horitzontal amb el logo (blanc gràcies a `invert`) i el menú en majúscules es veu correctament tant a mida escriptori com mòbil (redimensionar el navegador), i que el footer mostra el logo, els enllaços de menú i les 3 icones socials. Aturar el servidor en acabar.
+
+- [ ] **Step 10: Commit**
+
+```bash
+git add hugo.toml layouts/partials/header.html layouts/partials/footer.html assets/css/components/header.css assets/css/components/footer.css assets/css/components/layout.css static/images/logo.png
+git commit -m "Add real logo, unify header as horizontal bar, expand footer"
+```
+
+---
+
+### Task 12: Home page — mòduls de la Fase 1 de Google Sites restaurats
+
+**Files:**
+- Modify: `content/_index.md`
+- Modify: `layouts/index.html`
+- Modify: `assets/css/components/home.css`
+- Modify: `assets/css/components/button.css`
+
+**Interfaces:**
+- Consumes: `.Site.Params.logo` (Tasca 11), `session-card.html`/`date-ca.html` (Tasca 3).
+
+- [ ] **Step 1: Actualitzar `content/_index.md` amb els nous camps `features` i `membership_benefits`**
+
+```markdown
+---
+title: "Cineclub Roda de Berà"
+features:
+  - titol: "Suport de l'Ajuntament"
+    text: "Comptem amb el suport de l'Ajuntament de Roda de Berà, que ens cedeix els espais condicionats per poder exercir aquesta activitat i ens ajuda en la difusió de la mateixa."
+  - titol: "Un projecte participatiu"
+    text: "El cineclub és participatiu. Pots proposar pel·lícules, col·laborar com a voluntària o voluntari, impulsar cicles temàtics o donar suport com a entitat o empresa local."
+  - titol: "Creixement de futur"
+    text: "Si el projecte creix en número de persones sòcies i/o aportacions, podrem ampliar sessions, incorporar iniciatives com el Cicle Gaudí i oferir més cinema per a tots els públics."
+membership_benefits:
+  - "Un mínim de 12 projeccions anuals"
+  - "Programació anunciada amb antelació"
+  - "Participació en votacions de futures pel·lícules"
+  - "Activitats i cicles especials amb avantatges per a persones sòcies"
+---
+
+## Neix un nou espai de cinema a Roda de Berà
+
+Roda de Berà és municipi de cinema. El Cineclub Roda de Berà neix amb la voluntat d'ampliar l'oferta cultural i donar-li continuïtat al llarg de tot l'any. Perquè un municipi que té un festival de cinema també ha de tenir programació estable.
+
+El Cineclub Roda de Berà és una associació cultural sense ànim de lucre que impulsarà una programació anual amb una projecció mensual, col·loqui posterior i espai de trobada per compartir mirades, reflexions i passió pel cinema.
+
+Les sessions es faran al Teatre del Casino Municipal de Roda de Berà. Després de cada sessió, el debat i la germanor podran continuar al bar del Casino en un ambient distès.
+```
+
+- [ ] **Step 2: Reescriure `layouts/index.html`**
+
+```html
+{{ define "main" }}
+<section class="hero">
+  <img class="hero__logo" src="{{ .Site.Params.logo | relURL }}" alt="">
+  <p class="hero__tagline">{{ .Site.Params.tagline }}</p>
+</section>
+<section class="intro prose-ca">
+  {{ .Content }}
+</section>
+<section class="features">
+  {{ range .Params.features }}
+    <div class="features__item">
+      <h2 class="features__title">{{ .titol }}</h2>
+      <p>{{ .text }}</p>
+    </div>
+  {{ end }}
+</section>
+{{ $upcoming := where (where .Site.RegularPages "Section" "programacio") "Date" "ge" now }}
+{{ with (first 1 $upcoming.ByDate) }}
+  {{ range . }}
+    <section class="next-session">
+      <h2>Pròxima sessió</h2>
+      {{ partial "session-card.html" . }}
+    </section>
+  {{ end }}
+{{ end }}
+<section class="membership-teaser">
+  <h2 class="membership-teaser__title">Fes-te sòcia/soci!</h2>
+  <ul class="membership-teaser__list">
+    {{ range .Params.membership_benefits }}
+      <li>{{ . }}</li>
+    {{ end }}
+  </ul>
+  <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Vull ser sòcia/soci</a>
+</section>
+<section class="faq-teaser">
+  <h2>Encara tens dubtes?</h2>
+  <a class="btn btn--outline" href="{{ "/preguntes-frequents/" | relLangURL }}">Accedeix a Preguntes Freqüents</a>
+</section>
+{{ end }}
+```
+
+- [ ] **Step 3: Afegir la variant `.btn--outline` a `assets/css/components/button.css` (sense tocar la regla `.btn` existent)**
+
+```css
+.btn--outline {
+  @apply border-2 border-gold bg-transparent text-gold hover:bg-gold hover:text-black;
+}
+```
+
+- [ ] **Step 4: Reescriure `assets/css/components/home.css`**
+
+```css
+.hero {
+  @apply flex flex-col items-center gap-6 bg-black px-6 py-20 text-center text-white;
+}
+.hero__logo {
+  @apply h-24 w-auto invert;
+}
+.hero__tagline {
+  @apply font-display text-3xl font-bold uppercase tracking-tight text-gold sm:text-5xl;
+}
+.intro {
+  @apply mx-auto max-w-2xl px-6 py-12 text-black;
+}
+.intro p {
+  @apply mb-4;
+}
+.features {
+  @apply mx-auto grid max-w-5xl grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-3;
+}
+.features__title {
+  @apply mb-2 font-display text-lg font-bold uppercase text-gold-dark;
+}
+.next-session {
+  @apply mx-auto max-w-sm px-6 pb-12;
+}
+.next-session h2 {
+  @apply mb-4 font-display text-xl font-bold uppercase text-black;
+}
+.membership-teaser {
+  @apply mx-auto max-w-2xl px-6 pb-16 text-center;
+}
+.membership-teaser__title {
+  @apply mb-4 font-display text-2xl font-bold uppercase text-black;
+}
+.membership-teaser__list {
+  @apply mb-6 list-disc space-y-1 pl-5 text-left;
+}
+.faq-teaser {
+  @apply bg-gold/10 px-6 py-16 text-center;
+}
+.faq-teaser h2 {
+  @apply mb-4 font-display text-xl font-bold uppercase text-black;
+}
+```
+
+- [ ] **Step 5: Build i verificació**
+
+Run: `npm run css:build && hugo build && grep -c "features__item" public/index.html`
+
+Expected: `3`.
+
+Run: `grep -q "Suport de l'Ajuntament" public/index.html && grep -q "Un mínim de 12 projeccions anuals" public/index.html && echo OK`
+
+Expected: `OK`.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add content/_index.md layouts/index.html assets/css/components/home.css assets/css/components/button.css
+git commit -m "Restore home page feature modules and membership summary"
+```
+
+---
+
+### Task 13: Muntatge de la fitxa de sessió (pòster + tràiler de YouTube)
+
+**Files:**
+- Modify: `layouts/programacio/single.html`
+- Modify: `assets/css/components/session-detail.css`
+- Modify: els 6 fitxers `content/programacio/2026/<slug>/index.md` (afegir `trailer_youtube_id`)
+
+**Interfaces:**
+- Produces: nou camp de front matter `trailer_youtube_id`, consumit per la miniatura de YouTube (`https://img.youtube.com/vi/<id>/hqdefault.jpg`, sense necessitat d'autenticació ni descàrrega) i per l'`<iframe>` incrustat.
+
+- [ ] **Step 1: Reescriure la capçalera de `layouts/programacio/single.html` (substituir des de `{{ define "main" }}` fins abans de `<dl class="session-fitxa">`, mantenint la resta del fitxer intacte)**
+
+```html
+{{ define "main" }}
+<section class="session-hero">
+  <div class="session-hero__montage">
+    {{ with .Resources.GetMatch "poster*" }}
+      <img class="session-hero__poster" src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+    {{ end }}
+    {{ with .Params.trailer_youtube_id }}
+      <img class="session-hero__still" src="https://img.youtube.com/vi/{{ . }}/hqdefault.jpg" alt="">
+    {{ end }}
+  </div>
+  <div class="session-hero__text">
+    <span class="session-hero__date">{{ partial "date-ca.html" . }} a les {{ .Date.Format "15:04" }}h</span>
+    <h1 class="session-hero__title">{{ .Title }}</h1>
+  </div>
+</section>
+
+{{ with .Params.trailer_youtube_id }}
+<div class="session-trailer">
+  <iframe src="https://www.youtube-nocookie.com/embed/{{ . }}" title="Tràiler de {{ $.Title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+{{ end }}
+
+<dl class="session-fitxa">
+```
+
+- [ ] **Step 2: Eliminar el bloc d'imatge antic, ara redundant amb el muntatge**
+
+Buscar i eliminar aquest bloc (queda substituït pel muntatge del Step 1):
+
+```html
+{{ with .Resources.GetMatch "poster*" }}
+  <img src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}" class="session-detail__image">
+{{ end }}
+```
+
+- [ ] **Step 3: Actualitzar `assets/css/components/session-detail.css` (treure `.session-detail__image`, afegir les regles del muntatge i del tràiler)**
+
+```css
+.session-hero {
+  @apply flex flex-col gap-6 bg-black px-4 py-10 text-white sm:flex-row sm:items-end sm:gap-10 sm:px-10;
+}
+.session-hero__montage {
+  @apply relative mx-auto w-full max-w-xs sm:mx-0 sm:max-w-sm;
+}
+.session-hero__poster {
+  @apply w-full rounded-lg shadow-2xl;
+}
+.session-hero__still {
+  @apply absolute -bottom-6 -right-6 w-2/3 rounded-lg border-4 border-black shadow-xl;
+}
+.session-hero__text {
+  @apply flex flex-1 flex-col gap-2 pb-8 text-center sm:pb-2 sm:text-left;
+}
+.session-hero__date {
+  @apply font-body text-sm text-white/80;
+}
+.session-hero__title {
+  @apply font-display text-4xl font-bold uppercase leading-tight text-gold sm:text-5xl;
+}
+.session-trailer {
+  @apply relative mx-auto my-8 aspect-video w-full max-w-3xl overflow-hidden rounded-lg;
+}
+.session-trailer iframe {
+  @apply absolute inset-0 h-full w-full border-0;
+}
+.session-fitxa {
+  @apply grid grid-cols-1 gap-x-8 gap-y-2 bg-gray-50 p-6 text-sm sm:grid-cols-2;
+}
+.session-fitxa__label {
+  @apply font-semibold text-gold-dark;
+}
+.session-version {
+  @apply px-6 pt-4 text-sm font-semibold text-gold-dark;
+}
+.session-body {
+  @apply p-6;
+}
+.session-info {
+  @apply m-6 rounded-lg border border-gold/30 bg-gold/5 p-6 text-sm;
+}
+```
+
+- [ ] **Step 4: Afegir `trailer_youtube_id` al front matter de les 6 sessions**
+
+Afegir la línia corresponent (just sota `titol_original`, per exemple) a cadascun dels 6 fitxers:
+
+| Fitxer | `trailer_youtube_id` |
+|---|---|
+| `content/programacio/2026/the-artist/index.md` | `YB9Oq0hn5KY` |
+| `content/programacio/2026/lavi-de-100-anys-que-es-va-escapar-per-la-finestra/index.md` | `MkgScyhbys8` |
+| `content/programacio/2026/jane-eyre/index.md` | `8IFsdfk3mlk` |
+| `content/programacio/2026/secrets-i-mentides/index.md` | `dSnI4_6DrFw` |
+| `content/programacio/2026/pig/index.md` | `TGOcqxU-_l8` |
+| `content/programacio/2026/esperando-a-dali/index.md` | `uMJL0VTSQV8` |
+
+- [ ] **Step 5: Build i verificació**
+
+Run: `npm run css:build && hugo build`
+
+Expected: exit 0.
+
+Run:
+```bash
+for slug in the-artist lavi-de-100-anys-que-es-va-escapar-per-la-finestra jane-eyre secrets-i-mentides pig esperando-a-dali; do
+  grep -q "youtube-nocookie.com/embed/" "public/programacio/2026/$slug/index.html" && echo "OK $slug" || echo "FALTA $slug"
+done
+```
+
+Expected: `OK <slug>` per a les 6 sessions.
+
+- [ ] **Step 6: Verificació visual**
+
+Run: `hugo server --port 1414 &`
+
+Comprovar a `http://localhost:1414/programacio/2026/jane-eyre/` que es veu el muntatge (pòster + miniatura de YouTube superposada) i que el reproductor de tràiler funciona (clicar play). Aturar el servidor en acabar.
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add layouts/programacio/single.html assets/css/components/session-detail.css content/programacio/2026
+git commit -m "Add poster+trailer hero montage and embedded YouTube trailer to session pages"
+```
+
+---
+
+### Task 14: Pòsters oficials de les 6 pel·lícules
+
+**Files:**
+- Create (binaris, obtinguts prèviament per un agent de cerca web, no generats per aquesta tasca): `content/programacio/2026/<slug>/poster.jpg` (o `.png`, segons la font) per a cadascuna de les 6 sessions.
+
+**Interfaces:**
+- Consumes: `session-hero__poster`/`session-card__image` (Tasques 3 i 13), que ja gestionen l'absència d'imatge sense error (`{{ with .Resources.GetMatch "poster*" }}`).
+
+- [ ] **Step 1: Copiar els pòsters descarregats a la seva ubicació final**
+
+Cada pòster ja ha d'existir en algun directori (obtingut per un agent de cerca web previ). Copiar/moure cadascun exactament a:
+
+```
+content/programacio/2026/the-artist/poster.jpg
+content/programacio/2026/lavi-de-100-anys-que-es-va-escapar-per-la-finestra/poster.jpg
+content/programacio/2026/jane-eyre/poster.jpg
+content/programacio/2026/secrets-i-mentides/poster.jpg
+content/programacio/2026/pig/poster.jpg
+content/programacio/2026/esperando-a-dali/poster.jpg
+```
+
+(L'extensió pot variar segons la font — `.jpg` o `.png` són vàlides, `.Resources.GetMatch "poster*"` ja les cobreix totes dues.)
+
+- [ ] **Step 2: Verificar que cada fitxer és una imatge vàlida**
+
+Run: `for f in content/programacio/2026/*/poster.*; do file "$f"; done`
+
+Expected: cada línia ha de dir `JPEG image data` o `PNG image data`, mai `HTML document` (símptoma d'una descàrrega fallida).
+
+- [ ] **Step 3: Build i verificació**
+
+Run: `npm run css:build && hugo build`
+
+Expected: exit 0.
+
+Run:
+```bash
+for slug in the-artist lavi-de-100-anys-que-es-va-escapar-per-la-finestra jane-eyre secrets-i-mentides pig esperando-a-dali; do
+  grep -q "session-hero__poster" "public/programacio/2026/$slug/index.html" && echo "OK $slug" || echo "FALTA $slug"
+done
+```
+
+Expected: `OK <slug>` per a les 6 sessions (si algun pòster no es va poder obtenir, aquesta comprovació fallarà per a aquell slug específic — reportar-ho, no bloquejar la resta).
+
+- [ ] **Step 4: Verificació visual final completa (Fase 2)**
+
+Run: `hugo server --port 1414 &`
+
+Recórrer `http://localhost:1414/` sencer (home amb logo+mòduls, programació, cada fitxa de sessió amb muntatge+tràiler, fes-te-socia, FAQ) en escriptori i mòbil. Aturar el servidor en acabar.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add content/programacio/2026/*/poster.*
+git commit -m "Add official movie posters for the 6 migrated sessions"
+```
+
 ## Self-Review
 
 **Cobertura de l'spec:** Stack Hugo+Tailwind (Tasques 1-2) ✓, hosting GitHub Pages/Actions (Tasca 9) ✓, identitat visual/CSS BEM+@apply (Tasca 3) ✓, arquitectura de contingut i llistat unificat amb `organitza` (Tasques 3-4) ✓, esquema de camps de sessió (Tasca 5-6) ✓, URLs `/programacio/:year/:slug/` i aliases (Tasca 6) ✓, SEO (lang, meta, OG, JSON-LD, sitemap/robots) (Tasques 3, 5, 10) ✓, mobile-first/desktop (breakpoints Tailwind a totes les tasques de CSS, revisió responsive a la Tasca 10) ✓, port 1414 en local (Global Constraints + totes les verificacions) ✓.
