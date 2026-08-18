@@ -1,45 +1,100 @@
 .hero {
-  @apply flex flex-col items-center gap-6 bg-black px-6 py-20 text-center text-white;
+  @apply flex flex-col items-center gap-6 border-b-[6px] border-dashed border-white bg-transparent px-6 py-16 text-center text-white;
 }
 .hero__logo {
-  @apply h-24 w-auto invert;
+  @apply h-auto w-full max-w-md;
 }
 .hero__tagline {
-  @apply font-display text-3xl font-bold uppercase tracking-tight text-gold sm:text-5xl;
+  @apply font-display font-bold uppercase tracking-tight;
+  font-size: 3rem;
+  line-height: 3rem;
+}
+.hero__tagline--white {
+  @apply text-white;
+}
+.hero__tagline--gold {
+  @apply text-gold;
+}
+.intro-wrapper {
+  @apply w-full border-b-2 border-dashed border-black bg-white;
 }
 .intro {
-  @apply mx-4 my-8 max-w-2xl bg-white px-6 py-12 text-black shadow-lg sm:mx-auto;
+  @apply mx-auto flex max-w-[1000px] flex-col items-center gap-8 p-6 sm:flex-row sm:items-start;
 }
-.intro p {
+.intro__poster {
+  @apply mx-auto w-72 flex-shrink-0 self-start object-cover sm:mx-0 sm:w-80;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+}
+.intro-wrapper .intro__body h2,
+.programming-wrapper .programming__body h2 {
+  font-size: 3rem;
+  line-height: 3.5rem;
+}
+.intro__body p {
   @apply mb-4;
 }
-.features {
-  @apply mx-4 my-8 grid max-w-5xl grid-cols-1 gap-8 bg-white px-6 py-12 shadow-lg sm:mx-auto sm:grid-cols-3;
+.programming-wrapper {
+  @apply w-full border-b-2 border-dashed border-black;
+  background-color: rgba(255 255 255 / 0.8);
 }
-.features__item {
-  @apply text-center sm:text-left;
+.programming {
+  @apply mx-auto flex max-w-[1000px] flex-col items-center gap-8 sm:flex-row;
+  padding: 3.5rem 1.5rem 4rem;
+}
+.programming__body {
+  @apply flex-1;
+}
+.programming__mosaic {
+  @apply grid w-full max-w-xs flex-shrink-0 grid-cols-3 gap-1 sm:w-64;
+}
+.programming__mosaic-img {
+  @apply aspect-[2/3] w-full object-cover;
+}
+.features-wrapper {
+  @apply w-full border-b-2 border-dashed border-black bg-white;
+}
+.features {
+  @apply mx-auto grid max-w-[1000px] grid-cols-1 gap-10 p-6 py-10 text-center sm:grid-cols-3;
+}
+.features__icon {
+  @apply mx-auto mb-4 h-20 w-auto object-contain;
 }
 .features__title {
-  @apply mb-2 font-display text-lg font-bold uppercase text-gold-dark;
+  @apply mb-2 font-display font-bold uppercase text-gold-dark;
+  font-size: 1.4rem;
+}
+.next-session-wrapper {
+  @apply w-full border-b-2 border-dashed border-black bg-white;
 }
 .next-session {
-  @apply mx-4 my-8 max-w-sm bg-white px-6 py-8 shadow-lg sm:mx-auto;
+  @apply mx-auto max-w-sm px-6 py-12 text-center;
 }
 .next-session h2 {
-  @apply mb-4 font-display text-xl font-bold uppercase text-black;
+  @apply mb-6 font-display text-2xl font-bold uppercase text-gold-dark;
+}
+.membership-teaser-wrapper {
+  @apply w-full border-t-2 border-dashed border-black;
+  background-color: rgba(255 255 255 / 0.8);
 }
 .membership-teaser {
-  @apply mx-4 my-8 max-w-2xl bg-white px-6 py-12 text-center shadow-lg sm:mx-auto;
+  @apply mx-auto max-w-xl px-6 py-12 text-center;
+}
+.membership-teaser__icon {
+  @apply mx-auto mb-4 h-16 w-auto object-contain;
 }
 .membership-teaser__title {
-  @apply mb-4 font-display text-2xl font-bold uppercase text-black;
+  @apply mb-4 font-display font-bold uppercase text-black;
+  font-size: 3rem;
+  line-height: 3rem;
 }
 .membership-teaser__list {
   @apply mb-6 list-disc space-y-1 pl-5 text-left;
 }
 .faq-teaser {
-  @apply mx-4 my-8 max-w-2xl bg-white px-6 py-16 text-center shadow-lg sm:mx-auto;
+  @apply mx-4 my-8 max-w-2xl bg-transparent px-6 py-16 text-center sm:mx-auto;
 }
 .faq-teaser h2 {
-  @apply mb-4 font-display text-xl font-bold uppercase text-black;
+  @apply mb-4 font-display font-bold uppercase text-white;
+  font-size: 3rem;
+  line-height: 3rem;
 }

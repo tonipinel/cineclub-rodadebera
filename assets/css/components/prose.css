@@ -1,5 +1,12 @@
 .prose-ca h2 {
-  @apply mb-2 mt-6 font-display text-xl font-bold text-black;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  font-family: Oswald, sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+  text-transform: uppercase;
 }
 .prose-heading__icon {
   @apply mr-1 inline-block;

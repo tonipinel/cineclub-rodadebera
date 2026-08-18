@@ -1,37 +1,97 @@
 {{ define "main" }}
 <section class="hero">
-  <img class="hero__logo" src="{{ .Site.Params.logo | relURL }}" alt="">
-  <p class="hero__tagline">{{ .Site.Params.tagline }}</p>
-</section>
-<section class="intro prose-ca">
-  {{ .Content }}
-</section>
-<section class="features">
-  {{ range .Params.features }}
-    <div class="features__item">
-      <h2 class="features__title">{{ .titol }}</h2>
-      <p>{{ .text }}</p>
-    </div>
+  {{ with .Resources.GetMatch "hero-logo.png" }}
+    {{ $logo := . }}
+    {{ if gt $logo.Width 600 }}{{ $logo = $logo.Resize "600x" }}{{ end }}
+    <img class="hero__logo" src="{{ $logo.RelPermalink }}" alt="Cineclub Roda de Berà">
   {{ end }}
+  {{ $taglineParts := split .Site.Params.tagline "cinema" }}
+  <p class="hero__tagline">
+    <span class="hero__tagline--white">{{ index $taglineParts 0 }}</span><br>
+    <span class="hero__tagline--gold">cinema{{ index $taglineParts 1 }}</span>
+  </p>
+  <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Fes-te sòcia/soci</a>
 </section>
+
+<div class="intro-wrapper">
+  <div class="intro">
+    {{ with .Resources.GetMatch "neix-espai.png" }}
+      {{ $img := . }}
+      {{ if gt $img.Width 500 }}{{ $img = $img.Resize "500x" }}{{ end }}
+      <img class="intro__poster" src="{{ $img.RelPermalink }}" alt="">
+    {{ end }}
+    <div class="intro__body prose-ca">
+      {{ .Content }}
+    </div>
+  </div>
+</div>
+
+<div class="programming-wrapper">
+  <div class="programming">
+    <div class="programming__body prose-ca">
+      <h2>Com funciona<br><span class="text-gold">la programació</span></h2>
+      <p>Cada mes projectem una pel·lícula en versió original subtitulada, seguida d'un col·loqui obert. Publiquem un calendari orientatiu cada any i la programació detallada amb 2-3 mesos d'antelació.</p>
+      <a class="btn" href="{{ "/programacio/" | relLangURL }}">Veure la programació</a>
+    </div>
+    <div class="programming__mosaic">
+      {{ range first 6 (where .Site.RegularPages "Section" "programacio") }}
+        {{ with .Resources.GetMatch "poster*" }}
+          {{ $thumb := . }}
+          {{ if gt $thumb.Width 300 }}{{ $thumb = $thumb.Resize "300x" }}{{ end }}
+          <img class="programming__mosaic-img" src="{{ $thumb.RelPermalink }}" alt="">
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+<div class="features-wrapper">
+  <section class="features">
+    {{ range .Params.features }}
+      <div class="features__item">
+        {{ with .imatge }}
+          {{ with $.Resources.GetMatch . }}
+            {{ $thumb := . }}
+            {{ if gt $thumb.Width 200 }}{{ $thumb = $thumb.Resize "200x" }}{{ end }}
+            <img class="features__icon" src="{{ $thumb.RelPermalink }}" alt="">
+          {{ end }}
+        {{ end }}
+        <h2 class="features__title">{{ .titol }}</h2>
+        <p>{{ .text }}</p>
+      </div>
+    {{ end }}
+  </section>
+</div>
+
 {{ $upcoming := where (where .Site.RegularPages "Section" "programacio") "Date" "ge" now }}
 {{ with (first 1 $upcoming.ByDate) }}
   {{ range . }}
-    <section class="next-session">
-      <h2>Pròxima sessió</h2>
-      {{ partial "session-card.html" . }}
-    </section>
+    <div class="next-session-wrapper">
+      <section class="next-session">
+        <h2>Pròxima sessió</h2>
+        {{ partial "session-card.html" . }}
+      </section>
+    </div>
   {{ end }}
 {{ end }}
-<section class="membership-teaser">
-  <h2 class="membership-teaser__title">Fes-te sòcia/soci!</h2>
-  <ul class="membership-teaser__list">
-    {{ range .Params.membership_benefits }}
-      <li>{{ . }}</li>
+
+<div class="membership-teaser-wrapper">
+  <section class="membership-teaser">
+    {{ with .Resources.GetMatch "fes-te-socia.png" }}
+      {{ $img := . }}
+      {{ if gt $img.Width 160 }}{{ $img = $img.Resize "160x" }}{{ end }}
+      <img class="membership-teaser__icon" src="{{ $img.RelPermalink }}" alt="">
     {{ end }}
-  </ul>
-  <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Vull ser sòcia/soci</a>
-</section>
+    <h2 class="membership-teaser__title">Fes-te sòcia/soci!</h2>
+    <ul class="membership-teaser__list">
+      {{ range .Params.membership_benefits }}
+        <li>{{ . }}</li>
+      {{ end }}
+    </ul>
+    <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Vull ser sòcia/soci</a>
+  </section>
+</div>
+
 <section class="faq-teaser">
   <h2>Encara tens dubtes?</h2>
   <a class="btn btn--outline" href="{{ "/preguntes-frequents/" | relLangURL }}">Accedeix a Preguntes Freqüents</a>

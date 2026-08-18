@@ -1,6 +1,8 @@
 {{ define "main" }}
-<article class="page prose-ca">
-  <h1 class="page__title">{{ .Title }}</h1>
+<section class="page-hero">
+  <h1 class="page-hero__title">{{ .Title }}</h1>
+</section>
+<div class="page-body prose-ca">
   {{ .Content }}
-</article>
+</div>
 {{ end }}

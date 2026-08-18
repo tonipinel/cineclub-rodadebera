@@ -5,9 +5,7 @@
       <span>{{ .Site.Title }}</span>
     </div>
     <nav class="site-footer__nav">
-      {{ range .Site.Menus.main }}
-        <a class="site-footer__link" href="{{ .URL }}">{{ .Name }}</a>
-      {{ end }}
+      <a class="site-footer__link" href="{{ "/privacitat/" | relLangURL }}">Privacitat</a>
     </nav>
     <div class="site-footer__social">
       <a class="site-footer__icon" href="{{ .Site.Params.instagramURL }}" aria-label="Instagram" target="_blank" rel="noopener">
