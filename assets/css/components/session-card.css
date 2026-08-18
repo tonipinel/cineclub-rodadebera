@@ -1,5 +1,5 @@
 .session-card {
-  @apply flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md;
+  @apply flex flex-col overflow-hidden rounded-none border-[14px] border-black bg-black shadow-sm transition hover:shadow-md;
 }
 .session-card__link {
   @apply flex flex-1 flex-col text-inherit no-underline;
@@ -23,7 +23,7 @@
   @apply text-xs font-normal normal-case text-gray-500;
 }
 .session-card__title {
-  @apply font-display text-2xl font-bold uppercase leading-tight tracking-wide text-black transition;
+  @apply font-display text-2xl font-bold uppercase leading-tight tracking-wide text-white transition;
 }
 .session-card__link:hover .session-card__title {
   @apply text-gold-dark;
