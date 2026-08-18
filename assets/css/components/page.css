@@ -1,5 +1,5 @@
 .page {
-  @apply p-6;
+  @apply m-0 rounded-none bg-white py-4 px-8;
 }
 .page__title {
   @apply font-display text-3xl font-bold uppercase tracking-tight text-black;

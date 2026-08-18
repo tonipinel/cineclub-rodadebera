@@ -35,8 +35,8 @@
   @apply px-6 pt-4 font-display text-sm font-bold uppercase tracking-wide text-gold-dark;
 }
 .session-body {
-  @apply p-6;
+  @apply mx-4 my-8 max-w-3xl rounded-lg bg-white p-6 shadow-lg sm:mx-auto;
 }
 .session-info {
-  @apply m-6 rounded-lg border border-gold/30 bg-gold/5 p-6 text-sm;
+  @apply mx-4 mb-8 max-w-3xl rounded-lg border border-gold/30 bg-white p-6 text-sm shadow-lg sm:mx-auto;
 }

@@ -8,13 +8,13 @@
   @apply font-display text-3xl font-bold uppercase tracking-tight text-gold sm:text-5xl;
 }
 .intro {
-  @apply mx-auto max-w-2xl px-6 py-12 text-black;
+  @apply mx-4 my-8 max-w-2xl rounded-lg bg-white px-6 py-12 text-black shadow-lg sm:mx-auto;
 }
 .intro p {
   @apply mb-4;
 }
 .features {
-  @apply mx-auto grid max-w-5xl grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-3;
+  @apply mx-4 my-8 grid max-w-5xl grid-cols-1 gap-8 rounded-lg bg-white px-6 py-12 shadow-lg sm:mx-auto sm:grid-cols-3;
 }
 .features__item {
   @apply text-center sm:text-left;
@@ -23,13 +23,13 @@
   @apply mb-2 font-display text-lg font-bold uppercase text-gold-dark;
 }
 .next-session {
-  @apply mx-auto max-w-sm px-6 pb-12;
+  @apply mx-4 my-8 max-w-sm rounded-lg bg-white px-6 py-8 shadow-lg sm:mx-auto;
 }
 .next-session h2 {
   @apply mb-4 font-display text-xl font-bold uppercase text-black;
 }
 .membership-teaser {
-  @apply mx-auto max-w-2xl px-6 pb-16 text-center;
+  @apply mx-4 my-8 max-w-2xl rounded-lg bg-white px-6 py-12 text-center shadow-lg sm:mx-auto;
 }
 .membership-teaser__title {
   @apply mb-4 font-display text-2xl font-bold uppercase text-black;
@@ -38,7 +38,7 @@
   @apply mb-6 list-disc space-y-1 pl-5 text-left;
 }
 .faq-teaser {
-  @apply bg-gold/10 px-6 py-16 text-center;
+  @apply mx-4 my-8 max-w-2xl rounded-lg bg-white px-6 py-16 text-center shadow-lg sm:mx-auto;
 }
 .faq-teaser h2 {
   @apply mb-4 font-display text-xl font-bold uppercase text-black;
