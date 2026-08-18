@@ -1734,7 +1734,7 @@ Nota per a un futur contribuïdor: un cop hi hagi sessions amb data futura, el l
 - Modify: `assets/css/components/header.css`
 - Modify: `assets/css/components/footer.css`
 - Modify: `assets/css/components/layout.css`
-- Ja present (no cal crear-lo): `static/images/logo.png` (466 B, PNG RGBA, ja descarregat)
+- Ja present (no cal crear-lo): `static/images/logo.png` (PNG RGBA 1220x786 amb transparència, el logotip real en arc amb estrelles sobre fons transparent — no una fotografia; ja descarregat i verificat visualment)
 
 **Interfaces:**
 - Consumes: `.Site.Menus.main` (Tasca 1), `IsMenuCurrent`/`pageRef` (Tasca 3 fix).
