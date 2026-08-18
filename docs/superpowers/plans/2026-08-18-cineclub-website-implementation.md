@@ -1107,6 +1107,7 @@ Desar la imatge com a `content/programacio/2026/pig/poster.jpg`.
 ```markdown
 ---
 title: "Esperando a Dalí"
+slug: "esperando-a-dali"
 date: 2026-07-23T19:00:00+02:00
 titol_original: "Esperando a Dalí"
 direccio: "David Pujol"
