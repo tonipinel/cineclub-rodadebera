@@ -19,6 +19,9 @@
 .session-version {
   @apply px-6 pt-4 text-sm font-semibold text-gold-dark;
 }
+.session-body {
+  @apply p-6;
+}
 .session-info {
   @apply m-6 rounded-lg border border-gold/30 bg-gold/5 p-6 text-sm;
 }

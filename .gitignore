@@ -5,3 +5,4 @@ resources/
 .hugo_build.lock
 node_modules/
 static/css/main.css
+.claude/

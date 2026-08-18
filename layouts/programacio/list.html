@@ -1,6 +1,8 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-{{ .Content }}
+<div class="page">
+  <h1 class="page__title">{{ .Title }}</h1>
+  <div class="prose-ca">{{ .Content }}</div>
+</div>
 <div class="session-grid">
   {{ range .Pages.ByDate.Reverse }}
     {{ partial "session-card.html" . }}

@@ -2,7 +2,7 @@
 <section class="hero">
   <p class="hero__tagline">{{ .Site.Params.tagline }}</p>
 </section>
-<section class="intro">
+<section class="intro prose-ca">
   {{ .Content }}
 </section>
 {{ $upcoming := where (where .Site.RegularPages "Section" "programacio") "Date" "ge" now }}

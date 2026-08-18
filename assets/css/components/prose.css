@@ -1,0 +1,12 @@
+.prose-ca h2 {
+  @apply mb-2 mt-6 font-display text-xl font-bold text-black;
+}
+.prose-ca p {
+  @apply mb-4;
+}
+.prose-ca ul {
+  @apply mb-4 list-disc space-y-1 pl-5;
+}
+.prose-ca ol {
+  @apply mb-4 list-decimal space-y-1 pl-5;
+}

@@ -34,7 +34,9 @@
 
 {{ with .Params.versio_idiomatica }}<p class="session-version">{{ . }}</p>{{ end }}
 
-{{ .Content }}
+<div class="session-body prose-ca">
+  {{ .Content }}
+</div>
 
 <div class="session-info">
   <p>{{ .Params.preu_o_acces }}</p>

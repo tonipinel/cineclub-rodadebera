@@ -13,3 +13,18 @@
 .site-header__link--active {
   @apply font-semibold text-gold;
 }
+.site-header-mobile {
+  @apply sticky top-0 z-10 flex flex-col gap-2 bg-black px-4 py-3 text-white md:hidden;
+}
+.site-header-mobile__brand {
+  @apply font-display text-lg font-bold text-white no-underline;
+}
+.site-header-mobile__nav {
+  @apply flex flex-wrap gap-x-4 gap-y-1;
+}
+.site-header-mobile__link {
+  @apply text-sm text-white/80 no-underline hover:text-gold;
+}
+.site-header-mobile__link--active {
+  @apply font-semibold text-gold;
+}

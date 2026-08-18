@@ -6,3 +6,11 @@
     {{ end }}
   </nav>
 </header>
+<header class="site-header-mobile">
+  <a class="site-header-mobile__brand" href="{{ "/" | relLangURL }}">{{ .Site.Title }}</a>
+  <nav class="site-header-mobile__nav">
+    {{ range .Site.Menus.main }}
+      <a class="site-header-mobile__link{{ if $.IsMenuCurrent "main" . }} site-header-mobile__link--active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+    {{ end }}
+  </nav>
+</header>
