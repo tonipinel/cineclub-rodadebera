@@ -1,0 +1,45 @@
+{{ define "head_extra" }}
+{{ with .Resources.GetMatch "poster*" }}
+<meta property="og:image" content="{{ .Permalink }}">
+{{ end }}
+{{ partial "jsonld-screening-event.html" . }}
+{{ end }}
+
+{{ define "main" }}
+<section class="session-hero">
+  <span class="session-hero__date">{{ partial "date-ca.html" . }} a les {{ .Date.Format "15:04" }}h</span>
+  <h1 class="session-hero__title">{{ .Title }}</h1>
+</section>
+
+{{ with .Resources.GetMatch "poster*" }}
+  <img src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}" class="session-detail__image">
+{{ end }}
+
+<dl class="session-fitxa">
+  <dt class="session-fitxa__label">Títol original</dt><dd>{{ .Params.titol_original }}</dd>
+  {{ with .Params.direccio }}<dt class="session-fitxa__label">Direcció</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with .Params.guio }}<dt class="session-fitxa__label">Guió</dt><dd>{{ . }}</dd>{{ end }}
+  <dt class="session-fitxa__label">País</dt><dd>{{ .Params.pais }}</dd>
+  <dt class="session-fitxa__label">Any</dt><dd>{{ .Params.any }}</dd>
+  <dt class="session-fitxa__label">Durada</dt><dd>{{ .Params.durada }} minuts</dd>
+  <dt class="session-fitxa__label">Idioma</dt><dd>{{ .Params.idioma }}</dd>
+  {{ with .Params.genere }}<dt class="session-fitxa__label">Gènere</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with .Params.fotografia }}<dt class="session-fitxa__label">Fotografia</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with .Params.muntatge }}<dt class="session-fitxa__label">Muntatge</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with .Params.musica }}<dt class="session-fitxa__label">Música</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with .Params.produccio }}<dt class="session-fitxa__label">Producció</dt><dd>{{ . }}</dd>{{ end }}
+  <dt class="session-fitxa__label">Repartiment</dt><dd>{{ delimit .Params.repartiment ", " }}</dd>
+  {{ with .Params.premis_destacats }}<dt class="session-fitxa__label">Premis destacats</dt><dd>{{ . }}</dd>{{ end }}
+</dl>
+
+{{ with .Params.versio_idiomatica }}<p class="session-version">{{ . }}</p>{{ end }}
+
+{{ .Content }}
+
+<div class="session-info">
+  <p>{{ .Params.preu_o_acces }}</p>
+  <p>{{ .Params.que_inclou }}</p>
+  {{ with .Params.edat_minima_recomanada }}<p>Pel·lícula no recomanada per a menors de {{ . }} anys.</p>{{ end }}
+  {{ with .Params.suport_distribucio }}<p>La distribució i cessió de drets per a aquesta sessió compta amb el suport de {{ . }}, a qui agraïm la col·laboració.</p>{{ end }}
+</div>
+{{ end }}

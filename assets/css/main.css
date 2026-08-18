@@ -4,6 +4,7 @@
 @import "./components/button.css";
 @import "./components/session-card.css";
 @import "./components/home.css";
+@import "./components/session-detail.css";
 
 @tailwind base;
 @tailwind components;

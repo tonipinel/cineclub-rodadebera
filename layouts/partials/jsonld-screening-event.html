@@ -1,0 +1,23 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScreeningEvent",
+  "name": {{ .Title | jsonify }},
+  "startDate": {{ .Date.Format "2006-01-02T15:04:05-07:00" | jsonify }},
+  "location": {
+    "@type": "Place",
+    "name": {{ .Site.Params.venueName | jsonify }},
+    "address": {{ .Site.Params.venueAddress | jsonify }}
+  },
+  "workPresented": {
+    "@type": "Movie",
+    "name": {{ .Params.titol_original | default .Title | jsonify }}
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "5",
+    "priceCurrency": "EUR",
+    "url": {{ .Permalink | jsonify }}
+  }
+}
+</script>

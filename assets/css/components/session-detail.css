@@ -1,0 +1,24 @@
+.session-detail__image {
+  @apply w-full;
+}
+.session-hero {
+  @apply flex flex-col items-center justify-center gap-2 bg-black px-4 py-16 text-center text-white;
+}
+.session-hero__date {
+  @apply font-body text-sm text-white/80;
+}
+.session-hero__title {
+  @apply font-display text-3xl font-bold text-gold sm:text-4xl;
+}
+.session-fitxa {
+  @apply grid grid-cols-1 gap-x-8 gap-y-2 bg-gray-50 p-6 text-sm sm:grid-cols-2;
+}
+.session-fitxa__label {
+  @apply font-semibold text-gold-dark;
+}
+.session-version {
+  @apply px-6 pt-4 text-sm font-semibold text-gold-dark;
+}
+.session-info {
+  @apply m-6 rounded-lg border border-gold/30 bg-gold/5 p-6 text-sm;
+}
