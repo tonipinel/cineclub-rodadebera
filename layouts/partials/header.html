@@ -1,0 +1,8 @@
+<header class="site-header">
+  <a class="site-header__brand" href="{{ "/" | relLangURL }}">{{ .Site.Title }}</a>
+  <nav class="site-header__nav">
+    {{ range .Site.Menus.main }}
+      <a class="site-header__link{{ if $.IsMenuCurrent "main" . }} site-header__link--active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+    {{ end }}
+  </nav>
+</header>

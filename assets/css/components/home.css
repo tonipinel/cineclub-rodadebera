@@ -1,0 +1,21 @@
+.hero {
+  @apply bg-black px-6 py-16 text-center text-white;
+}
+.hero__tagline {
+  @apply font-display text-2xl font-bold text-gold sm:text-3xl;
+}
+.intro {
+  @apply mx-auto max-w-2xl px-6 py-12 text-black;
+}
+.intro p {
+  @apply mb-4;
+}
+.next-session {
+  @apply mx-auto max-w-sm px-6 pb-12;
+}
+.next-session h2 {
+  @apply mb-4 font-display text-xl font-bold text-black;
+}
+.membership-teaser {
+  @apply flex justify-center pb-16;
+}

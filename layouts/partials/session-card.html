@@ -1,0 +1,13 @@
+<article class="session-card">
+  {{ with .Resources.GetMatch "poster*" }}
+    <img class="session-card__image" src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+  {{ end }}
+  <div class="session-card__body">
+    <span class="session-card__date">{{ partial "date-ca.html" . }}</span>
+    <h3 class="session-card__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    {{ $organitza := .Params.organitza | default "cineclub" }}
+    {{ if ne $organitza "cineclub" }}
+      <span class="session-card__badge">Amb {{ $organitza }}</span>
+    {{ end }}
+  </div>
+</article>

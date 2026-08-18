@@ -1,0 +1,11 @@
+{{- $t := .Date -}}
+{{- $months := .Site.Data.monthsCa -}}
+{{- $day := $t.Day -}}
+{{- $monthName := index $months (printf "%d" $t.Month) -}}
+{{- $year := $t.Year -}}
+{{- $firstLetter := substr $monthName 0 1 -}}
+{{- if in (slice "a" "e" "i" "o" "u") $firstLetter -}}
+{{ $day }} d'{{ $monthName }} de {{ $year }}
+{{- else -}}
+{{ $day }} de {{ $monthName }} de {{ $year }}
+{{- end -}}

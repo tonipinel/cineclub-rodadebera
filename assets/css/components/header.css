@@ -1,0 +1,15 @@
+.site-header {
+  @apply fixed inset-y-0 left-0 z-10 flex hidden w-64 flex-col gap-1 bg-black px-6 py-8 text-white md:flex;
+}
+.site-header__brand {
+  @apply font-display text-xl font-bold text-white no-underline;
+}
+.site-header__nav {
+  @apply mt-8 flex flex-col gap-3;
+}
+.site-header__link {
+  @apply text-white/80 no-underline hover:text-gold;
+}
+.site-header__link--active {
+  @apply font-semibold text-gold;
+}

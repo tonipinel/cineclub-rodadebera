@@ -1,0 +1,20 @@
+{{ define "main" }}
+<section class="hero">
+  <p class="hero__tagline">{{ .Site.Params.tagline }}</p>
+</section>
+<section class="intro">
+  {{ .Content }}
+</section>
+{{ $upcoming := where (where .Site.RegularPages "Section" "programacio") "Date" "ge" now }}
+{{ with (first 1 $upcoming) }}
+  {{ range . }}
+    <section class="next-session">
+      <h2>Pròxima sessió</h2>
+      {{ partial "session-card.html" . }}
+    </section>
+  {{ end }}
+{{ end }}
+<section class="membership-teaser">
+  <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Fes-te sòcia/soci</a>
+</section>
+{{ end }}
