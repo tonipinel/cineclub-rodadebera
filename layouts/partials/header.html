@@ -1,16 +1,13 @@
 <header class="site-header">
-  <a class="site-header__brand" href="{{ "/" | relLangURL }}">{{ .Site.Title }}</a>
-  <nav class="site-header__nav">
-    {{ range .Site.Menus.main }}
-      <a class="site-header__link{{ if $.IsMenuCurrent "main" . }} site-header__link--active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
-    {{ end }}
-  </nav>
-</header>
-<header class="site-header-mobile">
-  <a class="site-header-mobile__brand" href="{{ "/" | relLangURL }}">{{ .Site.Title }}</a>
-  <nav class="site-header-mobile__nav">
-    {{ range .Site.Menus.main }}
-      <a class="site-header-mobile__link{{ if $.IsMenuCurrent "main" . }} site-header-mobile__link--active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
-    {{ end }}
-  </nav>
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ "/" | relLangURL }}">
+      <img class="site-header__logo" src="{{ .Site.Params.logo | relURL }}" alt="">
+      <span class="site-header__brand-text">{{ .Site.Title }}</span>
+    </a>
+    <nav class="site-header__nav">
+      {{ range .Site.Menus.main }}
+        <a class="site-header__link{{ if $.IsMenuCurrent "main" . }} site-header__link--active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+  </div>
 </header>

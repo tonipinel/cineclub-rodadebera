@@ -13,6 +13,10 @@ disableKinds = ["taxonomy", "term"]
   venueName = "Teatre del Casino Municipal de Roda de Berà"
   venueAddress = "Plaça dels Pins, 6, 43883 Roda de Berà (Tarragona)"
   membershipFormURL = "https://forms.gle/aPTySW5HKeuU712Z6"
+  logo = "/images/logo.png"
+  instagramURL = "https://www.instagram.com/cineclub.rodadebera"
+  facebookURL = "https://www.facebook.com/cineclub.rodadebera"
+  contactEmail = "cineclub.rodadebera@gmail.com"
 
 [[menu.main]]
   name = "Inici"
