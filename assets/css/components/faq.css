@@ -1,0 +1,9 @@
+.faq__item {
+  @apply border-b border-gray-200 py-4;
+}
+.faq__question {
+  @apply cursor-pointer font-display font-semibold text-black;
+}
+.faq__answer {
+  @apply mt-2 text-sm text-gray-700;
+}

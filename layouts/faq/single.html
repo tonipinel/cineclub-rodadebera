@@ -1,0 +1,13 @@
+{{ define "main" }}
+<article class="page">
+  <h1 class="page__title">{{ .Title }}</h1>
+  <div class="faq">
+    {{ range .Params.faq }}
+      <details class="faq__item">
+        <summary class="faq__question">{{ .pregunta }}</summary>
+        <div class="faq__answer">{{ .resposta | markdownify }}</div>
+      </details>
+    {{ end }}
+  </div>
+</article>
+{{ end }}
