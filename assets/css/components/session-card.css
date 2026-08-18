@@ -2,7 +2,7 @@
   @apply flex flex-col overflow-hidden rounded-none border-[6px] border-black bg-black shadow-sm transition hover:shadow-md;
 }
 .session-card__link {
-  @apply flex flex-1 flex-col text-inherit no-underline;
+  @apply flex flex-1 flex-col border-2 border-dashed border-white text-inherit no-underline transition hover:border-gold;
 }
 .session-card__image {
   @apply aspect-[2/3] w-full object-cover transition duration-300;
