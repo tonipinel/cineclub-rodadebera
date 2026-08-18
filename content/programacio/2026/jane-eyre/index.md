@@ -19,7 +19,8 @@ repartiment:
   - "Jamie Bell"
   - "Judi Dench"
   - "Sally Hawkins"
-preu_o_acces: "Per accedir a la sessió caldrà fer-se soci/a o fer una aportació de 5€ per persona a l'associació."
+versio_tipus: "vose"
+preu: 5
 que_inclou: "La sessió inclou projecció en versió original subtitulada i col·loqui moderat posterior."
 edat_minima_recomanada: 7
 suport_distribucio: "A Contracorriente Films"

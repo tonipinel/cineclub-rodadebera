@@ -1,0 +1,12 @@
+{{- $text := .Text -}}
+{{- $icon := "" -}}
+{{- if eq $text "Sinopsi" -}}
+  {{- $icon = "book-open" -}}
+{{- else if eq $text "Context" -}}
+  {{- $icon = "map" -}}
+{{- else if eq $text "Curiositats" -}}
+  {{- $icon = "light-bulb" -}}
+{{- else if strings.HasPrefix $text "Per què" -}}
+  {{- $icon = "academic-cap" -}}
+{{- end -}}
+<h{{ .Level }} id="{{ .Anchor }}">{{ with $icon }}<span class="prose-heading__icon">{{ partial "icon.html" . }}</span> {{ end }}{{ $text | safeHTML }}</h{{ .Level }}>

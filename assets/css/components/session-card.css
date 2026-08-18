@@ -8,29 +8,42 @@
   @apply aspect-[2/3] w-full object-cover transition duration-300;
 }
 .session-card__link:hover .session-card__image {
-  @apply scale-105 brightness-90;
+  @apply opacity-90;
 }
 .session-card__body {
   @apply flex flex-1 flex-col gap-1 p-4;
 }
+.date-ca__main {
+  @apply font-bold;
+}
+.date-ca__rest {
+  color: #666;
+}
 .session-card__date {
-  @apply font-display;
-}
-.session-card__date .date-ca__main {
-  @apply text-[1.5rem] font-bold uppercase tracking-wide text-gold-dark;
-}
-.session-card__date .date-ca__rest {
-  @apply text-[1rem] font-normal normal-case text-gray-500;
+  @apply inline-block self-start;
+  font-family: Inter, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #000;
+  background: #fff;
+  text-transform: uppercase;
+  padding: 0.1rem 0.5rem;
 }
 .session-card__title {
-  @apply font-display text-[2rem] font-bold uppercase leading-tight tracking-wide text-white transition;
+  @apply font-display font-bold uppercase tracking-wide text-white transition;
+  font-size: 2.5rem;
+  line-height: 1.15;
 }
 .session-card__link:hover .session-card__title {
-  @apply text-gold-dark;
+  @apply text-gold;
 }
 .session-card__badge {
   @apply inline-block w-fit rounded-full bg-gold/10 px-2 py-0.5 text-xs font-semibold text-gold-dark;
 }
 .session-grid {
-  @apply grid grid-cols-1 gap-12 p-12 sm:grid-cols-2 lg:grid-cols-3;
+  @apply grid grid-cols-1 gap-12 p-12 pt-8 sm:grid-cols-2 lg:grid-cols-3;
+}
+.programacio-year__title {
+  @apply border-b-2 border-dashed px-12 pt-8 font-display text-3xl font-bold uppercase tracking-wide text-gold;
+  border-color: #bf9000;
 }

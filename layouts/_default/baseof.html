@@ -10,5 +10,7 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
+  <script src="{{ "js/gallery.js" | relURL }}" defer></script>
+  <script src="{{ "js/poster-modal.js" | relURL }}" defer></script>
 </body>
 </html>

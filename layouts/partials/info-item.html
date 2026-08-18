@@ -1,0 +1,24 @@
+{{- $icon := .icon -}}
+{{- $logo := .logo -}}
+{{- $text := .text -}}
+{{- $caption := .caption -}}
+{{- $price := .price -}}
+{{- $href := .href -}}
+{{- $external := .external -}}
+<div class="info-item">
+  {{ if $href }}<a class="info-item__link" href="{{ $href }}"{{ if $external }} target="_blank" rel="noopener"{{ end }}>{{ end }}
+  {{ if $logo }}
+    <img class="info-item__logo" src="{{ $logo | relURL }}" alt="">
+  {{ else if $price }}
+    <span class="info-item__icon info-item__icon--with-price">
+      {{ partial "icon.html" $icon }}
+      <span class="info-item__price">{{ $price }}</span>
+    </span>
+  {{ else if $text }}
+    <span class="info-item__icon info-item__icon--text">{{ $text }}</span>
+  {{ else }}
+    <span class="info-item__icon">{{ partial "icon.html" $icon }}</span>
+  {{ end }}
+  {{ with $caption }}<p class="info-item__caption">{{ . | safeHTML }}</p>{{ end }}
+  {{ if $href }}</a>{{ end }}
+</div>

@@ -6,3 +6,10 @@
   background-color: #4d4d4d;
   background-blend-mode: multiply;
 }
+.icon {
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+  color: rgb(127 96 0 / var(--tw-text-opacity, 1));
+  vertical-align: text-top;
+}

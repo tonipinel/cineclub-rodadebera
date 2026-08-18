@@ -3,9 +3,14 @@
   <h1 class="page__title">{{ .Title }}</h1>
   <div class="prose-ca">{{ .Content }}</div>
 </div>
-<div class="session-grid">
-  {{ range .Pages.ByDate.Reverse }}
-    {{ partial "session-card.html" . }}
-  {{ end }}
-</div>
+{{ range .Pages.GroupByDate "2006" }}
+  <div class="programacio-year">
+    <h2 class="programacio-year__title">{{ .Key }}</h2>
+    <div class="session-grid">
+      {{ range .Pages.ByDate.Reverse }}
+        {{ partial "session-card.html" . }}
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
 {{ end }}

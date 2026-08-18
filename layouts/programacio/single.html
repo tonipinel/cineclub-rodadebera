@@ -7,58 +7,128 @@
 
 {{ define "main" }}
 <section class="session-hero">
-  <div class="session-hero__montage">
-    {{ with .Resources.GetMatch "poster*" }}
+  <span class="session-hero__date">{{ partial "date-ca.html" . }}</span>
+  <h1 class="session-hero__title">{{ .Title }}</h1>
+</section>
+
+<div class="session-gallery">
+  <button type="button" class="session-gallery__prev" aria-label="Imatge anterior">{{ partial "icon.html" "chevron-left" }}</button>
+  <div class="session-gallery__track">
+    {{ range sort (.Resources.Match "gallery*") "Name" }}
       {{ $img := . }}
       {{ if gt $img.Width 800 }}
         {{ $img = $img.Resize "800x" }}
       {{ end }}
-      <img class="session-hero__poster" src="{{ $img.RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
-    {{ end }}
-    {{ with .Params.trailer_youtube_id }}
-      <img class="session-hero__still" src="https://img.youtube.com/vi/{{ . }}/hqdefault.jpg" alt="" loading="lazy">
+      <img class="session-gallery__image" src="{{ $img.RelPermalink }}" alt="Fotograma de {{ $.Params.titol_original | default $.Title }}" loading="lazy">
     {{ end }}
   </div>
-  <div class="session-hero__text">
-    <span class="session-hero__date">{{ partial "date-ca.html" . }}</span>
-    <h1 class="session-hero__title">{{ .Title }}</h1>
+  <button type="button" class="session-gallery__next" aria-label="Imatge següent">{{ partial "icon.html" "chevron-right" }}</button>
+</div>
+
+<div class="session-info-wrapper">
+  <div class="session-info">
+    {{ $mapsQuery := printf "%s, %s" .Site.Params.venueName .Site.Params.venueAddress }}
+    {{ $mapsURL := printf "https://www.google.com/maps/search/?api=1&query=%s" ($mapsQuery | urlquery) }}
+    {{ partial "info-item.html" (dict "icon" "map-pin" "href" $mapsURL "external" true "caption" .Site.Params.venueName) }}
+    {{ if eq .Params.preu 0 }}
+      {{ partial "info-item.html" (dict "icon" "ticket" "price" "0€" "caption" "Entrada gratuïta") }}
+    {{ else }}
+      {{ partial "info-item.html" (dict "icon" "ticket" "price" (printf "%v€" .Params.preu) "href" ("/fes-te-socia/" | relURL) "caption" "Aportació requerida<br>(Gratuït per a socis/es)") }}
+    {{ end }}
+    {{ with .Params.que_inclou }}
+      {{ partial "info-item.html" (dict "icon" "chat-bubble-left-right" "caption" "Col·loqui després<br/> de la projecció") }}
+    {{ end }}
+    {{ with .Params.versio_tipus }}
+      {{ $tipus := . }}
+      {{ $sigles := "" }}
+      {{ $explicacio := "" }}
+      {{ if eq $tipus "vo" }}
+        {{ $sigles = "V.O." }}
+        {{ $explicacio = printf "Versió Original en %s" $.Params.idioma }}
+      {{ else if eq $tipus "vose" }}
+        {{ $sigles = "V.O.S.E." }}
+        {{ $explicacio = "Versió Original Subtitulada en Espanyol" }}
+      {{ else if eq $tipus "vosc" }}
+        {{ $sigles = "V.O.S.C." }}
+        {{ $explicacio = "Versió Original Subtitulada en Català" }}
+      {{ else if eq $tipus "doblada-cat" }}
+        {{ $sigles = "DOBL. CAT." }}
+        {{ $explicacio = "Doblada al Català" }}
+      {{ else if eq $tipus "doblada-cast" }}
+        {{ $sigles = "DOBL. CAST." }}
+        {{ $explicacio = "Doblada al Castellà" }}
+      {{ end }}
+      {{ partial "info-item.html" (dict "text" $sigles "caption" $explicacio) }}
+    {{ end }}
+    {{ if isset .Params "edat_minima_recomanada" }}
+      {{ $edat := .Params.edat_minima_recomanada }}
+      {{ if eq $edat 0 }}
+        {{ partial "info-item.html" (dict "logo" "/images/icaa/icaa-tp.svg" "caption" "Recomanada per a tots els públics") }}
+      {{ else }}
+        {{ partial "info-item.html" (dict "logo" (printf "/images/icaa/icaa-%v.svg" $edat) "caption" (printf "No recomanada per a menors de %v anys" $edat)) }}
+      {{ end }}
+    {{ end }}
   </div>
-</section>
+</div>
+
+<div class="session-fitxa-wrapper">
+  <div class="session-fitxa">
+    {{ with .Resources.GetMatch "poster*" }}
+      {{ $thumb := . }}
+      {{ if gt $thumb.Width 400 }}
+        {{ $thumb = $thumb.Resize "400x" }}
+      {{ end }}
+      {{ $full := . }}
+      {{ if gt $full.Width 1400 }}
+        {{ $full = $full.Resize "1400x" }}
+      {{ end }}
+      <div class="session-fitxa__poster-col">
+        <button type="button" class="session-fitxa__poster-button" data-poster-trigger="poster-modal">
+          <img class="session-fitxa__poster" src="{{ $thumb.RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+        </button>
+        <dialog id="poster-modal" class="poster-modal">
+          <button type="button" class="poster-modal__close" aria-label="Tancar">{{ partial "icon.html" "x-mark" }}</button>
+          <img class="poster-modal__image" src="{{ $full.RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+        </dialog>
+        {{ with $.Params.suport_distribucio }}
+          {{ $dist := . }}
+          {{ $distData := index $.Site.Data.distribuidors $dist }}
+          {{ if $distData }}
+            {{ partial "info-item.html" (dict "logo" $distData.logo "href" $distData.url "external" true) }}
+          {{ else }}
+            {{ partial "info-item.html" (dict "icon" "film" "caption" (printf "Distribució i cessió de drets: %s" $dist)) }}
+          {{ end }}
+        {{ end }}
+      </div>
+    {{ end }}
+    <dl class="session-fitxa__details">
+      <dt class="session-fitxa__label">Títol original</dt><dd>{{ .Params.titol_original }}</dd>
+      {{ with .Params.direccio }}<dt class="session-fitxa__label">Direcció</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.guio }}<dt class="session-fitxa__label">Guió</dt><dd>{{ . }}</dd>{{ end }}
+      <dt class="session-fitxa__label">País</dt><dd>{{ .Params.pais }}</dd>
+      <dt class="session-fitxa__label">Any</dt><dd>{{ .Params.any }}</dd>
+      <dt class="session-fitxa__label">Durada</dt><dd>{{ .Params.durada }} minuts</dd>
+      <dt class="session-fitxa__label">Idioma</dt><dd>{{ .Params.idioma }}</dd>
+      {{ with .Params.genere }}<dt class="session-fitxa__label">Gènere</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.fotografia }}<dt class="session-fitxa__label">Fotografia</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.muntatge }}<dt class="session-fitxa__label">Muntatge</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.musica }}<dt class="session-fitxa__label">Música</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.produccio }}<dt class="session-fitxa__label">Producció</dt><dd>{{ . }}</dd>{{ end }}
+      <dt class="session-fitxa__label">Repartiment</dt><dd>{{ delimit .Params.repartiment ", " }}</dd>
+      {{ with .Params.premis_destacats }}<dt class="session-fitxa__label">Premis destacats</dt><dd>{{ . }}</dd>{{ end }}
+    </dl>
+  </div>
+</div>
 
 {{ with .Params.trailer_youtube_id }}
 <div class="session-trailer">
-  <iframe src="https://www.youtube-nocookie.com/embed/{{ . }}" title="Tràiler de {{ $.Title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="session-trailer__frame">
+    <iframe src="https://www.youtube-nocookie.com/embed/{{ . }}" title="Tràiler de {{ $.Title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
 </div>
 {{ end }}
 
-<dl class="session-fitxa">
-  <dt class="session-fitxa__label">Títol original</dt><dd>{{ .Params.titol_original }}</dd>
-  {{ with .Params.direccio }}<dt class="session-fitxa__label">Direcció</dt><dd>{{ . }}</dd>{{ end }}
-  {{ with .Params.guio }}<dt class="session-fitxa__label">Guió</dt><dd>{{ . }}</dd>{{ end }}
-  <dt class="session-fitxa__label">País</dt><dd>{{ .Params.pais }}</dd>
-  <dt class="session-fitxa__label">Any</dt><dd>{{ .Params.any }}</dd>
-  <dt class="session-fitxa__label">Durada</dt><dd>{{ .Params.durada }} minuts</dd>
-  <dt class="session-fitxa__label">Idioma</dt><dd>{{ .Params.idioma }}</dd>
-  {{ with .Params.genere }}<dt class="session-fitxa__label">Gènere</dt><dd>{{ . }}</dd>{{ end }}
-  {{ with .Params.fotografia }}<dt class="session-fitxa__label">Fotografia</dt><dd>{{ . }}</dd>{{ end }}
-  {{ with .Params.muntatge }}<dt class="session-fitxa__label">Muntatge</dt><dd>{{ . }}</dd>{{ end }}
-  {{ with .Params.musica }}<dt class="session-fitxa__label">Música</dt><dd>{{ . }}</dd>{{ end }}
-  {{ with .Params.produccio }}<dt class="session-fitxa__label">Producció</dt><dd>{{ . }}</dd>{{ end }}
-  <dt class="session-fitxa__label">Repartiment</dt><dd>{{ delimit .Params.repartiment ", " }}</dd>
-  {{ with .Params.premis_destacats }}<dt class="session-fitxa__label">Premis destacats</dt><dd>{{ . }}</dd>{{ end }}
-</dl>
-
-{{ with .Params.versio_idiomatica }}<p class="session-version">{{ . }}</p>{{ end }}
-
 <div class="session-body prose-ca">
   {{ .Content }}
-</div>
-
-<div class="session-info">
-  <p>{{ .Site.Params.venueName }} — {{ .Site.Params.venueAddress }}</p>
-  <p>{{ .Params.preu_o_acces }}</p>
-  <p>{{ .Params.que_inclou }}</p>
-  {{ with .Params.edat_minima_recomanada }}<p>Pel·lícula no recomanada per a menors de {{ . }} anys.</p>{{ end }}
-  {{ with .Params.suport_distribucio }}<p>La distribució i cessió de drets per a aquesta sessió compta amb el suport de {{ . }}, a qui agraïm la col·laboració.</p>{{ end }}
 </div>
 {{ end }}

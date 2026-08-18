@@ -8,7 +8,7 @@
       <img class="session-card__image" src="{{ $img.RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}" loading="lazy">
     {{ end }}
     <div class="session-card__body">
-      <span class="session-card__date">{{ partial "date-ca.html" . }}</span>
+      <span class="session-card__date">{{ partial "date-ca-short.html" . }}</span>
       <h3 class="session-card__title">{{ .Title }}</h3>
       {{ $organitza := .Params.organitza | default "cineclub" }}
       {{ if ne $organitza "cineclub" }}

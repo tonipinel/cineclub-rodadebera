@@ -1,32 +1,98 @@
 .session-hero {
-  @apply flex flex-col gap-6 bg-black px-4 py-10 text-white sm:flex-row sm:items-end sm:gap-10 sm:px-10;
-}
-.session-hero__montage {
-  @apply relative mx-auto w-full max-w-xs sm:mx-0 sm:max-w-sm;
-}
-.session-hero__poster {
-  @apply w-full rounded-lg shadow-2xl;
-}
-.session-hero__still {
-  @apply absolute -bottom-6 -right-6 w-2/3 rounded-lg border-4 border-black shadow-xl;
-}
-.session-hero__text {
-  @apply flex flex-1 flex-col gap-2 pb-8 text-center sm:pb-2 sm:text-left;
+  @apply flex flex-col items-center gap-2 border-b-[6px] border-dashed border-white bg-black text-center text-white;
+  padding: 1rem 1rem 1.5rem;
 }
 .session-hero__date {
-  @apply font-body text-sm text-white/80;
+  font-family: Inter, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #000;
+  background: #fff;
+  text-transform: uppercase;
+  padding: 0.1rem 0.5rem;
 }
 .session-hero__title {
-  @apply font-display text-4xl font-bold uppercase leading-tight text-gold sm:text-5xl;
+  @apply font-display font-bold uppercase text-gold;
+  font-size: 5rem;
+  line-height: 1;
+}
+.session-gallery {
+  @apply relative border-dashed border-white bg-black;
+}
+.session-gallery__track {
+  @apply flex snap-x snap-mandatory overflow-x-auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.session-gallery__track::-webkit-scrollbar {
+  display: none;
+}
+.session-gallery__image {
+  @apply aspect-video w-full flex-shrink-0 snap-center object-cover;
+}
+.session-gallery__prev,
+.session-gallery__next {
+  @apply absolute top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center bg-black/60 text-xl text-white transition hover:bg-gold hover:text-black sm:flex;
+}
+.session-gallery__prev {
+  @apply left-2;
+}
+.session-gallery__next {
+  @apply right-2;
+}
+.session-gallery__prev .icon,
+.session-gallery__next .icon {
+  color: #fff;
+}
+.session-gallery__prev:hover .icon,
+.session-gallery__next:hover .icon {
+  color: #000;
 }
 .session-trailer {
-  @apply relative mx-auto my-8 aspect-video w-full max-w-3xl overflow-hidden rounded-lg;
+  @apply mx-4 mt-8 max-w-3xl border-2 border-b-0 border-dashed border-white bg-black p-6 shadow-lg sm:mx-auto;
 }
-.session-trailer iframe {
+.session-trailer__frame {
+  @apply relative aspect-video w-full overflow-hidden;
+}
+.session-trailer__frame iframe {
   @apply absolute inset-0 h-full w-full border-0;
 }
+.session-fitxa-wrapper {
+  @apply w-full border-b-[6px] border-dashed border-black bg-white/90;
+}
 .session-fitxa {
-  @apply grid grid-cols-1 gap-x-8 gap-y-2 bg-gray-50 p-6 text-sm sm:grid-cols-2;
+  @apply mx-auto flex max-w-[1000px] flex-col gap-6 p-6 text-sm sm:flex-row;
+}
+.session-fitxa__poster-col {
+  @apply mx-auto flex w-40 flex-shrink-0 flex-col items-center gap-4 self-start sm:mx-0 sm:w-48 sm:items-start;
+}
+.session-fitxa__poster-button {
+  @apply block w-full cursor-zoom-in border-0 bg-transparent p-0;
+}
+.session-fitxa__poster {
+  @apply w-full object-cover transition hover:opacity-90;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+}
+.poster-modal {
+  @apply relative m-auto max-h-[90vh] max-w-[95vw] border-0 bg-transparent p-0;
+}
+.poster-modal::backdrop {
+  @apply bg-black/90;
+}
+.poster-modal__image {
+  @apply block max-h-[90vh] max-w-[95vw] object-contain;
+}
+.poster-modal__close {
+  @apply absolute right-4 top-4 flex h-10 w-10 items-center justify-center bg-black/70 text-2xl text-white transition hover:bg-gold hover:text-black;
+}
+.poster-modal__close .icon {
+  color: #fff;
+}
+.poster-modal__close:hover .icon {
+  color: #000;
+}
+.session-fitxa__details {
+  @apply grid flex-1 grid-cols-[auto_1fr] content-start gap-x-4 gap-y-2;
 }
 .session-fitxa__label {
   @apply font-display font-bold uppercase tracking-wide text-gold-dark;
@@ -35,8 +101,62 @@
   @apply px-6 pt-4 font-display text-sm font-bold uppercase tracking-wide text-gold-dark;
 }
 .session-body {
-  @apply mx-4 my-8 max-w-3xl rounded-lg bg-white p-6 shadow-lg sm:mx-auto;
+  @apply mx-4 mb-8 max-w-3xl border-2 border-t-0 border-dashed border-black bg-white p-6 shadow-lg sm:mx-auto;
+}
+.session-info-wrapper {
+  @apply w-full border-dashed border-black bg-white;
+  border-top-width: 6px;
 }
 .session-info {
-  @apply mx-4 mb-8 max-w-3xl rounded-lg border border-gold/30 bg-white p-6 text-sm shadow-lg sm:mx-auto;
+  @apply mx-auto grid max-w-[1000px] grid-cols-2 gap-8 p-6 text-center sm:grid-cols-5;
+}
+.info-item {
+  @apply flex flex-col items-center gap-2;
+}
+.info-item__icon .icon {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+.info-item__icon--with-price {
+  @apply flex items-center gap-2;
+}
+.info-item__price {
+  @apply font-display text-3xl font-bold text-gold-dark;
+}
+.info-item__logo {
+  @apply h-10 w-auto object-contain;
+}
+.session-fitxa__poster-col .info-item__logo {
+  @apply h-16;
+}
+.info-item__icon--text {
+  display: flex;
+  height: 2.5rem;
+  width: 5.5rem;
+  align-items: center;
+  justify-content: center;
+  border-width: 2px;
+  border-color: rgb(127 96 0 / var(--tw-border-opacity, 1));
+  font-family: Oswald, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  color: rgb(127 96 0 / var(--tw-text-opacity, 1));
+}
+.info-item__caption {
+  @apply text-xs text-gray-700;
+}
+.info-item__link {
+  @apply flex flex-col items-center gap-2 transition;
+}
+.info-item__link .info-item__caption {
+  @apply text-gold-dark underline;
+}
+.info-item__link:hover .info-item__caption {
+  @apply text-gold;
+}
+.info-item__link:hover .icon {
+  color: #bf9000;
+}
+.info-item__link:hover .info-item__logo {
+  opacity: 0.8;
 }

@@ -1,6 +1,9 @@
 .prose-ca h2 {
   @apply mb-2 mt-6 font-display text-xl font-bold text-black;
 }
+.prose-heading__icon {
+  @apply mr-1 inline-block;
+}
 .prose-ca p {
   @apply mb-4;
 }

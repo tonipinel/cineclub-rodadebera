@@ -4,7 +4,6 @@
 {{- $day := $t.Day -}}
 {{- $monthName := index $months (printf "%d" $t.Month) -}}
 {{- $weekdayName := index $weekdays (printf "%d" $t.Weekday) -}}
-{{- $year := $t.Year -}}
 {{- $firstLetter := substr $monthName 0 1 -}}
 {{- $vowelStart := in (slice "a" "e" "i" "o" "u") $firstLetter -}}
-<span class="date-ca__main">{{ $weekdayName }} {{ $day }} {{ if $vowelStart }}d'{{ else }}de {{ end }}{{ $monthName }}</span><span class="date-ca__rest"> de {{ $year }} a les {{ $t.Format "15:04" }}h</span>
+<span class="date-ca__main">{{ $weekdayName }} {{ $day }} {{ if $vowelStart }}d'{{ else }}de {{ end }}{{ $monthName }}</span><span class="date-ca__rest"> {{ $t.Format "15:04" }}h</span>

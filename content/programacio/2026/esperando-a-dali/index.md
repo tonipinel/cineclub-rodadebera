@@ -9,7 +9,7 @@ guio: "David Pujol"
 pais: "Espanya"
 any: 2023
 durada: 114
-idioma: "Castellà"
+idioma: "Castellà, Francès i Català"
 genere: "Comèdia dramàtica, romàntica i gastronòmica"
 fotografia: "Román Martínez de Bujo"
 muntatge: "Jordi Muñoz"
@@ -24,8 +24,9 @@ repartiment:
   - "Vicky Peña"
   - "Paco Tous"
   - "Gal Soler"
-versio_idiomatica: "Versió Original en Castellà"
-preu_o_acces: "Per accedir a la sessió caldrà fer-se soci/a o fer una aportació de 5€ per persona a l'associació."
+versio_idiomatica: "Versió Original en Castellà, Francès i Català, subtitulada en espanyol"
+versio_tipus: "vose"
+preu: 5
 que_inclou: "La sessió inclou projecció en versió original en espanyol i col·loqui moderat posterior."
 edat_minima_recomanada: 7
 suport_distribucio: "Arlong Productions"
