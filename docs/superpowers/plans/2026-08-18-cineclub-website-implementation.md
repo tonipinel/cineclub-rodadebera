@@ -650,29 +650,32 @@ git commit -m "Add unified programació listing page"
 
 - [ ] **Step 1: Crear `layouts/partials/jsonld-screening-event.html`**
 
+Nota: NO es pot construir el JSON-LD escrivint claus JSON a mà i passant cada valor per `jsonify` individualment — dins d'un `<script>`, l'autoescapament contextual de `html/template` de Go tracta cada valor de tipus `string` com si fos una expressió JS i el torna a escapar, duplicant les cometes (p. ex. `"name": "\"Jane Eyre\""`). Cal construir tot l'objecte com un `dict` de Hugo i fer `jsonify` una sola vegada sobre el conjunt, marcant el resultat com seguro amb `safeJS`.
+
 ```html
+{{- $data := dict
+  "@context" "https://schema.org"
+  "@type" "ScreeningEvent"
+  "name" .Title
+  "startDate" (.Date.Format "2006-01-02T15:04:05-07:00")
+  "location" (dict
+    "@type" "Place"
+    "name" .Site.Params.venueName
+    "address" .Site.Params.venueAddress
+  )
+  "workPresented" (dict
+    "@type" "Movie"
+    "name" (.Params.titol_original | default .Title)
+  )
+  "offers" (dict
+    "@type" "Offer"
+    "price" "5"
+    "priceCurrency" "EUR"
+    "url" .Permalink
+  )
+-}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ScreeningEvent",
-  "name": {{ .Title | jsonify }},
-  "startDate": {{ .Date.Format "2006-01-02T15:04:05-07:00" | jsonify }},
-  "location": {
-    "@type": "Place",
-    "name": {{ .Site.Params.venueName | jsonify }},
-    "address": {{ .Site.Params.venueAddress | jsonify }}
-  },
-  "workPresented": {
-    "@type": "Movie",
-    "name": {{ .Params.titol_original | default .Title | jsonify }}
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "5",
-    "priceCurrency": "EUR",
-    "url": {{ .Permalink | jsonify }}
-  }
-}
+{{ $data | jsonify | safeJS }}
 </script>
 ```
 
