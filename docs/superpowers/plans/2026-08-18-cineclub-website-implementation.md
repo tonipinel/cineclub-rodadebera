@@ -108,24 +108,30 @@ enableRobotsTXT = true
 
 [[menu.main]]
   name = "Inici"
+  pageRef = "/"
   url = "/"
   weight = 1
 
 [[menu.main]]
   name = "Programació"
+  pageRef = "/programacio"
   url = "/programacio/"
   weight = 2
 
 [[menu.main]]
   name = "Fes-te soci/a"
+  pageRef = "/fes-te-socia"
   url = "/fes-te-socia/"
   weight = 3
 
 [[menu.main]]
   name = "Preguntes freqüents"
+  pageRef = "/preguntes-frequents"
   url = "/preguntes-frequents/"
   weight = 4
 ```
+
+Nota: `pageRef` és necessari perquè `.IsMenuCurrent` (usat a `header.html`, Tasca 3) pugui associar cada entrada del menú amb la seva `Page` real i marcar-la com a activa — amb només `url`, `.IsMenuCurrent` no fa mai match. Com que `/programacio`, `/fes-te-socia` i `/preguntes-frequents` encara no existeixen fins a les Tasques 4, 7 i 8, Hugo mostrarà avisos de `pageRef` no resolt fins que es creïn — no fan fallar el build.
 
 - [ ] **Step 4: Crear `content/_index.md` placeholder**
 
@@ -156,7 +162,10 @@ public/
 resources/
 .hugo_build.lock
 node_modules/
+static/css/main.css
 ```
+
+(`static/css/main.css` és un artefacte compilat pel Tailwind CLI a partir de `assets/css/main.css` — es regenera a cada `npm run css:build`, inclòs a CI a la Tasca 9, així que no cal versionar-lo.)
 
 - [ ] **Step 7: Commit**
 
@@ -372,7 +381,7 @@ git commit -m "Add Tailwind CSS build pipeline"
   {{ partial "head.html" . }}
   {{ block "head_extra" . }}{{ end }}
 </head>
-<body class="bg-white font-body text-black md:pl-64">
+<body class="site-body">
   {{ partial "header.html" . }}
   <main>
     {{ block "main" . }}{{ end }}
@@ -489,6 +498,14 @@ El cineclub és participatiu. Pots proposar pel·lícules, col·laborar com a vo
 }
 ```
 
+- [ ] **Step 13b: Crear `assets/css/components/layout.css`**
+
+```css
+.site-body {
+  @apply bg-white font-body text-black md:pl-64;
+}
+```
+
 - [ ] **Step 14: Crear `assets/css/components/home.css`**
 
 ```css
@@ -517,16 +534,19 @@ El cineclub és participatiu. Pots proposar pel·lícules, col·laborar com a vo
 
 - [ ] **Step 15: Actualitzar `assets/css/main.css` per importar els components**
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+Nota: els `@import` han d'anar abans dels `@tailwind` — per espec CSS, un `@import` que no és el primer contingut del fitxer (fora de comentaris) s'ignora silenciosament.
 
+```css
+@import "./components/layout.css";
 @import "./components/header.css";
 @import "./components/footer.css";
 @import "./components/button.css";
 @import "./components/session-card.css";
 @import "./components/home.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
 - [ ] **Step 16: Recompilar CSS i buildar el lloc**
@@ -737,17 +757,20 @@ git commit -m "Add unified programació listing page"
 
 - [ ] **Step 4: Actualitzar `assets/css/main.css`**
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+Nota: els `@import` han d'anar SEMPRE abans dels `@tailwind`, no després — per espec CSS, un `@import` que no és el primer contingut del fitxer (fora de comentaris) s'ignora silenciosament.
 
+```css
+@import "./components/layout.css";
 @import "./components/header.css";
 @import "./components/footer.css";
 @import "./components/button.css";
 @import "./components/session-card.css";
 @import "./components/home.css";
 @import "./components/session-detail.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
 - [ ] **Step 5: Build (encara sense contingut de sessió real, només comprova que no trenca res)**
@@ -1224,11 +1247,10 @@ git commit -m "Migrate 6 existing sessions with legacy URL aliases"
 
 - [ ] **Step 3: Actualitzar `assets/css/main.css` per importar el nou component**
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+Nota: els `@import` han d'anar abans dels `@tailwind` (si no, PostCSS els descarta silenciosament).
 
+```css
+@import "./components/layout.css";
 @import "./components/header.css";
 @import "./components/footer.css";
 @import "./components/button.css";
@@ -1236,6 +1258,10 @@ git commit -m "Migrate 6 existing sessions with legacy URL aliases"
 @import "./components/session-detail.css";
 @import "./components/home.css";
 @import "./components/page.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
 - [ ] **Step 4: Crear `layouts/_default/single.html`**
@@ -1474,11 +1500,10 @@ faq:
 
 - [ ] **Step 4: Actualitzar `assets/css/main.css`**
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+Nota: els `@import` han d'anar abans dels `@tailwind` (si no, PostCSS els descarta silenciosament).
 
+```css
+@import "./components/layout.css";
 @import "./components/header.css";
 @import "./components/footer.css";
 @import "./components/button.css";
@@ -1487,6 +1512,10 @@ faq:
 @import "./components/home.css";
 @import "./components/page.css";
 @import "./components/faq.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
 - [ ] **Step 5: Build i verificar**
