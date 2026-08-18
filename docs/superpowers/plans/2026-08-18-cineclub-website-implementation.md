@@ -1681,6 +1681,13 @@ git commit -m "Add poster images for migrated sessions"
 
 ---
 
+### Addendum: troballes de la revisió visual (aplicades)
+
+La revisió visual de la Tasca 10 va detectar dos forats reals no coberts pels passos anteriors, corregits abans de tancar el pla:
+
+1. **Sense navegació mòbil**: `.site-header` és `hidden md:flex`, i cap plantilla oferia cap substitut per sota del breakpoint `md`. S'ha afegit una segona capçalera (`.site-header-mobile`, `md:hidden`) al partial `header.html`, amb el mateix menú i lògica `IsMenuCurrent`.
+2. **Tipografia de Markdown sense estil**: el reset de Tailwind elimina els estils per defecte de `h2`/`ul`/`ol`, i cap classe els restaurava allà on es renderitza Markdown lliure (cos de sessió, respostes de FAQ, pàgines estàtiques, intro de la llista de programació). S'ha afegit `assets/css/components/prose.css` amb una classe `.prose-ca` (títols, paràgrafs, llistes amb pics/números), aplicada a `.intro` (home), `.session-body` (nova, cos de sessió — abans `{{ .Content }}` no tenia cap contenidor ni padding), `.page` (pàgines genèriques i llistat de programació) i `.faq__answer`.
+
 ## Self-Review
 
 **Cobertura de l'spec:** Stack Hugo+Tailwind (Tasques 1-2) ✓, hosting GitHub Pages/Actions (Tasca 9) ✓, identitat visual/CSS BEM+@apply (Tasca 3) ✓, arquitectura de contingut i llistat unificat amb `organitza` (Tasques 3-4) ✓, esquema de camps de sessió (Tasca 5-6) ✓, URLs `/programacio/:year/:slug/` i aliases (Tasca 6) ✓, SEO (lang, meta, OG, JSON-LD, sitemap/robots) (Tasques 3, 5, 10) ✓, mobile-first/desktop (breakpoints Tailwind a totes les tasques de CSS, revisió responsive a la Tasca 10) ✓, port 1414 en local (Global Constraints + totes les verificacions) ✓.
