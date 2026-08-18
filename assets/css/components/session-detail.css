@@ -1,14 +1,29 @@
-.session-detail__image {
-  @apply mx-auto block w-full max-w-sm;
-}
 .session-hero {
-  @apply flex flex-col items-center justify-center gap-2 bg-black px-4 py-16 text-center text-white;
+  @apply flex flex-col gap-6 bg-black px-4 py-10 text-white sm:flex-row sm:items-end sm:gap-10 sm:px-10;
+}
+.session-hero__montage {
+  @apply relative mx-auto w-full max-w-xs sm:mx-0 sm:max-w-sm;
+}
+.session-hero__poster {
+  @apply w-full rounded-lg shadow-2xl;
+}
+.session-hero__still {
+  @apply absolute -bottom-6 -right-6 w-2/3 rounded-lg border-4 border-black shadow-xl;
+}
+.session-hero__text {
+  @apply flex flex-1 flex-col gap-2 pb-8 text-center sm:pb-2 sm:text-left;
 }
 .session-hero__date {
   @apply font-body text-sm text-white/80;
 }
 .session-hero__title {
-  @apply font-display text-3xl font-bold text-gold sm:text-4xl;
+  @apply font-display text-4xl font-bold uppercase leading-tight text-gold sm:text-5xl;
+}
+.session-trailer {
+  @apply relative mx-auto my-8 aspect-video w-full max-w-3xl overflow-hidden rounded-lg;
+}
+.session-trailer iframe {
+  @apply absolute inset-0 h-full w-full border-0;
 }
 .session-fitxa {
   @apply grid grid-cols-1 gap-x-8 gap-y-2 bg-gray-50 p-6 text-sm sm:grid-cols-2;

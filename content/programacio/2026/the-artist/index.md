@@ -2,6 +2,7 @@
 title: "The Artist"
 date: 2026-03-05T19:00:00+01:00
 titol_original: "The Artist"
+trailer_youtube_id: "YB9Oq0hn5KY"
 direccio: "Michel Hazanavicius"
 guio: "Michel Hazanavicius"
 pais: "França"

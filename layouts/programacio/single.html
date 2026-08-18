@@ -7,12 +7,24 @@
 
 {{ define "main" }}
 <section class="session-hero">
-  <span class="session-hero__date">{{ partial "date-ca.html" . }} a les {{ .Date.Format "15:04" }}h</span>
-  <h1 class="session-hero__title">{{ .Title }}</h1>
+  <div class="session-hero__montage">
+    {{ with .Resources.GetMatch "poster*" }}
+      <img class="session-hero__poster" src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+    {{ end }}
+    {{ with .Params.trailer_youtube_id }}
+      <img class="session-hero__still" src="https://img.youtube.com/vi/{{ . }}/hqdefault.jpg" alt="">
+    {{ end }}
+  </div>
+  <div class="session-hero__text">
+    <span class="session-hero__date">{{ partial "date-ca.html" . }} a les {{ .Date.Format "15:04" }}h</span>
+    <h1 class="session-hero__title">{{ .Title }}</h1>
+  </div>
 </section>
 
-{{ with .Resources.GetMatch "poster*" }}
-  <img src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}" class="session-detail__image">
+{{ with .Params.trailer_youtube_id }}
+<div class="session-trailer">
+  <iframe src="https://www.youtube-nocookie.com/embed/{{ . }}" title="Tràiler de {{ $.Title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 {{ end }}
 
 <dl class="session-fitxa">

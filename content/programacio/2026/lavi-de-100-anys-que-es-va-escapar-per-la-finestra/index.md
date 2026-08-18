@@ -2,6 +2,7 @@
 title: "L'avi de 100 anys que es va escapar per la finestra"
 date: 2026-04-02T19:00:00+02:00
 titol_original: "Hundraåringen som klev ut genom fönstret och försvann"
+trailer_youtube_id: "MkgScyhbys8"
 direccio: "Felix Herngren"
 guio: "Felix Herngren, Hans Ingemansson (basat en la novel·la de Jonas Jonasson)"
 pais: "Suècia"

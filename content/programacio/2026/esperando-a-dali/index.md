@@ -3,6 +3,7 @@ title: "Esperando a Dalí"
 slug: "esperando-a-dali"
 date: 2026-07-23T19:00:00+02:00
 titol_original: "Esperando a Dalí"
+trailer_youtube_id: "uMJL0VTSQV8"
 direccio: "David Pujol"
 guio: "David Pujol"
 pais: "Espanya"
