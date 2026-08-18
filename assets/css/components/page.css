@@ -1,0 +1,6 @@
+.page {
+  @apply p-6;
+}
+.page__title {
+  @apply font-display text-2xl font-bold;
+}

@@ -3,8 +3,9 @@
 @import "./components/footer.css";
 @import "./components/button.css";
 @import "./components/session-card.css";
-@import "./components/home.css";
 @import "./components/session-detail.css";
+@import "./components/home.css";
+@import "./components/page.css";
 
 @tailwind base;
 @tailwind components;
