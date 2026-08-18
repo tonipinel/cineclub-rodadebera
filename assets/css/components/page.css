@@ -2,5 +2,5 @@
   @apply p-6;
 }
 .page__title {
-  @apply font-display text-2xl font-bold;
+  @apply font-display text-3xl font-bold uppercase tracking-tight text-black;
 }

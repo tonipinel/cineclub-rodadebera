@@ -1,3 +1,4 @@
 .site-body {
   @apply bg-white font-body text-black;
+  overflow-x: clip;
 }

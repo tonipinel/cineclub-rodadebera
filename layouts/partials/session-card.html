@@ -1,6 +1,6 @@
 <article class="session-card">
   {{ with .Resources.GetMatch "poster*" }}
-    <img class="session-card__image" src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+    <img class="session-card__image" src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}" loading="lazy">
   {{ end }}
   <div class="session-card__body">
     <span class="session-card__date">{{ partial "date-ca.html" . }}</span>

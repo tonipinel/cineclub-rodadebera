@@ -9,10 +9,10 @@
 <section class="session-hero">
   <div class="session-hero__montage">
     {{ with .Resources.GetMatch "poster*" }}
-      <img class="session-hero__poster" src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+      <img class="session-hero__poster" src="{{ .RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}" loading="lazy">
     {{ end }}
     {{ with .Params.trailer_youtube_id }}
-      <img class="session-hero__still" src="https://img.youtube.com/vi/{{ . }}/hqdefault.jpg" alt="">
+      <img class="session-hero__still" src="https://img.youtube.com/vi/{{ . }}/hqdefault.jpg" alt="" loading="lazy">
     {{ end }}
   </div>
   <div class="session-hero__text">
