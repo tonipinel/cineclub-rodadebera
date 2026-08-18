@@ -2,6 +2,8 @@ baseURL = "https://cineclubrodadebera.cat/"
 languageCode = "ca"
 title = "Cineclub Roda de Berà"
 enableRobotsTXT = true
+buildFuture = true
+disableKinds = ["taxonomy", "term"]
 
 [permalinks]
   programacio = "/programacio/:year/:slug/"

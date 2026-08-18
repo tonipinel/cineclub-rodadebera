@@ -1,5 +1,5 @@
 .session-detail__image {
-  @apply w-full;
+  @apply mx-auto block w-full max-w-sm;
 }
 .session-hero {
   @apply flex flex-col items-center justify-center gap-2 bg-black px-4 py-16 text-center text-white;

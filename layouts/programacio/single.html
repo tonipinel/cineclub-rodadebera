@@ -39,6 +39,7 @@
 </div>
 
 <div class="session-info">
+  <p>{{ .Site.Params.venueName }} — {{ .Site.Params.venueAddress }}</p>
   <p>{{ .Params.preu_o_acces }}</p>
   <p>{{ .Params.que_inclou }}</p>
   {{ with .Params.edat_minima_recomanada }}<p>Pel·lícula no recomanada per a menors de {{ . }} anys.</p>{{ end }}
