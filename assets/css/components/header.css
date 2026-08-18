@@ -11,7 +11,7 @@
   @apply h-10 w-auto invert;
 }
 .site-header__brand-text {
-  @apply font-display text-lg font-bold text-white sm:text-xl;
+  @apply font-display text-lg font-bold uppercase tracking-wide text-gold sm:text-xl;
 }
 .site-header__nav {
   @apply flex flex-wrap gap-x-6 gap-y-1;

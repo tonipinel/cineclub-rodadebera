@@ -10,7 +10,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ["Comfortaa", "sans-serif"],
+        display: ["Oswald", "sans-serif"],
         body: ["Inter", "sans-serif"],
       },
     },
