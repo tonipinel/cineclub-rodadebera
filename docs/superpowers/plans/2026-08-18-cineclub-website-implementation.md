@@ -1688,6 +1688,19 @@ La revisió visual de la Tasca 10 va detectar dos forats reals no coberts pels p
 1. **Sense navegació mòbil**: `.site-header` és `hidden md:flex`, i cap plantilla oferia cap substitut per sota del breakpoint `md`. S'ha afegit una segona capçalera (`.site-header-mobile`, `md:hidden`) al partial `header.html`, amb el mateix menú i lògica `IsMenuCurrent`.
 2. **Tipografia de Markdown sense estil**: el reset de Tailwind elimina els estils per defecte de `h2`/`ul`/`ol`, i cap classe els restaurava allà on es renderitza Markdown lliure (cos de sessió, respostes de FAQ, pàgines estàtiques, intro de la llista de programació). S'ha afegit `assets/css/components/prose.css` amb una classe `.prose-ca` (títols, paràgrafs, llistes amb pics/números), aplicada a `.intro` (home), `.session-body` (nova, cos de sessió — abans `{{ .Content }}` no tenia cap contenidor ni padding), `.page` (pàgines genèriques i llistat de programació) i `.faq__answer`.
 
+### Addendum 2: troballes de la revisió final (aplicades)
+
+La revisió final de tot el conjunt de canvis (abans de tancar el projecte) va trobar un bug crític i cinc troballes importants, totes corregides:
+
+- **Crític**: `buildFuture = false` (valor per defecte de Hugo) feia que qualsevol sessió amb data futura respecte al moment del build desaparegués silenciosament (sense pàgina, sense targeta, sense alias, sense entrada al sitemap). Invisible avui perquè les 6 sessions migrades ja són totes passades, però hauria trencat el lloc en el moment d'afegir la primera sessió futura real. Corregit amb `buildFuture = true` a `hugo.toml` (abans de `[permalinks]`) i `--buildFuture` al pas de build de GitHub Actions.
+- La "Pròxima sessió" de la home triava la sessió futura més llunyana, no la més propera (`.Site.RegularPages` ve ordenat per data descendent) — corregit amb `.ByDate` abans de `first 1`.
+- El `sitemap.xml` anunciava `/categories/` i `/tags/` (taxonomies de Hugo actives per defecte però sense ús ni plantilla HTML) — corregit amb `disableKinds = ["taxonomy", "term"]`.
+- El local (`venueName`/`venueAddress`) apareixia al JSON-LD però mai es mostrava a la pàgina de sessió — afegit a `.session-info`.
+- `.session-detail__image` no tenia `max-width`, cosa que hauria fet que el primer cartell real es veiés desproporcionat — acotat a `max-w-sm`.
+- Sense `static/CNAME`, GitHub Pages no sap servir el domini propi — afegit (calen també registres DNS al proveïdor de domini, fora de l'abast d'aquest repositori).
+
+Nota per a un futur contribuïdor: un cop hi hagi sessions amb data futura, el llistat de `/programacio/` (ordenat `.ByDate.Reverse`, més recent primer) mostrarà la sessió futura més llunyana a dalt de tot, mentre que la home ja mostra la més propera — és una inconsistència de disseny menor detectada però no corregida, pendent de decisió.
+
 ## Self-Review
 
 **Cobertura de l'spec:** Stack Hugo+Tailwind (Tasques 1-2) ✓, hosting GitHub Pages/Actions (Tasca 9) ✓, identitat visual/CSS BEM+@apply (Tasca 3) ✓, arquitectura de contingut i llistat unificat amb `organitza` (Tasques 3-4) ✓, esquema de camps de sessió (Tasca 5-6) ✓, URLs `/programacio/:year/:slug/` i aliases (Tasca 6) ✓, SEO (lang, meta, OG, JSON-LD, sitemap/robots) (Tasques 3, 5, 10) ✓, mobile-first/desktop (breakpoints Tailwind a totes les tasques de CSS, revisió responsive a la Tasca 10) ✓, port 1414 en local (Global Constraints + totes les verificacions) ✓.
