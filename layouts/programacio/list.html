@@ -3,14 +3,101 @@
   <h1 class="page-hero__title">{{ .Title }}</h1>
   <div class="page-hero__hook">{{ .Content }}</div>
 </section>
+
+{{ partial "next-sessions.html" . }}
+
+{{ $calendarItems := slice }}
+{{ range where .Site.RegularPages "Section" "programacio" }}
+  {{ $calendarItems = $calendarItems | append (dict "date" .Date "title" .Title "url" .RelPermalink) }}
+{{ end }}
+{{ range .Params.sessions_pendents }}
+  {{ $calendarItems = $calendarItems | append (dict "date" (time.AsTime .data) "title" "Per determinar" "url" "") }}
+{{ end }}
+{{ $calendarItems = sort $calendarItems "date" }}
+
+<div class="calendar-wrapper">
+  <div class="calendar">
+    <h2>Calendari {{ now.Format "2006" }}</h2>
+    <ul class="calendar__list" data-calendar-list>
+      {{ range $calendarItems }}
+        <li class="calendar__item" data-calendar-date="{{ .date.Format "2006-01-02T15:04:05Z07:00" }}">
+          {{ $dateHTML := partial "date-ca-short.html" (dict "Date" .date "Site" $.Site) }}
+          {{ if .url }}
+            <a class="calendar__link" href="{{ .url }}">
+              <span class="calendar__date">{{ $dateHTML }}</span>
+              <span class="calendar__title">{{ .title }}</span>
+            </a>
+          {{ else }}
+            <span class="calendar__row">
+              <span class="calendar__date">{{ $dateHTML }}</span>
+              <span class="calendar__title calendar__title--pending">{{ .title }}</span>
+            </span>
+          {{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+<script>
+(function () {
+  var list = document.querySelector("[data-calendar-list]");
+  if (!list) return;
+  var now = new Date();
+  Array.prototype.forEach.call(list.querySelectorAll("[data-calendar-date]"), function (el) {
+    if (new Date(el.getAttribute("data-calendar-date")) < now) {
+      el.remove();
+    }
+  });
+})();
+</script>
+
+<div class="section-filter-wrapper">
+  <div class="section-filter" data-section-filter>
+    <button type="button" class="section-filter__btn is-active" data-filter-value="all">Totes</button>
+    {{ range $key, $val := .Site.Data.seccions }}
+      <button type="button" class="section-filter__btn" data-filter-value="{{ $key }}" style="--filter-color: {{ $val.color }};">{{ $val.nom }}</button>
+    {{ end }}
+  </div>
+</div>
+
 {{ range .Pages.GroupByDate "2006" }}
   <div class="programacio-year">
     <h2 class="programacio-year__title">{{ .Key }}</h2>
     <div class="session-grid">
-      {{ range .Pages.ByDate.Reverse }}
+      {{ range .Pages.ByDate }}
         {{ partial "session-card.html" . }}
       {{ end }}
     </div>
   </div>
 {{ end }}
+<script>
+(function () {
+  var filterBar = document.querySelector("[data-section-filter]");
+  if (!filterBar) return;
+
+  var buttons = Array.prototype.slice.call(filterBar.querySelectorAll("[data-filter-value]"));
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".session-grid .session-card[data-seccio]"));
+  var yearBlocks = Array.prototype.slice.call(document.querySelectorAll(".programacio-year"));
+
+  function applyFilter(value) {
+    cards.forEach(function (card) {
+      var match = value === "all" || card.getAttribute("data-seccio") === value;
+      card.style.display = match ? "" : "none";
+    });
+    yearBlocks.forEach(function (year) {
+      var cardsInYear = Array.prototype.slice.call(year.querySelectorAll(".session-card"));
+      var anyVisible = cardsInYear.some(function (c) { return c.style.display !== "none"; });
+      year.style.display = anyVisible ? "" : "none";
+    });
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      buttons.forEach(function (b) { b.classList.remove("is-active"); });
+      btn.classList.add("is-active");
+      applyFilter(btn.getAttribute("data-filter-value"));
+    });
+  });
+})();
+</script>
 {{ end }}

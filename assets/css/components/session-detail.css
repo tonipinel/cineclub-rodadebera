@@ -2,6 +2,9 @@
   @apply flex flex-col items-center gap-2 border-b-[6px] border-dashed border-white bg-black text-center text-white;
   padding: 1rem 1rem 1.5rem;
 }
+.session-hero__meta {
+  @apply flex;
+}
 .session-hero__date {
   font-family: Inter, sans-serif;
   font-size: 0.875rem;
@@ -10,6 +13,15 @@
   background: #fff;
   text-transform: uppercase;
   padding: 0.1rem 0.5rem;
+  margin-bottom: -4px;
+}
+.section-badge--hero {
+  @apply border-0 text-white;
+  font-family: Inter, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.1rem 0.5rem;
+  margin-bottom: -4px;
 }
 .session-hero__title {
   @apply font-display font-bold uppercase text-gold;

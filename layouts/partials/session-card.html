@@ -1,4 +1,5 @@
-<article class="session-card">
+{{- $seccioKey := .Params.seccio | default "cartellera" -}}
+<article class="session-card" data-seccio="{{ $seccioKey }}">
   <a class="session-card__link" href="{{ .RelPermalink }}">
     {{ with .Resources.GetMatch "poster*" }}
       {{ $img := . }}
@@ -8,6 +9,7 @@
       <img class="session-card__image" src="{{ $img.RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}" loading="lazy">
     {{ end }}
     <div class="session-card__body">
+      {{ partial "section-badge.html" (dict "page" . "variant" "hero") }}
       <span class="session-card__date">{{ partial "date-ca-short.html" . }}</span>
       <h3 class="session-card__title">{{ .Title }}</h3>
       {{ with .Params.titol_traduit }}<p class="session-card__subtitle">{{ . }}</p>{{ end }}

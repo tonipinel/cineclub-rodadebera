@@ -30,6 +30,7 @@ preu: 5
 que_inclou: "La sessió inclou projecció en versió original en espanyol i col·loqui moderat posterior."
 edat_minima_recomanada: 7
 suport_distribucio: "Arlong Productions"
+seccio: "cartellera"
 organitza: "cineclub"
 aliases:
   - /programacio/23-de-juliol-esperando-a-dalí/

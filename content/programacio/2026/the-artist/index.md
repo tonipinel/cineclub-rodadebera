@@ -22,6 +22,7 @@ preu: 5
 que_inclou: "La sessió inclou projecció en versió original subtitulada i col·loqui moderat posterior."
 edat_minima_recomanada: 0
 suport_distribucio: "A Contracorriente Films"
+seccio: "cartellera"
 organitza: "cineclub"
 aliases:
   - /programacio/5-de-març-the-artist/

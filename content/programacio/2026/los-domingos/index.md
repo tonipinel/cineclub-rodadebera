@@ -26,6 +26,7 @@ preu: 5
 que_inclou: "La sessió inclou projecció en versió original i col·loqui moderat posterior."
 edat_minima_recomanada: 12
 suport_distribucio: "BTeam Pictures"
+seccio: "cartellera"
 organitza: "cineclub"
 ---
 

@@ -1,0 +1,11 @@
+{{- $page := .page -}}
+{{- $variant := .variant | default "listing" -}}
+{{- $seccioKey := $page.Params.seccio | default "cartellera" -}}
+{{- $seccio := index $page.Site.Data.seccions $seccioKey -}}
+{{- if $seccio -}}
+  {{- if eq $variant "hero" -}}
+<span class="section-badge section-badge--hero" data-seccio="{{ $seccioKey }}" style="background-color: {{ $seccio.color }};">{{ $seccio.nom }}</span>
+  {{- else -}}
+<span class="section-badge" data-seccio="{{ $seccioKey }}" style="border-color: {{ $seccio.color }}; color: {{ $seccio.color }};">{{ $seccio.nom }}</span>
+  {{- end -}}
+{{- end -}}

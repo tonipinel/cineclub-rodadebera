@@ -7,7 +7,10 @@
 
 {{ define "main" }}
 <section class="session-hero">
-  <span class="session-hero__date">{{ partial "date-ca.html" . }}</span>
+  <div class="session-hero__meta">
+    {{ partial "section-badge.html" (dict "page" . "variant" "hero") }}
+    <span class="session-hero__date">{{ partial "date-ca.html" . }}</span>
+  </div>
   <h1 class="session-hero__title">{{ .Title }}</h1>
   {{ with .Params.titol_traduit }}<p class="session-hero__subtitle">{{ . }}</p>{{ end }}
 </section>
