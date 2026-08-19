@@ -9,6 +9,7 @@
 <section class="session-hero">
   <span class="session-hero__date">{{ partial "date-ca.html" . }}</span>
   <h1 class="session-hero__title">{{ .Title }}</h1>
+  {{ with .Params.titol_traduit }}<p class="session-hero__subtitle">{{ . }}</p>{{ end }}
 </section>
 
 {{ $galleryImages := sort (.Resources.Match "gallery*") "Name" }}
@@ -111,6 +112,7 @@
     {{ end }}
     <dl class="session-fitxa__details">
       <dt class="session-fitxa__label">Títol original</dt><dd>{{ .Params.titol_original }}</dd>
+      {{ with .Params.titol_espanya }}<dt class="session-fitxa__label">Títol a Espanya</dt><dd>{{ . }}</dd>{{ end }}
       {{ with .Params.direccio }}<dt class="session-fitxa__label">Direcció</dt><dd>{{ . }}</dd>{{ end }}
       {{ with .Params.guio }}<dt class="session-fitxa__label">Guió</dt><dd>{{ . }}</dd>{{ end }}
       <dt class="session-fitxa__label">País</dt><dd>{{ .Params.pais }}</dd>

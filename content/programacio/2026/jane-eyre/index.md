@@ -2,6 +2,7 @@
 title: "Jane Eyre"
 date: 2026-08-06T19:00:00+02:00
 titol_original: "Jane Eyre"
+titol_espanya: "Jane Eyre"
 trailer_youtube_id: "8IFsdfk3mlk"
 direccio: "Cary Joji Fukunaga"
 guio: "Moira Buffini (basat en la novel·la de Charlotte Brontë)"

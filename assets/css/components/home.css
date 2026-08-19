@@ -93,13 +93,30 @@
   font-size: 1.4rem;
 }
 .next-session-wrapper {
-  @apply w-full border-b-2 border-dashed border-black bg-white;
+  @apply w-full border-b-2 border-dashed border-black;
+  background: #bf9000a3;
 }
 .next-session {
-  @apply mx-auto max-w-sm px-6 py-12 text-center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 64rem;
+  padding: 1.5rem 1.5rem 3rem;
+  text-align: center;
 }
 .next-session h2 {
-  @apply mb-6 font-display text-2xl font-bold uppercase text-gold-dark;
+  margin-bottom: 1rem;
+  font-family: Oswald, sans-serif;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgb(255 255 255);
+}
+.next-session__grid {
+  @apply grid grid-cols-1 gap-8 text-left sm:grid-cols-2 lg:grid-cols-3;
+}
+.next-session__item {
+  @apply flex;
 }
 .membership-teaser-wrapper {
   @apply w-full border-t-2 border-dashed border-black;

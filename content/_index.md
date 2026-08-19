@@ -17,7 +17,7 @@ membership_benefits:
   - "Activitats i cicles especials amb avantatges per a persones sòcies"
 ---
 
-## Neix un nou espai de cinema a Roda de Berà
+## Un nou espai de cinema a Roda de Berà
 
 Roda de Berà és municipi de cinema. El Cineclub Roda de Berà neix amb la voluntat d'ampliar l'oferta cultural i donar-li continuïtat al llarg de tot l'any. Perquè un municipi que té un festival de cinema també ha de tenir programació estable.
 

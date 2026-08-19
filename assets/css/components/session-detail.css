@@ -14,12 +14,15 @@
 .session-hero__title {
   @apply font-display font-bold uppercase text-gold;
   font-size: 3rem;
-  line-height: 1;
+  line-height: 1.1;
 }
 @media (min-width: 640px) {
   .session-hero__title {
     font-size: 5rem;
   }
+}
+.session-hero__subtitle {
+  @apply text-base normal-case tracking-normal text-white/70 sm:text-lg;
 }
 .session-gallery {
   @apply relative border-dashed border-white bg-black;

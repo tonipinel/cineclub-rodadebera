@@ -13,6 +13,46 @@
   <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Fes-te sòcia/soci</a>
 </section>
 
+<div class="next-session-wrapper" data-next-session-wrapper hidden>
+  <section class="next-session">
+    <h2>Properes sessions</h2>
+    <div class="next-session__grid" data-next-session-grid>
+      {{ range where .Site.RegularPages "Section" "programacio" }}
+        <div class="next-session__item" data-session-date="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" hidden>
+          {{ partial "session-card.html" . }}
+        </div>
+      {{ end }}
+    </div>
+  </section>
+</div>
+<script>
+(function () {
+  var wrapper = document.querySelector("[data-next-session-wrapper]");
+  var grid = document.querySelector("[data-next-session-grid]");
+  if (!wrapper || !grid) return;
+
+  var items = Array.prototype.slice.call(grid.querySelectorAll("[data-session-date]"));
+  var now = new Date();
+
+  var upcoming = items
+    .filter(function (el) {
+      return new Date(el.getAttribute("data-session-date")) >= now;
+    })
+    .sort(function (a, b) {
+      return new Date(a.getAttribute("data-session-date")) - new Date(b.getAttribute("data-session-date"));
+    })
+    .slice(0, 3);
+
+  if (!upcoming.length) return;
+
+  upcoming.forEach(function (el) {
+    el.hidden = false;
+    grid.appendChild(el);
+  });
+  wrapper.hidden = false;
+})();
+</script>
+
 <div class="intro-wrapper">
   <div class="intro">
     {{ with .Resources.GetMatch "neix-espai.png" }}
@@ -62,18 +102,6 @@
     {{ end }}
   </section>
 </div>
-
-{{ $upcoming := where (where .Site.RegularPages "Section" "programacio") "Date" "ge" now }}
-{{ with (first 1 $upcoming.ByDate) }}
-  {{ range . }}
-    <div class="next-session-wrapper">
-      <section class="next-session">
-        <h2>Pròxima sessió</h2>
-        {{ partial "session-card.html" . }}
-      </section>
-    </div>
-  {{ end }}
-{{ end }}
 
 <div class="membership-teaser-wrapper">
   <section class="membership-teaser">

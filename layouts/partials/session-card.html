@@ -10,6 +10,7 @@
     <div class="session-card__body">
       <span class="session-card__date">{{ partial "date-ca-short.html" . }}</span>
       <h3 class="session-card__title">{{ .Title }}</h3>
+      {{ with .Params.titol_traduit }}<p class="session-card__subtitle">{{ . }}</p>{{ end }}
       {{ $organitza := .Params.organitza | default "cineclub" }}
       {{ if ne $organitza "cineclub" }}
         <span class="session-card__badge">Amb {{ $organitza }}</span>

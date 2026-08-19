@@ -2,6 +2,8 @@
 title: "Pig"
 date: 2026-06-25T19:00:00+02:00
 titol_original: "Pig"
+titol_traduit: "Porc"
+titol_espanya: "Pig"
 trailer_youtube_id: "TGOcqxU-_l8"
 direccio: "Michael Sarnoski"
 guio: "Michael Sarnoski i Vanessa Block"

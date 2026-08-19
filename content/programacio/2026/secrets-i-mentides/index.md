@@ -1,7 +1,10 @@
 ---
-title: "Secrets i mentides"
+title: "Secrets & Lies"
+slug: "secrets-i-mentides"
 date: 2026-05-07T19:00:00+02:00
 titol_original: "Secrets & Lies"
+titol_traduit: "Secrets i mentides"
+titol_espanya: "Secretos y mentiras"
 trailer_youtube_id: "dSnI4_6DrFw"
 direccio: "Mike Leigh"
 guio: "Mike Leigh"
