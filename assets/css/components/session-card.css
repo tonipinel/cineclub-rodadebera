@@ -136,6 +136,10 @@
   border-right: 6px solid transparent;
   border-top: 8px solid var(--filter-color, #000);
 }
+.programacio-year {
+  max-width: 1280px;
+  margin: 0 auto;
+}
 .programacio-year__title {
   border-bottom-width: 2px;
   border-style: dashed;

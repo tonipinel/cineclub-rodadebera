@@ -38,6 +38,8 @@
 }
 .session-gallery {
   @apply relative border-dashed border-white bg-black;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 .session-gallery__track {
   @apply flex snap-x snap-mandatory overflow-x-auto;
