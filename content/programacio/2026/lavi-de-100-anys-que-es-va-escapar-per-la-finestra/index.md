@@ -39,7 +39,7 @@ Estrenada el 2013, la pel·lícula també va tenir un gran èxit de públic i es
 
 ## Curiositats
 
-- L'actor i humorista suec Robert Gustafsson —que en el moment del rodatge no arribava als 50 anys— interpreta Allan Karlsson amb un elaborat treball de maquillatge que el transforma en un home de cent anys.
+- L'actor i humorista suec Robert Gustafsson (que en el moment del rodatge no arribava als 50 anys) interpreta Allan Karlsson amb un elaborat treball de maquillatge que el transforma en un home de cent anys.
 - La pel·lícula alterna dues línies narratives: les aventures d'Allan amb cent anys i els records de la seva vida al llarg del segle XX.
 - El protagonista es troba accidentalment amb diversos personatges històrics i participa indirectament en esdeveniments importants del segle passat.
 - L'èxit del film va donar lloc a una seqüela estrenada el 2016.

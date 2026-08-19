@@ -1,6 +1,7 @@
 {{ define "main" }}
 <section class="page-hero">
   <h1 class="page-hero__title">{{ .Title }}</h1>
+  {{ with .Params.hook }}<p class="page-hero__hook">{{ . }}</p>{{ end }}
 </section>
 <div class="page-body">
   {{ range .Params.faq }}

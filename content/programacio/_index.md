@@ -2,4 +2,4 @@
 title: "Programació"
 ---
 
-Descobreix què fem aquest mes al Cineclub Roda de Berà.
+Descobreix quines pel·lícules programem al Cineclub Roda de Berà.

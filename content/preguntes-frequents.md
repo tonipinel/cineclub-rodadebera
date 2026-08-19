@@ -1,5 +1,6 @@
 ---
 title: "Preguntes freqüents"
+hook: "Resolem els dubtes més habituals sobre el Cineclub i com fer-te'n sòcia o soci."
 type: faq
 faq:
   - pregunta: "Què és el Cineclub Roda de Berà?"

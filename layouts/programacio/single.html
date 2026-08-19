@@ -11,10 +11,11 @@
   <h1 class="session-hero__title">{{ .Title }}</h1>
 </section>
 
+{{ $galleryImages := sort (.Resources.Match "gallery*") "Name" }}
 <div class="session-gallery">
   <button type="button" class="session-gallery__prev" aria-label="Imatge anterior">{{ partial "icon.html" "chevron-left" }}</button>
   <div class="session-gallery__track">
-    {{ range sort (.Resources.Match "gallery*") "Name" }}
+    {{ range $galleryImages }}
       {{ $img := . }}
       {{ if gt $img.Width 800 }}
         {{ $img = $img.Resize "800x" }}
@@ -23,6 +24,13 @@
     {{ end }}
   </div>
   <button type="button" class="session-gallery__next" aria-label="Imatge següent">{{ partial "icon.html" "chevron-right" }}</button>
+  {{ if gt (len $galleryImages) 1 }}
+    <div class="session-gallery__dots" aria-hidden="true">
+      {{ range $i, $e := $galleryImages }}
+        <span class="session-gallery__dot{{ if eq $i 0 }} session-gallery__dot--active{{ end }}"></span>
+      {{ end }}
+    </div>
+  {{ end }}
 </div>
 
 <div class="session-info-wrapper">

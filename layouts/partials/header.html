@@ -9,5 +9,20 @@
         <a class="site-header__link{{ if $.IsMenuCurrent "main" . }} site-header__link--active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
       {{ end }}
     </nav>
+    <button type="button" class="site-header__menu-toggle" aria-label="Obrir menú" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+      {{ partial "icon.html" "bars-3" }}
+    </button>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu>
+  <div class="mobile-menu__backdrop" data-menu-close></div>
+  <nav class="mobile-menu__panel">
+    <button type="button" class="mobile-menu__close" aria-label="Tancar menú" data-menu-close>
+      {{ partial "icon.html" "x-mark" }}
+    </button>
+    {{ range .Site.Menus.main }}
+      <a class="mobile-menu__link{{ if $.IsMenuCurrent "main" . }} mobile-menu__link--active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+    {{ end }}
+  </nav>
+</div>

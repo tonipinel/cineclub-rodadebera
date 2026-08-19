@@ -1,0 +1,87 @@
+{{ define "main" }}
+<section class="page-hero">
+  <h1 class="page-hero__title">{{ .Title }}</h1>
+  {{ with .Params.hook }}<p class="page-hero__hook">{{ . }}</p>{{ end }}
+  {{ partial "join-button.html" . }}
+</section>
+
+<div class="member-benefits-wrapper">
+  <div class="member-benefits">
+    <h2>Què hi guanyes <span class="text-gold">fent-te sòcia o soci</span></h2>
+  </div>
+  <div class="session-info">
+    {{ range .Params.benefits }}
+      {{ partial "info-item.html" (dict "icon" .icona "caption" .text) }}
+    {{ end }}
+  </div>
+</div>
+
+{{ range $i, $block := .Params.blocks }}
+  <div class="member-block-wrapper{{ if modBool $i 2 }} member-block-wrapper--alt{{ end }}">
+    <div class="member-block{{ if eq $block.costat "esquerra" }} member-block--reverse{{ end }}">
+      {{ with $.Resources.GetMatch $block.imatge }}
+        {{ $img := . }}
+        {{ if gt $img.Width 700 }}
+          {{ $img = $img.Resize "700x" }}
+        {{ end }}
+        <img class="member-block__image" src="{{ $img.RelPermalink }}" alt="">
+      {{ end }}
+      <div class="member-block__body prose-ca">
+        <h2>{{ $block.titol1 }}<br><span class="text-gold">{{ $block.titol2 }}</span></h2>
+        {{ $block.text | markdownify }}
+      </div>
+    </div>
+  </div>
+{{ end }}
+
+<div class="member-signup-wrapper">
+  <div class="member-signup">
+    {{ with .Resources.GetMatch .Params.signup_image }}
+      {{ $img := . }}
+      {{ if gt $img.Width 700 }}
+        {{ $img = $img.Resize "700x" }}
+      {{ end }}
+      <img class="member-signup__image" src="{{ $img.RelPermalink }}" alt="">
+    {{ end }}
+    <div class="member-signup__body prose-ca">
+      <h2>{{ .Params.signup_titol1 }}<br><span class="text-gold">{{ .Params.signup_titol2 }}</span></h2>
+      {{ .Content }}
+    </div>
+  </div>
+</div>
+
+<section class="page-hero" data-bottom-hero>
+  <h2 class="page-hero__title">{{ .Params.closing_titol }}</h2>
+  {{ with .Params.closing_hook }}<p class="page-hero__hook">{{ . }}</p>{{ end }}
+  {{ partial "join-button.html" . }}
+</section>
+
+<div class="floating-cta-bar" data-floating-cta>
+  <a class="floating-cta" href="{{ .Site.Params.membershipFormURL }}" target="_blank" rel="noopener">
+    {{ partial "icon.html" "ticket" }}
+    Vull fer-me soci/a
+  </a>
+</div>
+<script>
+(function () {
+  var bar = document.querySelector("[data-floating-cta]");
+  var hero = document.querySelector(".page-hero");
+  var bottomHero = document.querySelector("[data-bottom-hero]");
+  if (!bar || !hero) return;
+
+  function update() {
+    var pastTopHero = hero.getBoundingClientRect().bottom < 0;
+    var bottomHeroVisible = bottomHero && bottomHero.getBoundingClientRect().top < window.innerHeight;
+    if (pastTopHero && !bottomHeroVisible) {
+      bar.classList.add("floating-cta-bar--visible");
+    } else {
+      bar.classList.remove("floating-cta-bar--visible");
+    }
+  }
+
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+})();
+</script>
+{{ end }}

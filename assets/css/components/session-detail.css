@@ -13,8 +13,13 @@
 }
 .session-hero__title {
   @apply font-display font-bold uppercase text-gold;
-  font-size: 5rem;
+  font-size: 3rem;
   line-height: 1;
+}
+@media (min-width: 640px) {
+  .session-hero__title {
+    font-size: 5rem;
+  }
 }
 .session-gallery {
   @apply relative border-dashed border-white bg-black;
@@ -48,6 +53,15 @@
 .session-gallery__next:hover .icon {
   color: #000;
 }
+.session-gallery__dots {
+  @apply absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-2;
+}
+.session-gallery__dot {
+  @apply h-2 w-2 rounded-full bg-white/40 transition;
+}
+.session-gallery__dot--active {
+  @apply bg-gold;
+}
 .session-trailer {
   @apply mx-4 mt-8 max-w-3xl border-2 border-b-0 border-dashed border-white bg-black p-6 shadow-lg sm:mx-auto;
 }
@@ -59,9 +73,11 @@
 }
 .session-fitxa-wrapper {
   @apply w-full border-b-[6px] border-dashed border-black bg-white/90;
+  border-top: 4px dashed #ffffff;
 }
 .session-fitxa {
-  @apply mx-auto flex max-w-[1000px] flex-col gap-6 p-6 text-sm sm:flex-row;
+  @apply mx-auto flex max-w-[1000px] flex-col gap-6 text-sm sm:flex-row;
+  padding: 2.5rem 2.5rem 2.25rem;
 }
 .session-fitxa__poster-col {
   @apply mx-auto flex w-40 flex-shrink-0 flex-col items-center gap-4 self-start sm:mx-0 sm:w-48 sm:items-start;

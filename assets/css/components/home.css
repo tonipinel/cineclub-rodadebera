@@ -6,8 +6,14 @@
 }
 .hero__tagline {
   @apply font-display font-bold uppercase tracking-tight;
-  font-size: 3rem;
-  line-height: 3rem;
+  font-size: 1.6rem;
+  line-height: 2rem;
+}
+@media (min-width: 640px) {
+  .hero__tagline {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
 }
 .hero__tagline--white {
   @apply text-white;
@@ -27,8 +33,31 @@
 }
 .intro-wrapper .intro__body h2,
 .programming-wrapper .programming__body h2 {
-  font-size: 3rem;
-  line-height: 3.5rem;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 2.2rem;
+}
+.intro-wrapper .intro__body .btn,
+.programming-wrapper .programming__body .btn {
+  display: block;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 640px) {
+  .intro-wrapper .intro__body h2,
+  .programming-wrapper .programming__body h2 {
+    text-align: left;
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
+  .intro-wrapper .intro__body .btn,
+  .programming-wrapper .programming__body .btn {
+    display: inline-block;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 .intro__body p {
   @apply mb-4;
@@ -84,8 +113,14 @@
 }
 .membership-teaser__title {
   @apply mb-4 font-display font-bold uppercase text-black;
-  font-size: 3rem;
-  line-height: 3rem;
+  font-size: 2rem;
+  line-height: 2.2rem;
+}
+@media (min-width: 640px) {
+  .membership-teaser__title {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
 }
 .membership-teaser__list {
   @apply mb-6 list-disc space-y-1 pl-5 text-left;
