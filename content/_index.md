@@ -8,7 +8,7 @@ features:
     text: "El cineclub és participatiu. Pots proposar pel·lícules, col·laborar com a voluntària o voluntari, impulsar cicles temàtics o donar suport com a entitat o empresa local."
     imatge: "participatiu.png"
   - titol: "Creixement de futur"
-    text: "Si el projecte creix en número de persones sòcies i/o aportacions, podrem ampliar sessions, incorporar iniciatives com el Cicle Gaudí i oferir més cinema per a tots els públics."
+    text: "Si el projecte creix en nombre de persones sòcies i/o aportacions, podrem ampliar sessions, incorporar iniciatives com el Cicle Gaudí i oferir més cinema per a tots els públics."
     imatge: "creix.png"
 membership_benefits:
   - "Un mínim de 12 projeccions anuals"

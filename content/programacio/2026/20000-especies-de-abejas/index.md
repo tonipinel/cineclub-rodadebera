@@ -9,7 +9,7 @@ guio: "Estibaliz Urresola Solaguren"
 pais: "Espanya"
 any: 2023
 durada: 125
-idioma: "Castellà, èuscar i francès"
+idioma: "Castellà, basc i francès"
 genere: "Drama"
 fotografia: "Gina Ferrer García"
 muntatge: "Raúl Barreras"
