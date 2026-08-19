@@ -90,19 +90,51 @@
   @apply text-xs text-gray-500 sm:text-right;
 }
 .section-filter-wrapper {
-  @apply w-full bg-white;
+  @apply w-full;
 }
 .section-filter {
-  @apply mx-auto flex max-w-5xl flex-wrap justify-center gap-3 px-6 pt-8;
+  @apply mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 px-6 pt-8;
+  padding-bottom: 2rem;
+}
+.section-filter__label {
+  @apply font-display tracking-wide;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 2.5;
+  text-shadow: 2px 2px 0 black;
 }
 .section-filter__btn {
-  @apply cursor-pointer border border-dashed bg-transparent px-3 py-1 font-display text-xs font-bold uppercase tracking-wide transition;
+  @apply relative cursor-pointer border border-dashed bg-transparent px-3 py-1 font-display font-bold uppercase tracking-wide transition;
   border-color: var(--filter-color, #000);
   color: var(--filter-color, #000);
+  font-size: 2rem;
+  line-height: 2rem;
+}
+.section-filter__btn[data-filter-value="all"] {
+  border-color: #fff;
+  color: #fff;
 }
 .section-filter__btn.is-active {
   background-color: var(--filter-color, #000);
   color: #fff;
+}
+.section-filter__btn[data-filter-value="all"].is-active {
+  background-color: #fff;
+  color: #000;
+}
+.section-filter__btn[data-filter-value="all"].is-active::after {
+  border-top-color: #fff;
+}
+.section-filter__btn.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--filter-color, #000);
 }
 .programacio-year__title {
   border-bottom-width: 2px;
@@ -118,5 +150,4 @@
   letter-spacing: 0.025em;
   color: #bf9000;
   border-color: #ffffff;
-  background: rgb(191 144 0 / 18%);
 }

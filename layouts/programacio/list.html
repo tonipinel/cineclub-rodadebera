@@ -53,6 +53,7 @@
 
 <div class="section-filter-wrapper">
   <div class="section-filter" data-section-filter>
+    <span class="section-filter__label">Filtrar per seccions:</span>
     <button type="button" class="section-filter__btn is-active" data-filter-value="all">Totes</button>
     {{ range $key, $val := .Site.Data.seccions }}
       <button type="button" class="section-filter__btn" data-filter-value="{{ $key }}" style="--filter-color: {{ $val.color }};">{{ $val.nom }}</button>
