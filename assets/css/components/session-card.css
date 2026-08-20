@@ -52,6 +52,16 @@
 .session-grid {
   @apply grid grid-cols-1 gap-12 p-12 pt-8 sm:grid-cols-2 lg:grid-cols-3;
 }
+.related-sessions-wrapper {
+  @apply w-full border-t-[6px] border-dashed border-black bg-white;
+  border-bottom-width: 6px;
+}
+.related-sessions__title {
+  @apply mx-auto max-w-[1280px] px-12 pt-8 font-display text-2xl font-bold uppercase tracking-wide text-gold-dark;
+}
+.related-sessions__grid {
+  @apply mx-auto max-w-[1280px];
+}
 .calendar-wrapper {
   @apply w-full border-b-2 border-dashed border-black bg-white;
 }

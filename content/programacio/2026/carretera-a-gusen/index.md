@@ -4,15 +4,17 @@ slug: "carretera-a-gusen"
 date: 2026-05-09T19:00:00+02:00
 titol_original: "Carretera a Gusen"
 trailer_youtube_id: "cf3FGcM9tkI"
-direccio: "Eloy Calvo"
+directors:
+  - "Eloy Calvo"
 guio: "Eloy Calvo"
 pais: "Espanya"
 any: 2023
 durada: 76
 idioma: "Català"
-genere: "Documental"
+generes:
+  - "Documental"
 produccio: "Amical de Mauthausen i altres Camps"
-repartiment:
+interprets:
   - "Àlex Cirera Izquierdo"
 versio_tipus: "vo"
 preu: 0

@@ -37,8 +37,11 @@
 .session-hero__subtitle {
   @apply text-base normal-case tracking-normal text-white/70 sm:text-lg;
 }
+.session-gallery-wrapper {
+  @apply w-full bg-black;
+}
 .session-gallery {
-  @apply relative border-dashed border-white bg-black;
+  @apply relative border-dashed border-white;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -183,6 +186,9 @@
 }
 .session-fitxa__label {
   @apply font-display font-bold uppercase tracking-wide text-gold-dark;
+}
+.session-fitxa__taxonomy-link {
+  @apply text-gold-dark underline decoration-dotted hover:text-gold;
 }
 .session-version {
   @apply px-6 pt-4 font-display text-sm font-bold uppercase tracking-wide text-gold-dark;

@@ -5,14 +5,19 @@ titol_original: "The Artist"
 titol_traduit: "L'artista"
 titol_espanya: "The Artist"
 trailer_youtube_id: "YB9Oq0hn5KY"
-direccio: "Michel Hazanavicius"
+directors:
+  - "Michel Hazanavicius"
 guio: "Michel Hazanavicius"
 pais: "França"
 any: 2011
 durada: 100
 idioma: "Pel·lícula muda (intertítols en anglès)"
+generes:
+  - "Comèdia"
+  - "Drama"
+  - "Romàntic"
 fotografia: "Blanc i negre"
-repartiment:
+interprets:
   - "Jean Dujardin"
   - "Bérénice Bejo"
   - "John Goodman"

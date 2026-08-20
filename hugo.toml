@@ -3,10 +3,15 @@ languageCode = "ca"
 title = "Cineclub Roda de Berà"
 enableRobotsTXT = true
 buildFuture = true
-disableKinds = ["taxonomy", "term"]
+titleCaseStyle = "none"
 
 [permalinks]
   programacio = "/programacio/:year/:slug/"
+
+[taxonomies]
+  direccio = "directors"
+  genere = "generes"
+  interpret = "interprets"
 
 [params]
   tagline = "Un espai per viure i compartir cinema durant tot l'any!"

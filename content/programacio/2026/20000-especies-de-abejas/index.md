@@ -4,17 +4,19 @@ slug: "20000-especies-de-abejas"
 date: 2026-10-08T19:00:00+02:00
 titol_original: "20.000 especies de abejas"
 trailer_youtube_id: "22EdsxVNJiQ"
-direccio: "Estibaliz Urresola Solaguren"
+directors:
+  - "Estibaliz Urresola Solaguren"
 guio: "Estibaliz Urresola Solaguren"
 pais: "Espanya"
 any: 2023
 durada: 125
 idioma: "Castellà, basc i francès"
-genere: "Drama"
+generes:
+  - "Drama"
 fotografia: "Gina Ferrer García"
 muntatge: "Raúl Barreras"
 produccio: "Gariza Films, Inicia Films"
-repartiment:
+interprets:
   - "Sofía Otero"
   - "Patricia López Arnaiz"
   - "Ane Gabarain"

@@ -4,17 +4,21 @@ date: 2026-08-06T19:00:00+02:00
 titol_original: "Jane Eyre"
 titol_espanya: "Jane Eyre"
 trailer_youtube_id: "8IFsdfk3mlk"
-direccio: "Cary Joji Fukunaga"
+directors:
+  - "Cary Joji Fukunaga"
 guio: "Moira Buffini (basat en la novel·la de Charlotte Brontë)"
 pais: "Regne Unit / Estats Units"
 any: 2011
 durada: 120
 idioma: "Anglès"
-genere: "Drama, romàntic, època"
+generes:
+  - "Drama"
+  - "Romàntic"
+  - "Època"
 fotografia: "Adriano Goldman"
 muntatge: "Melanie Oliver"
 musica: "Dario Marianelli"
-repartiment:
+interprets:
   - "Mia Wasikowska"
   - "Michael Fassbender"
   - "Jamie Bell"

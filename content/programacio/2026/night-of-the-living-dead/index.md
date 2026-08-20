@@ -6,17 +6,20 @@ titol_original: "Night of the Living Dead"
 titol_traduit: "La nit dels morts vivents"
 titol_espanya: "La noche de los muertos vivientes"
 trailer_youtube_id: "pd5a0gs-UCQ"
-direccio: "George A. Romero"
+directors:
+  - "George A. Romero"
 guio: "John A. Russo, George A. Romero"
 pais: "Estats Units"
 any: 1968
 durada: 96
 idioma: "Anglès"
-genere: "Terror, zombi"
+generes:
+  - "Terror"
+  - "Zombis"
 fotografia: "George A. Romero"
 muntatge: "George A. Romero"
 produccio: "Image Ten"
-repartiment:
+interprets:
   - "Duane Jones"
   - "Judith O'Dea"
   - "Karl Hardman"

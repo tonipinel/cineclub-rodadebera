@@ -4,18 +4,22 @@ slug: "esperando-a-dali"
 date: 2026-07-23T19:00:00+02:00
 titol_original: "Esperando a Dalí"
 trailer_youtube_id: "uMJL0VTSQV8"
-direccio: "David Pujol"
+directors:
+  - "David Pujol"
 guio: "David Pujol"
 pais: "Espanya"
 any: 2023
 durada: 114
 idioma: "Castellà, Francès i Català"
-genere: "Comèdia dramàtica, romàntica i gastronòmica"
+generes:
+  - "Comèdia dramàtica"
+  - "Romàntica"
+  - "Gastronòmica"
 fotografia: "Román Martínez de Bujo"
 muntatge: "Jordi Muñoz"
 musica: "Pascal Comelade"
 produccio: "FishCorb, Arlong Productions i Loco Films"
-repartiment:
+interprets:
   - "Iván Massagué"
   - "José Garcia"
   - "Clara Ponsot"

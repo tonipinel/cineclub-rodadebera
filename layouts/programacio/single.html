@@ -16,6 +16,7 @@
 {{ partial "collab-strip.html" . }}
 
 {{ $galleryImages := sort (.Resources.Match "gallery*") "Name" }}
+<div class="session-gallery-wrapper">
 <div class="session-gallery">
   <button type="button" class="session-gallery__prev" aria-label="Imatge anterior">{{ partial "icon.html" "chevron-left" }}</button>
   <div class="session-gallery__track">
@@ -35,6 +36,7 @@
       {{ end }}
     </div>
   {{ end }}
+</div>
 </div>
 
 <div class="session-info-wrapper">
@@ -116,18 +118,45 @@
     <dl class="session-fitxa__details">
       <dt class="session-fitxa__label">Títol original</dt><dd>{{ .Params.titol_original }}</dd>
       {{ with .Params.titol_espanya }}<dt class="session-fitxa__label">Títol a Espanya</dt><dd>{{ . }}</dd>{{ end }}
-      {{ with .Params.direccio }}<dt class="session-fitxa__label">Direcció</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .GetTerms "directors" }}
+        <dt class="session-fitxa__label">Direcció</dt>
+        <dd>
+          {{ $links := slice }}
+          {{ range . }}
+            {{ $links = $links | append (printf "<a class=\"session-fitxa__taxonomy-link\" href=\"%s\">%s</a>" .RelPermalink .Title) }}
+          {{ end }}
+          {{ delimit $links ", " | safeHTML }}
+        </dd>
+      {{ end }}
       {{ with .Params.guio }}<dt class="session-fitxa__label">Guió</dt><dd>{{ . }}</dd>{{ end }}
       <dt class="session-fitxa__label">País</dt><dd>{{ .Params.pais }}</dd>
       <dt class="session-fitxa__label">Any</dt><dd>{{ .Params.any }}</dd>
       <dt class="session-fitxa__label">Durada</dt><dd>{{ .Params.durada }} minuts</dd>
       <dt class="session-fitxa__label">Idioma</dt><dd>{{ .Params.idioma }}</dd>
-      {{ with .Params.genere }}<dt class="session-fitxa__label">Gènere</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .GetTerms "generes" }}
+        <dt class="session-fitxa__label">Gènere</dt>
+        <dd>
+          {{ $links := slice }}
+          {{ range . }}
+            {{ $links = $links | append (printf "<a class=\"session-fitxa__taxonomy-link\" href=\"%s\">%s</a>" .RelPermalink .Title) }}
+          {{ end }}
+          {{ delimit $links ", " | safeHTML }}
+        </dd>
+      {{ end }}
       {{ with .Params.fotografia }}<dt class="session-fitxa__label">Fotografia</dt><dd>{{ . }}</dd>{{ end }}
       {{ with .Params.muntatge }}<dt class="session-fitxa__label">Muntatge</dt><dd>{{ . }}</dd>{{ end }}
       {{ with .Params.musica }}<dt class="session-fitxa__label">Música</dt><dd>{{ . }}</dd>{{ end }}
       {{ with .Params.produccio }}<dt class="session-fitxa__label">Producció</dt><dd>{{ . }}</dd>{{ end }}
-      <dt class="session-fitxa__label">Repartiment</dt><dd>{{ delimit .Params.repartiment ", " }}</dd>
+      {{ with .GetTerms "interprets" }}
+        <dt class="session-fitxa__label">Repartiment</dt>
+        <dd>
+          {{ $links := slice }}
+          {{ range . }}
+            {{ $links = $links | append (printf "<a class=\"session-fitxa__taxonomy-link\" href=\"%s\">%s</a>" .RelPermalink .Title) }}
+          {{ end }}
+          {{ delimit $links ", " | safeHTML }}
+        </dd>
+      {{ end }}
       {{ with .Params.premis_destacats }}<dt class="session-fitxa__label">Premis destacats</dt><dd>{{ . }}</dd>{{ end }}
     </dl>
   </div>
@@ -144,4 +173,6 @@
 <div class="session-body prose-ca">
   {{ .Content }}
 </div>
+
+{{ partial "related-sessions.html" . }}
 {{ end }}

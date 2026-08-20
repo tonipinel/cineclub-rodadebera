@@ -7,7 +7,7 @@
 {{- else if .Params.hook }}
   {{- $description = .Params.hook }}
 {{- else if and (eq .Section "programacio") .IsPage }}
-  {{- $description = printf "%s (%v), dirigida per %s. Sessió del Cineclub Roda de Berà a Roda de Berà." .Title .Params.any .Params.direccio }}
+  {{- $description = printf "%s (%v), dirigida per %s. Sessió del Cineclub Roda de Berà a Roda de Berà." .Title .Params.any (delimit .Params.directors ", ") }}
 {{- end }}
 <meta name="description" content="{{ $description }}">
 <link rel="canonical" href="{{ .Permalink }}">

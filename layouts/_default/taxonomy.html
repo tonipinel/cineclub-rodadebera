@@ -1,0 +1,53 @@
+{{ define "main" }}
+{{ $plural := .Data.Plural }}
+{{ if eq .Kind "term" }}
+  {{ $count := len .Pages }}
+  <section class="page-hero">
+    <h1 class="page-hero__title">{{ .Title }}</h1>
+    <p class="page-hero__hook">
+      {{ if eq $plural "directors" }}
+        Pel·lícules dirigides per {{ .Title }} programades pel Cineclub Roda de Berà
+      {{ else if eq $plural "interprets" }}
+        Pel·lícules amb {{ .Title }} al repartiment, programades pel Cineclub Roda de Berà
+      {{ else }}
+        Sessions de gènere {{ .Title }} programades pel Cineclub Roda de Berà
+      {{ end }}
+      ({{ $count }} {{ if eq $count 1 }}sessió{{ else }}sessions{{ end }}).
+    </p>
+  </section>
+  <div class="taxonomy-grid-wrapper">
+    <div class="session-grid">
+      {{ range .Pages.ByDate.Reverse }}
+        {{ partial "session-card.html" . }}
+      {{ end }}
+    </div>
+  </div>
+{{ else }}
+  <section class="page-hero">
+    <h1 class="page-hero__title">
+      {{ if eq $plural "directors" }}Directors i directores
+      {{ else if eq $plural "interprets" }}Intèrprets
+      {{ else }}Gèneres{{ end }}
+    </h1>
+    <p class="page-hero__hook">
+      {{ if eq $plural "directors" }}
+        Totes les directores i directors de les pel·lícules programades pel Cineclub Roda de Berà.
+      {{ else if eq $plural "interprets" }}
+        Totes les persones intèrprets de les pel·lícules programades pel Cineclub Roda de Berà.
+      {{ else }}
+        Tots els gèneres de les pel·lícules programades pel Cineclub Roda de Berà.
+      {{ end }}
+    </p>
+  </section>
+  <div class="page-body">
+    <ul class="taxonomy-list">
+      {{ range .Pages.ByTitle }}
+        <li class="taxonomy-list__item">
+          <a class="taxonomy-list__link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <span class="taxonomy-list__count">{{ len .Pages }}</span>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+{{ end }}
+{{ end }}

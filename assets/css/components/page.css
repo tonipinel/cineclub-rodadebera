@@ -18,3 +18,18 @@
 .page-body {
   @apply mx-4 my-8 max-w-3xl border-2 border-dashed border-black bg-white p-6 shadow-lg sm:mx-auto;
 }
+.taxonomy-grid-wrapper {
+  @apply mx-auto max-w-[1280px];
+}
+.taxonomy-list {
+  @apply divide-y divide-black/10;
+}
+.taxonomy-list__item {
+  @apply flex items-center justify-between gap-4 py-3;
+}
+.taxonomy-list__link {
+  @apply font-display text-lg font-bold uppercase tracking-wide text-gold-dark underline decoration-dotted hover:text-gold;
+}
+.taxonomy-list__count {
+  @apply font-display text-sm text-gray-500;
+}

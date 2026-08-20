@@ -1,0 +1,33 @@
+{{- $current := . }}
+{{- $currentDirectors := .Params.directors }}
+{{- $currentInterprets := .Params.interprets }}
+{{- $currentSeccio := .Params.seccio | default "cartellera" }}
+{{- $byDirector := slice }}
+{{- $byInterpret := slice }}
+{{- $bySeccio := slice }}
+{{- range where .Site.RegularPages "Section" "programacio" }}
+  {{- if ne .RelPermalink $current.RelPermalink }}
+    {{- if and $currentDirectors .Params.directors (intersect $currentDirectors .Params.directors) }}
+      {{- $byDirector = $byDirector | append . }}
+    {{- else if and $currentInterprets .Params.interprets (intersect $currentInterprets .Params.interprets) }}
+      {{- $byInterpret = $byInterpret | append . }}
+    {{- else }}
+      {{- $seccio := .Params.seccio | default "cartellera" }}
+      {{- if eq $seccio $currentSeccio }}
+        {{- $bySeccio = $bySeccio | append . }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- $combined := $byDirector | append $byInterpret | append $bySeccio }}
+{{- $related := first 3 $combined }}
+{{- if $related }}
+<div class="related-sessions-wrapper">
+  <h2 class="related-sessions__title">Sessions relacionades</h2>
+  <div class="related-sessions__grid session-grid">
+    {{ range $related }}
+      {{ partial "session-card.html" . }}
+    {{ end }}
+  </div>
+</div>
+{{- end }}

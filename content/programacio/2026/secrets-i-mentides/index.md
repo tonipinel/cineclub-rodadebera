@@ -6,17 +6,19 @@ titol_original: "Secrets & Lies"
 titol_traduit: "Secrets i mentides"
 titol_espanya: "Secretos y mentiras"
 trailer_youtube_id: "dSnI4_6DrFw"
-direccio: "Mike Leigh"
+directors:
+  - "Mike Leigh"
 guio: "Mike Leigh"
 pais: "Regne Unit / França"
 any: 1996
 durada: 136
 idioma: "Anglès"
-genere: "Drama"
+generes:
+  - "Drama"
 fotografia: "Dick Pope"
 muntatge: "Jon Gregory"
 musica: "Andrew Dickson"
-repartiment:
+interprets:
   - "Brenda Blethyn"
   - "Marianne Jean-Baptiste"
   - "Timothy Spall"

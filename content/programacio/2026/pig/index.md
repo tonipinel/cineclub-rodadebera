@@ -5,14 +5,18 @@ titol_original: "Pig"
 titol_traduit: "Porc"
 titol_espanya: "Pig"
 trailer_youtube_id: "TGOcqxU-_l8"
-direccio: "Michael Sarnoski"
+directors:
+  - "Michael Sarnoski"
 guio: "Michael Sarnoski i Vanessa Block"
 pais: "Estats Units"
 any: 2021
 durada: 92
 idioma: "Anglès"
-genere: "Drama / Misteri / Drama psicològic"
-repartiment:
+generes:
+  - "Drama"
+  - "Misteri"
+  - "Drama psicològic"
+interprets:
   - "Nicolas Cage"
   - "Alex Wolff"
   - "Adam Arkin"

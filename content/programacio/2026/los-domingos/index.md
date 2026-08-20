@@ -3,17 +3,19 @@ title: "Los domingos"
 date: 2026-09-03T19:00:00+02:00
 titol_original: "Los domingos"
 trailer_youtube_id: "fSRrZVzDTVA"
-direccio: "Alauda Ruiz de Azúa"
+directors:
+  - "Alauda Ruiz de Azúa"
 guio: "Alauda Ruiz de Azúa"
 pais: "Espanya"
 any: 2025
 durada: 116
 idioma: "Castellà"
-genere: "Drama"
+generes:
+  - "Drama"
 fotografia: "Bet Rourich"
 muntatge: "Andrés Gil"
 produccio: "BTeam Pictures, Movistar Plus+"
-repartiment:
+interprets:
   - "Blanca Soroa"
   - "Patricia López Arnaiz"
   - "Miguel Garcés"
