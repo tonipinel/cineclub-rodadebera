@@ -1,5 +1,6 @@
 ---
 title: "Cineclub Roda de Berà"
+date: 2026-08-20
 features:
   - titol: "Suport de l'Ajuntament"
     text: "Comptem amb el suport de l'Ajuntament de Roda de Berà, que ens cedeix els espais condicionats per poder exercir aquesta activitat i ens ajuda en la difusió de la mateixa."

@@ -1,5 +1,6 @@
 ---
 title: "Política de privacitat"
+description: "Política de privacitat del Cineclub Roda de Berà: com tractem i protegim les teves dades personals."
 ---
 
 ## 1. Responsable del tractament

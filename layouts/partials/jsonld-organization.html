@@ -1,0 +1,15 @@
+{{- $sameAs := slice }}
+{{- with .Site.Params.instagramURL }}{{ $sameAs = $sameAs | append . }}{{ end }}
+{{- with .Site.Params.facebookURL }}{{ $sameAs = $sameAs | append . }}{{ end }}
+{{- $data := dict
+  "@context" "https://schema.org"
+  "@type" "Organization"
+  "name" .Site.Title
+  "url" .Site.BaseURL
+  "logo" (absURL "images/entitats/cineclub-roda-de-bera.png")
+  "email" .Site.Params.contactEmail
+  "sameAs" $sameAs
+-}}
+<script type="application/ld+json">
+{{ $data | jsonify | safeJS }}
+</script>

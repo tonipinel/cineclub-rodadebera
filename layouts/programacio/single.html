@@ -1,8 +1,6 @@
 {{ define "head_extra" }}
-{{ with .Resources.GetMatch "poster*" }}
-<meta property="og:image" content="{{ .Permalink }}">
-{{ end }}
 {{ partial "jsonld-screening-event.html" . }}
+{{ partial "jsonld-breadcrumb.html" . }}
 {{ end }}
 
 {{ define "main" }}

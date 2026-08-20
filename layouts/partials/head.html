@@ -1,12 +1,36 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
-<meta name="description" content="{{ .Site.Params.tagline }}">
+{{- $description := .Site.Params.tagline }}
+{{- if .Params.description }}
+  {{- $description = .Params.description }}
+{{- else if .Params.hook }}
+  {{- $description = .Params.hook }}
+{{- else if and (eq .Section "programacio") .IsPage }}
+  {{- $description = printf "%s (%v), dirigida per %s. Sessió del Cineclub Roda de Berà a Roda de Berà." .Title .Params.any .Params.direccio }}
+{{- end }}
+<meta name="description" content="{{ $description }}">
 <link rel="canonical" href="{{ .Permalink }}">
+{{- $ogImage := "" }}
+{{- with .Resources.GetMatch "poster*" }}
+  {{- $ogImage = .Permalink }}
+{{- end }}
+{{- if not $ogImage }}
+  {{- $ogImage = absURL "images/entitats/cineclub-roda-de-bera.png" }}
+{{- end }}
 <meta property="og:type" content="website">
 <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
-<meta property="og:description" content="{{ .Site.Params.tagline }}">
+<meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ $ogImage }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:description" content="{{ $description }}">
+<meta name="twitter:image" content="{{ $ogImage }}">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | relURL }}">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Inter:wght@400;600&display=swap" rel="stylesheet">

@@ -1,3 +1,7 @@
+{{ define "head_extra" }}
+{{ partial "jsonld-organization.html" . }}
+{{ end }}
+
 {{ define "main" }}
 <section class="hero">
   {{ with .Resources.GetMatch "hero-logo.png" }}
@@ -6,10 +10,10 @@
     <img class="hero__logo" src="{{ $logo.RelPermalink }}" alt="Cineclub Roda de Berà">
   {{ end }}
   {{ $taglineParts := split .Site.Params.tagline "cinema" }}
-  <p class="hero__tagline">
+  <h1 class="hero__tagline">
     <span class="hero__tagline--white">{{ index $taglineParts 0 }}</span><br>
     <span class="hero__tagline--gold">cinema{{ index $taglineParts 1 }}</span>
-  </p>
+  </h1>
   <a class="btn" href="{{ "/fes-te-socia/" | relLangURL }}">Fes-te sòcia/soci</a>
 </section>
 
