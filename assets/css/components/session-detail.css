@@ -1,6 +1,6 @@
 .session-hero {
-  @apply flex flex-col items-center gap-2 border-b-[6px] border-dashed border-white bg-black text-center text-white;
-  padding: 1rem 1rem 1.5rem;
+  @apply flex flex-col items-center gap-2 border-b-[6px] border-dashed border-white text-center text-white;
+  padding: 1.5rem 1rem 1.5rem;
 }
 .session-hero__meta {
   @apply flex;
@@ -27,6 +27,7 @@
   @apply font-display font-bold uppercase text-gold;
   font-size: 3rem;
   line-height: 1.1;
+  text-shadow: 2px 2px 2px black;
 }
 @media (min-width: 640px) {
   .session-hero__title {

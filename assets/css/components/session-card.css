@@ -91,6 +91,7 @@
 }
 .section-filter-wrapper {
   @apply w-full;
+  background: #000;
 }
 .section-filter {
   @apply mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 px-6 pt-8;
@@ -154,4 +155,5 @@
   letter-spacing: 0.025em;
   color: #bf9000;
   border-color: #ffffff;
+  background: #000;
 }

@@ -8,6 +8,7 @@
   @apply font-display font-bold uppercase tracking-tight;
   font-size: 1.6rem;
   line-height: 2rem;
+  text-shadow: 2px 2px 2px black;
 }
 @media (min-width: 640px) {
   .hero__tagline {
@@ -111,6 +112,7 @@
   font-weight: 700;
   text-transform: uppercase;
   color: rgb(255 255 255);
+  text-shadow: 2px 2px 2px black;
 }
 .next-session__grid {
   @apply grid grid-cols-1 gap-8 text-left sm:grid-cols-2 lg:grid-cols-3;
@@ -149,4 +151,5 @@
   @apply mb-4 font-display font-bold uppercase text-white;
   font-size: 3rem;
   line-height: 3rem;
+  text-shadow: 2px 2px 2px black;
 }
