@@ -1,0 +1,73 @@
+{{ if or .Params.participa .Params.collabora }}
+{{ $entitats := .Site.Data.entitats }}
+
+<div class="collab-strip-wrapper">
+  <div class="collab-strip">
+    <div class="collab-strip__item">
+      <span class="collab-strip__label">Organitza</span>
+      {{ $nom := .Params.organitza }}
+      {{ with index $entitats $nom }}
+        {{ if .url }}
+          <a class="collab-strip__link" href="{{ .url }}" target="_blank" rel="noopener">
+            <img class="collab-strip__logo" src="{{ .logo }}" alt="{{ $nom }}">
+          </a>
+        {{ else }}
+          <img class="collab-strip__logo" src="{{ .logo }}" alt="{{ $nom }}">
+        {{ end }}
+      {{ else }}
+        <span class="collab-strip__entity">{{ $nom }}</span>
+      {{ end }}
+    </div>
+
+    {{ with .Params.participa }}
+    <div class="collab-strip__group">
+      <span class="collab-strip__label collab-strip__label--group">Participen</span>
+      <div class="collab-strip__group-items">
+        {{ range . }}
+        {{ $nom := . }}
+        <div class="collab-strip__item">
+          <span class="collab-strip__label collab-strip__label--repeat">Participa</span>
+          {{ with index $entitats $nom }}
+            {{ if .url }}
+              <a class="collab-strip__link" href="{{ .url }}" target="_blank" rel="noopener">
+                <img class="collab-strip__logo" src="{{ .logo }}" alt="{{ $nom }}">
+              </a>
+            {{ else }}
+              <img class="collab-strip__logo" src="{{ .logo }}" alt="{{ $nom }}">
+            {{ end }}
+          {{ else }}
+            <span class="collab-strip__entity">{{ $nom }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{ with .Params.collabora }}
+    <div class="collab-strip__group">
+      <span class="collab-strip__label collab-strip__label--group">Col·laboren</span>
+      <div class="collab-strip__group-items">
+        {{ range . }}
+        {{ $nom := . }}
+        <div class="collab-strip__item">
+          <span class="collab-strip__label collab-strip__label--repeat">Col·labora</span>
+          {{ with index $entitats $nom }}
+            {{ if .url }}
+              <a class="collab-strip__link" href="{{ .url }}" target="_blank" rel="noopener">
+                <img class="collab-strip__logo" src="{{ .logo }}" alt="{{ $nom }}">
+              </a>
+            {{ else }}
+              <img class="collab-strip__logo" src="{{ .logo }}" alt="{{ $nom }}">
+            {{ end }}
+          {{ else }}
+            <span class="collab-strip__entity">{{ $nom }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

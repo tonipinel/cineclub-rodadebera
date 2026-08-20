@@ -88,6 +88,59 @@
 .session-trailer__frame iframe {
   @apply absolute inset-0 h-full w-full border-0;
 }
+.collab-strip-wrapper {
+  width: 100%;
+  border-style: dashed;
+  --tw-border-opacity: 1;
+  border-color: rgb(47 111 118);
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  border-bottom-width: 6px;
+  margin-top: -6px;
+}
+.collab-strip {
+  @apply mx-auto grid max-w-[1000px] grid-cols-2 gap-6 text-center sm:flex sm:flex-nowrap sm:justify-center sm:gap-10;
+  padding: .75rem 1.5rem 1.5rem;
+}
+.collab-strip__item {
+  @apply flex flex-col items-center gap-1;
+}
+.collab-strip__label {
+  font-family: Oswald, sans-serif;
+  font-size: .75rem;
+  line-height: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .025em;
+  color: #2f6f76;
+  width: 100%;
+  text-align: left;
+  border-bottom: 2px dashed #2f6f76;
+}
+.collab-strip__entity {
+  @apply text-sm font-medium text-black;
+}
+.collab-strip__logo {
+  @apply h-20 w-auto object-contain transition sm:h-24;
+}
+.collab-strip__link:hover .collab-strip__logo {
+  @apply opacity-80;
+}
+.collab-strip .collab-strip__logo[alt="Cineclub Roda de Berà"] {
+  height: 5rem;
+}
+.collab-strip__group {
+  @apply contents sm:flex sm:flex-col sm:items-center sm:gap-2;
+}
+.collab-strip__group-items {
+  @apply contents sm:flex sm:items-center sm:gap-10;
+}
+.collab-strip__label--group {
+  @apply hidden sm:block;
+}
+.collab-strip__label--repeat {
+  @apply sm:hidden;
+}
 .session-fitxa-wrapper {
   @apply w-full border-b-[6px] border-dashed border-black bg-white/90;
   border-top: 4px dashed #ffffff;

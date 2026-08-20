@@ -14,7 +14,12 @@
       <h3 class="session-card__title">{{ .Title }}</h3>
       {{ with .Params.titol_traduit }}<p class="session-card__subtitle">{{ . }}</p>{{ end }}
       {{ $organitza := .Params.organitza | default "cineclub" }}
-      {{ if ne $organitza "cineclub" }}
+      {{ if or .Params.participa .Params.collabora }}
+        {{ $entitats := slice .Params.organitza }}
+        {{ range .Params.participa }}{{ $entitats = $entitats | append . }}{{ end }}
+        {{ range .Params.collabora }}{{ $entitats = $entitats | append . }}{{ end }}
+        <span class="session-card__badge">{{ delimit $entitats ", " " i " }}.</span>
+      {{ else if ne $organitza "cineclub" }}
         <span class="session-card__badge">Amb {{ $organitza }}</span>
       {{ end }}
     </div>
