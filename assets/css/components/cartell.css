@@ -31,7 +31,7 @@
 }
 .cartell__web-url {
   @apply font-body text-[10pt] font-semibold text-black;
-  padding-top: 7mm;
+  padding-top: 6mm;
 }
 .cartell__price--free .cartell__web-url {
   padding-top: 18mm;
