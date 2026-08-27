@@ -84,7 +84,7 @@
   overflow: hidden;
 }
 .cartell__poster {
-  @apply h-full w-full flex-1 object-cover;
+  @apply h-full w-full flex-1 bg-black object-contain;
 }
 .cartell__filmstrip {
   @apply flex flex-col overflow-hidden bg-black;
