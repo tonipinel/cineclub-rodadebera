@@ -89,6 +89,10 @@
     {{ end }}
   </div>
   {{ end }}
+  <footer class="cartell__footer">
+    {{ partial "date-ca-cartell.html" . }}
+    <span class="cartell__venue">{{ .Site.Params.venueName }}</span>
+  </footer>
 </div>
 </body>
 </html>

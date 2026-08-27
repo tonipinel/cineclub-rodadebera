@@ -1,0 +1,9 @@
+{{- $t := .Date -}}
+{{- $months := .Site.Data.monthsCa -}}
+{{- $weekdays := .Site.Data.weekdaysCa -}}
+{{- $day := $t.Day -}}
+{{- $monthName := index $months (printf "%d" $t.Month) -}}
+{{- $weekdayName := index $weekdays (printf "%d" $t.Weekday) -}}
+{{- $firstLetter := substr $monthName 0 1 -}}
+{{- $vowelStart := in (slice "a" "e" "i" "o" "u") $firstLetter -}}
+<span class="cartell__date">{{ $weekdayName }} {{ $day }} {{ if $vowelStart }}d'{{ else }}de {{ end }}{{ $monthName }}</span> <span class="cartell__date-time">a les {{ $t.Format "15:04" }}h</span>

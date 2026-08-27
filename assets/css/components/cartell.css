@@ -85,6 +85,19 @@
 .cartell__filmstrip-image {
   @apply h-full w-full flex-1 object-cover;
 }
+.cartell__footer {
+  @apply flex flex-col items-center gap-1 text-center;
+  padding: 5mm 8mm 8mm;
+}
+.cartell__date {
+  @apply font-display text-[16pt] font-bold uppercase text-gold;
+}
+.cartell__date-time {
+  @apply font-body text-[16pt] text-black;
+}
+.cartell__venue {
+  @apply font-body text-[10pt] text-neutral-600;
+}
 
 @media print {
   .cartell-print-btn {
