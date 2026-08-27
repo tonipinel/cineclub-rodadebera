@@ -3,6 +3,12 @@
 // content/programacio/**/index.md. Runs on every deploy (see
 // .github/workflows/deploy.yml) so the calendar always reflects the
 // live site without anyone touching it by hand.
+//
+// This manages the WHOLE calendar: any event that isn't the "default"
+// type (birthdays, out-of-office, etc. are left alone) and doesn't match
+// a current session gets deleted, even if it was added by hand. Set
+// DRY_RUN=true to log the planned creates/updates/deletes without
+// calling the API.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
@@ -71,9 +77,12 @@ function buildSessions() {
 async function main() {
   const keyJson = process.env.GOOGLE_CALENDAR_SERVICE_ACCOUNT_KEY;
   const calendarId = process.env.GOOGLE_CALENDAR_ID;
+  const dryRun = process.env.DRY_RUN === "true";
   if (!keyJson || !calendarId) {
     throw new Error("Missing GOOGLE_CALENDAR_SERVICE_ACCOUNT_KEY or GOOGLE_CALENDAR_ID");
   }
+  if (dryRun) console.log("DRY RUN: no changes will be made to the calendar.");
+
   const credentials = JSON.parse(keyJson);
   const auth = new google.auth.JWT({
     email: credentials.client_email,
@@ -85,19 +94,24 @@ async function main() {
   const sessions = buildSessions();
   console.log(`Found ${sessions.length} sessions to sync.`);
 
-  const managed = new Map();
+  // List every event on the calendar, not just ones we manage: any
+  // "default" event that doesn't match a current session is treated as
+  // stale and removed, even if a human added it by hand. Non-default
+  // event types (birthdays, out-of-office, working location, etc.) are
+  // always left alone.
+  const existingByUid = new Map();
   let pageToken;
   do {
     const res = await calendar.events.list({
       calendarId,
-      privateExtendedProperty: [`source=${SOURCE_TAG}`],
       showDeleted: false,
       singleEvents: true,
       maxResults: 250,
       pageToken,
     });
     for (const ev of res.data.items ?? []) {
-      if (ev.iCalUID) managed.set(ev.iCalUID, ev);
+      if ((ev.eventType ?? "default") !== "default") continue;
+      if (ev.iCalUID) existingByUid.set(ev.iCalUID, ev);
     }
     pageToken = res.data.nextPageToken ?? undefined;
   } while (pageToken);
@@ -115,30 +129,36 @@ async function main() {
       extendedProperties: { private: { source: SOURCE_TAG } },
     };
 
-    const existing = managed.get(session.uid);
+    const existing = existingByUid.get(session.uid);
     if (existing) {
       // Same session, same UID: update the existing event in place
       // (e.g. the date, synopsis or title changed) instead of creating
       // a second copy.
-      await calendar.events.patch({ calendarId, eventId: existing.id, requestBody: resource });
-      console.log(`Updated: ${session.title}`);
-      managed.delete(session.uid);
+      if (!dryRun) {
+        await calendar.events.patch({ calendarId, eventId: existing.id, requestBody: resource });
+      }
+      console.log(`${dryRun ? "[dry-run] " : ""}Updated: ${session.title}`);
+      existingByUid.delete(session.uid);
     } else {
       // No event with this UID yet: either a brand-new session, or an
       // existing session whose date changed (its UID embeds the date,
       // so a reschedule looks like a new UID here — the stale event
       // under the old UID gets removed below).
-      await calendar.events.insert({
-        calendarId,
-        requestBody: { ...resource, iCalUID: session.uid },
-      });
-      console.log(`Created: ${session.title}`);
+      if (!dryRun) {
+        await calendar.events.insert({
+          calendarId,
+          requestBody: { ...resource, iCalUID: session.uid },
+        });
+      }
+      console.log(`${dryRun ? "[dry-run] " : ""}Created: ${session.title}`);
     }
   }
 
-  for (const [uid, ev] of managed) {
-    await calendar.events.delete({ calendarId, eventId: ev.id });
-    console.log(`Removed: ${ev.summary ?? uid}`);
+  for (const [uid, ev] of existingByUid) {
+    if (!dryRun) {
+      await calendar.events.delete({ calendarId, eventId: ev.id });
+    }
+    console.log(`${dryRun ? "[dry-run] " : ""}Removed: ${ev.summary ?? uid}`);
   }
 
   console.log("Calendar sync complete.");
