@@ -17,7 +17,7 @@
 .cartell__header {
   @apply grid items-start gap-4;
   grid-template-columns: 1fr auto 1fr;
-  padding: 8mm 8mm 10mm;
+  padding: 8mm 8mm 4mm;
 }
 .cartell__price {
   @apply flex flex-col gap-1;
