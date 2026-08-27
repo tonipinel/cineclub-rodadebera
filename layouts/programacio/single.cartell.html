@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/cartell-print.css" | relURL }}">
 </head>
 <body class="cartell-page">
 <button type="button" class="cartell-print-btn" onclick="window.print()">Imprimeix / Desa PDF</button>
@@ -45,7 +46,7 @@
         {{ else if eq $tipus "doblada-cast" }}
           {{ $text = "Doblada al castellà" }}
         {{ end }}
-        <span class="cartell__version-badge">{{ $text | upper }}</span>
+        {{ with $text }}<span class="cartell__version-badge">{{ . | upper }}</span>{{ end }}
       {{ end }}
 
       {{ $collabEntities := slice }}
@@ -62,6 +63,8 @@
               {{ $nom := . }}
               {{ with index $entitats $nom }}
                 <img class="cartell__collab-logo" src="{{ .logo }}" alt="{{ $nom }}">
+              {{ else }}
+                <span class="cartell__collab-entity">{{ $nom }}</span>
               {{ end }}
             {{ end }}
           </div>
