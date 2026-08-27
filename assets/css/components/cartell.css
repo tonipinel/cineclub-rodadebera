@@ -70,6 +70,7 @@
   @apply flex flex-1;
   min-height: 0;
   margin-top: -8mm;
+  border-top: 1.5mm dashed #002;
 }
 .cartell__synopsis {
   @apply flex items-center overflow-hidden bg-black text-white;
