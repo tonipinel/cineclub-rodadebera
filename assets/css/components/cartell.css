@@ -38,7 +38,10 @@
 }
 .cartell__logo {
   @apply h-auto flex-shrink-0;
-  width: 46mm;
+  width: 75mm;
+  margin-top: 17mm;
+  position: relative;
+  z-index: 1;
 }
 .cartell__version-collab {
   @apply flex flex-col items-end gap-2 text-right;
@@ -67,6 +70,7 @@
 .cartell__body {
   @apply flex flex-1;
   min-height: 0;
+  margin-top: -9mm;
 }
 .cartell__synopsis {
   @apply flex items-center overflow-hidden bg-black text-white;
