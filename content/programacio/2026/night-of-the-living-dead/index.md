@@ -39,7 +39,7 @@ organitza: "cineclub"
 
 ## Sinopsi
 
-Dos germans visiten el cementiri d'una zona rural de Pennsilvània quan un d'ells és atacat per un cadàver reanimat. La supervivent, Barbra, fuig fins a una granja aïllada on troba Ben, un desconegut decidit a defensar la casa. S'hi refugien també un matrimoni amb la filla malalta i una parella jove. Per la ràdio i la televisió s'assabenten que arreu del país els morts s'estan aixecant de les tombes per devorar els vius. Els conflictes interns del grup debiliten la seva defensa fins a un desenllaç que no perdona ningú.
+Dos germans visiten el cementiri d'una zona rural de Pennsilvània quan un d'ells és atacat per un cadàver reanimat. La supervivent, Barbra, fuig fins a una granja aïllada on troba Ben, un desconegut decidit a defensar la casa. S'hi refugien també un matrimoni amb la filla malalta i una parella jove. Per la ràdio i la televisió s'assabenten que arreu del país els morts s'estan aixecant de les tombes per devorar els vius. Els conflictes interns del grup debiliten la seva defensa... fins a quan podran aguantar?
 
 ## Context
 

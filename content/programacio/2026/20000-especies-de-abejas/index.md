@@ -35,7 +35,7 @@ organitza: "cineclub"
 
 ## Sinopsi
 
-Aitor viu amb la família a Baiona. Durant les vacances d'estiu, la mare Ane, enmig d'una crisi personal i professional, porta els fills al poble matern del País Basc, on hi ha l'àvia Lita i la tia àvia Lourdes, apicultora. Durant la nit de Sant Joan, Aitor demana que li diguin Cocó. Al llarg de l'estiu, entre les tasques amb les abelles i els conflictes familiars, Cocó explora la seva identitat de gènere fins a triar, finalment, el nom de Lucía.
+Aitor viu amb la família a Baiona. Durant les vacances d'estiu, la mare Ane, enmig d'una crisi personal i professional, porta els fills al poble matern del País Basc, on hi ha l'àvia Lita i la tia àvia Lourdes, apicultora. Durant la nit de Sant Joan, Aitor demana que li diguin Cocó. Al llarg de l'estiu, entre les tasques amb les abelles i els conflictes familiars, Cocó explora la seva identitat de gènere.
 
 ## Context
 
