@@ -72,13 +72,13 @@
 }
 .cartell__synopsis {
   @apply flex items-center overflow-hidden bg-black text-white;
-  flex: 0 0 38%;
+  flex: 0 0 41%;
   padding: 6mm;
 }
 .cartell__synopsis p {
-  @apply font-body text-[15pt] leading-relaxed;
+  @apply font-body text-[14pt] leading-relaxed;
   display: -webkit-box;
-  -webkit-line-clamp: 18;
+  -webkit-line-clamp: 19;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
