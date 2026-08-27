@@ -18,6 +18,14 @@
 <div class="calendar-wrapper">
   <div class="calendar">
     <h2>Calendari {{ now.Format "2006" }}</h2>
+    <div class="calendar__subscribe">
+      {{ partial "icon.html" "calendar" }}
+      <div class="calendar__subscribe-text">
+        <span class="calendar__subscribe-title">Subscriu-te al calendari</span>
+        <span class="calendar__subscribe-body">I no et perdis cap sessió</span>
+      </div>
+      <a class="calendar__subscribe-button" href="https://calendar.google.com/calendar/render?cid=a1659922865eabbdc8ea753f5996bd8025d3afabffe476fc36872643e2749be7%40group.calendar.google.com" target="_blank" rel="noopener">Subscriu-te</a>
+    </div>
     <ul class="calendar__list" data-calendar-list>
       {{ range $calendarItems }}
         <li class="calendar__item" data-calendar-date="{{ .date.Format "2006-01-02T15:04:05Z07:00" }}">
