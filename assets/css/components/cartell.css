@@ -77,6 +77,14 @@
 .cartell__poster {
   @apply h-full w-full flex-1 object-cover;
 }
+.cartell__filmstrip {
+  @apply flex items-stretch gap-1 bg-black;
+  height: 32mm;
+  padding: 2mm 1mm;
+}
+.cartell__filmstrip-image {
+  @apply h-full w-full flex-1 object-cover;
+}
 
 @media print {
   .cartell-print-btn {

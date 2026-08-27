@@ -79,6 +79,16 @@
       <img class="cartell__poster" src="{{ $poster.RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
     {{ end }}
   </div>
+  {{ $filmstripImages := first 4 (sort (.Resources.Match "gallery*") "Name") }}
+  {{ if gt (len $filmstripImages) 0 }}
+  <div class="cartell__filmstrip">
+    {{ range $filmstripImages }}
+      {{ $img := . }}
+      {{ if gt $img.Width 400 }}{{ $img = $img.Resize "400x" }}{{ end }}
+      <img class="cartell__filmstrip-image" src="{{ $img.RelPermalink }}" alt="">
+    {{ end }}
+  </div>
+  {{ end }}
 </div>
 </body>
 </html>
