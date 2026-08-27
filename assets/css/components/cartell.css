@@ -57,6 +57,7 @@
 }
 .cartell__collab-label {
   @apply font-body text-[8pt] font-semibold uppercase text-black;
+  padding-top: 2mm;
 }
 .cartell__collab-logos {
   @apply flex flex-wrap items-center justify-end gap-2;
