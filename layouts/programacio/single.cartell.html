@@ -85,11 +85,15 @@
   {{ $filmstripImages := first 4 (sort (.Resources.Match "gallery*") "Name") }}
   {{ if gt (len $filmstripImages) 0 }}
   <div class="cartell__filmstrip">
-    {{ range $filmstripImages }}
-      {{ $img := . }}
-      {{ if gt $img.Width 400 }}{{ $img = $img.Resize "400x" }}{{ end }}
-      <img class="cartell__filmstrip-image" src="{{ $img.RelPermalink }}" alt="">
-    {{ end }}
+    <div class="cartell__filmstrip-perf"></div>
+    <div class="cartell__filmstrip-track">
+      {{ range $filmstripImages }}
+        {{ $img := . }}
+        {{ if gt $img.Width 400 }}{{ $img = $img.Resize "400x" }}{{ end }}
+        <img class="cartell__filmstrip-image" src="{{ $img.RelPermalink }}" alt="">
+      {{ end }}
+    </div>
+    <div class="cartell__filmstrip-perf"></div>
   </div>
   {{ end }}
   <footer class="cartell__footer">

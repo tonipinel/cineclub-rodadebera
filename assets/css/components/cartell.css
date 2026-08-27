@@ -17,51 +17,51 @@
 .cartell__header {
   @apply grid items-start gap-4;
   grid-template-columns: 1fr auto 1fr;
-  padding: 8mm 8mm 4mm;
+  padding: 8mm 8mm 10mm;
 }
 .cartell__price {
   @apply flex flex-col gap-1;
 }
 .cartell__price-line {
-  @apply font-body text-[11pt] font-semibold uppercase text-black;
+  @apply font-body text-[15pt] font-semibold uppercase text-black;
 }
 .cartell__price-line--free {
-  @apply text-[12pt];
+  @apply text-[16pt];
 }
 .cartell__web-label {
-  @apply font-display text-[9pt] font-semibold uppercase text-gold;
+  @apply font-display text-[11pt] font-semibold uppercase text-gold;
   margin-top: 3mm;
 }
 .cartell__web-url {
-  @apply font-body text-[8pt] font-semibold text-black;
+  @apply font-body text-[10pt] font-semibold text-black;
 }
 .cartell__logo {
   @apply h-auto flex-shrink-0;
-  width: 55mm;
+  width: 46mm;
 }
 .cartell__version-collab {
   @apply flex flex-col items-end gap-2 text-right;
   justify-self: end;
 }
 .cartell__version-badge {
-  @apply font-body bg-black text-[9pt] font-semibold uppercase text-white;
-  padding: 1mm 3mm;
+  @apply font-body bg-black text-[11pt] font-semibold uppercase text-white;
+  padding: 1.5mm 3mm;
 }
 .cartell__collab {
   @apply flex flex-col items-end gap-1;
 }
 .cartell__collab-label {
-  @apply font-body text-[7pt] font-semibold uppercase text-black;
+  @apply font-body text-[9pt] font-semibold uppercase text-black;
 }
 .cartell__collab-logos {
   @apply flex flex-wrap items-center justify-end gap-2;
 }
 .cartell__collab-logo {
   @apply w-auto object-contain;
-  height: 8mm;
+  height: 9mm;
 }
 .cartell__collab-entity {
-  @apply font-body text-[7pt] font-semibold text-black;
+  @apply font-body text-[9pt] font-semibold text-black;
 }
 .cartell__body {
   @apply flex flex-1;
@@ -73,9 +73,9 @@
   padding: 6mm;
 }
 .cartell__synopsis p {
-  @apply font-body text-[11pt] leading-relaxed;
+  @apply font-body text-[15pt] leading-relaxed;
   display: -webkit-box;
-  -webkit-line-clamp: 14;
+  -webkit-line-clamp: 11;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -83,26 +83,39 @@
   @apply h-full w-full flex-1 object-cover;
 }
 .cartell__filmstrip {
-  @apply flex items-stretch gap-1 bg-black;
-  height: 32mm;
-  padding: 2mm 1mm;
+  @apply flex flex-col overflow-hidden bg-black;
+  height: 36mm;
+  flex-shrink: 0;
+}
+.cartell__filmstrip-perf {
+  height: 4mm;
+  flex-shrink: 0;
+  background-image: radial-gradient(circle, #fff 32%, transparent 34%);
+  background-size: 7mm 7mm;
+  background-position: center;
+  background-repeat: repeat-x;
+}
+.cartell__filmstrip-track {
+  @apply flex flex-1 items-stretch gap-1;
+  min-height: 0;
+  padding: 1mm;
 }
 .cartell__filmstrip-image {
   @apply h-full w-full flex-1 object-cover;
 }
 .cartell__footer {
-  @apply flex flex-col items-center gap-1 text-center;
-  padding: 5mm 8mm 8mm;
+  @apply flex flex-col items-center gap-2 text-center;
+  padding: 6mm 8mm 8mm;
 }
 .cartell__date-line {
   @apply flex items-baseline gap-2;
 }
 .cartell__date {
-  @apply font-display text-[16pt] font-bold uppercase text-gold;
+  @apply font-display text-[30pt] font-bold uppercase text-gold;
 }
 .cartell__date-time {
   @apply font-body text-[16pt] text-black;
 }
 .cartell__venue {
-  @apply font-body text-[10pt] text-neutral-600;
+  @apply font-body text-[12pt] text-neutral-600;
 }
