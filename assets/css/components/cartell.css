@@ -110,6 +110,24 @@
   @apply h-full w-full flex-1 object-cover;
   border-radius: 1.5mm;
 }
+.cartell__collab-strip {
+  @apply flex flex-shrink-0 flex-wrap items-center justify-center gap-x-6 gap-y-2 bg-white;
+  padding: 3mm 8mm;
+}
+.cartell__collab-strip-item,
+.cartell__collab-strip-group {
+  @apply flex items-center gap-2;
+}
+.cartell__collab-strip-label {
+  @apply font-body text-[8pt] font-semibold uppercase text-black;
+}
+.cartell__collab-strip-logo {
+  @apply w-auto object-contain;
+  height: 7mm;
+}
+.cartell__collab-strip-entity {
+  @apply font-body text-[8pt] font-semibold text-black;
+}
 .cartell__footer {
   @apply flex flex-col items-center gap-2 text-center;
   padding: 6mm 8mm 8mm;

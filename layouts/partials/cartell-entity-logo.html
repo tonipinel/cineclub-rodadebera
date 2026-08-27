@@ -1,0 +1,14 @@
+{{- $nom := .nom -}}
+{{- $entitats := .entitats -}}
+{{- $logoSrc := "" -}}
+{{- with index $entitats $nom -}}
+  {{- $logoSrc = .logo -}}
+{{- end -}}
+{{- if eq $nom "Ajuntament de Roda de Berà" -}}
+  {{- $logoSrc = "/images/entitats/ajuntament-roda-de-bera-horitzontal.png" -}}
+{{- end -}}
+{{- if $logoSrc -}}
+  <img class="{{ .logoClass }}" src="{{ $logoSrc | relURL }}" alt="{{ $nom }}">
+{{- else -}}
+  <span class="{{ .entityClass }}">{{ $nom }}</span>
+{{- end -}}

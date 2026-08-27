@@ -54,23 +54,19 @@
         {{ end }}
       {{ end }}
 
-      {{ $collabEntities := slice }}
-      {{ with .Params.organitza }}
-        {{ if ne . "cineclub" }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
-      {{ end }}
-      {{ range .Params.participa }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
-      {{ range .Params.collabora }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
-      {{ if gt (len $collabEntities) 0 }}
+      {{ if ne .Params.seccio "xarxa" }}
+        {{ $collabEntities := slice }}
+        {{ with .Params.organitza }}
+          {{ if ne . "cineclub" }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
+        {{ end }}
+        {{ range .Params.participa }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
+        {{ range .Params.collabora }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
+        {{ if not (in $collabEntities "Ajuntament de Roda de Berà") }}{{ $collabEntities = $collabEntities | append "Ajuntament de Roda de Berà" }}{{ end }}
         <div class="cartell__collab">
           <span class="cartell__collab-label">Amb la col·laboració de:</span>
           <div class="cartell__collab-logos">
             {{ range $collabEntities }}
-              {{ $nom := . }}
-              {{ with index $entitats $nom }}
-                <img class="cartell__collab-logo" src="{{ .logo }}" alt="{{ $nom }}">
-              {{ else }}
-                <span class="cartell__collab-entity">{{ $nom }}</span>
-              {{ end }}
+              {{ partial "cartell-entity-logo.html" (dict "nom" . "entitats" $entitats "logoClass" "cartell__collab-logo" "entityClass" "cartell__collab-entity") }}
             {{ end }}
           </div>
         </div>
@@ -100,6 +96,33 @@
     </div>
     <div class="cartell__filmstrip-perf">{{ range seq 42 }}<span class="cartell__filmstrip-hole"></span>{{ end }}</div>
   </div>
+  {{ end }}
+  {{ if eq .Params.seccio "xarxa" }}
+    {{ $collabora := slice }}
+    {{ range .Params.collabora }}{{ $collabora = $collabora | append . }}{{ end }}
+    {{ if not (in $collabora "Ajuntament de Roda de Berà") }}{{ $collabora = $collabora | append "Ajuntament de Roda de Berà" }}{{ end }}
+    <div class="cartell__collab-strip">
+      {{ with .Params.organitza }}
+        <div class="cartell__collab-strip-item">
+          <span class="cartell__collab-strip-label">Organitza</span>
+          {{ partial "cartell-entity-logo.html" (dict "nom" . "entitats" $entitats "logoClass" "cartell__collab-strip-logo" "entityClass" "cartell__collab-strip-entity") }}
+        </div>
+      {{ end }}
+      {{ with .Params.participa }}
+        <div class="cartell__collab-strip-group">
+          <span class="cartell__collab-strip-label">Participen</span>
+          {{ range . }}
+            {{ partial "cartell-entity-logo.html" (dict "nom" . "entitats" $entitats "logoClass" "cartell__collab-strip-logo" "entityClass" "cartell__collab-strip-entity") }}
+          {{ end }}
+        </div>
+      {{ end }}
+      <div class="cartell__collab-strip-group">
+        <span class="cartell__collab-strip-label">Col·laboren</span>
+        {{ range $collabora }}
+          {{ partial "cartell-entity-logo.html" (dict "nom" . "entitats" $entitats "logoClass" "cartell__collab-strip-logo" "entityClass" "cartell__collab-strip-entity") }}
+        {{ end }}
+      </div>
+    </div>
   {{ end }}
   <footer class="cartell__footer">
     {{ partial "date-ca-cartell.html" . }}
