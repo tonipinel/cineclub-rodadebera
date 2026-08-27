@@ -42,6 +42,15 @@ function extractSinopsi(body) {
   return match ? match[1].trim() : "";
 }
 
+function displayTitle(data) {
+  const original = data.title;
+  const spanish = data.titol_espanya;
+  if (spanish && spanish.trim().toLowerCase() !== original.trim().toLowerCase()) {
+    return `${original} (${spanish})`;
+  }
+  return original;
+}
+
 function buildSessions() {
   const files = findSessionFiles(CONTENT_DIR);
   const sessions = [];
@@ -65,13 +74,76 @@ function buildSessions() {
 
     sessions.push({
       uid: `${slug}-${new Date(data.date).toISOString().slice(0, 10).replace(/-/g, "")}@cineclubrodadebera.cat`,
-      title: data.title,
+      title: displayTitle(data),
+      seccio: data.seccio,
       start: new Date(data.date),
       synopsis,
       url,
     });
   }
   return sessions;
+}
+
+// -- "Per determinar" placeholders --------------------------------------
+// The calendar should always show 3 upcoming placeholders for any month
+// that doesn't yet have a cartellera session scheduled, defaulting to the
+// first Thursday of that month at 19:00h (Europe/Madrid).
+
+function lastSundayOfMonth(year, month) {
+  // month is 0-indexed; returns the day-of-month of the last Sunday.
+  const lastDay = new Date(Date.UTC(year, month + 1, 0));
+  return lastDay.getUTCDate() - lastDay.getUTCDay();
+}
+
+function isEuSummerTime(utcDate) {
+  const year = utcDate.getUTCFullYear();
+  const dstStart = new Date(Date.UTC(year, 2, lastSundayOfMonth(year, 2), 1, 0, 0));
+  const dstEnd = new Date(Date.UTC(year, 9, lastSundayOfMonth(year, 9), 1, 0, 0));
+  return utcDate >= dstStart && utcDate < dstEnd;
+}
+
+function firstThursdayAt19Madrid(year, month) {
+  const first = new Date(Date.UTC(year, month, 1));
+  const dayOfMonth = 1 + ((4 - first.getUTCDay() + 7) % 7); // 4 = Thursday
+  const noonReference = new Date(Date.UTC(year, month, dayOfMonth, 12, 0, 0));
+  const offsetHours = isEuSummerTime(noonReference) ? 2 : 1;
+  return new Date(Date.UTC(year, month, dayOfMonth, 19 - offsetHours, 0, 0));
+}
+
+function buildPlaceholders(sessions, now) {
+  const cartelleraMonths = new Set(
+    sessions
+      .filter((s) => s.seccio === "cartellera")
+      .map((s) => `${s.start.getUTCFullYear()}-${s.start.getUTCMonth()}`),
+  );
+
+  const placeholders = [];
+  let year = now.getUTCFullYear();
+  let month = now.getUTCMonth();
+  let safety = 0;
+  while (placeholders.length < 3 && safety < 60) {
+    safety += 1;
+    const key = `${year}-${month}`;
+    if (!cartelleraMonths.has(key)) {
+      const start = firstThursdayAt19Madrid(year, month);
+      if (start > now) {
+        placeholders.push({
+          uid: `placeholder-${year}-${String(month + 1).padStart(2, "0")}@cineclubrodadebera.cat`,
+          title: "Sessió per determinar",
+          seccio: "placeholder",
+          start,
+          synopsis: "Pel·lícula encara per determinar.",
+          url: `${BASE_URL}/programacio/`,
+        });
+      }
+    }
+    month += 1;
+    if (month > 11) {
+      month = 0;
+      year += 1;
+    }
+  }
+  return placeholders;
 }
 
 async function main() {
@@ -92,7 +164,9 @@ async function main() {
   const calendar = google.calendar({ version: "v3", auth });
 
   const sessions = buildSessions();
-  console.log(`Found ${sessions.length} sessions to sync.`);
+  const placeholders = buildPlaceholders(sessions, new Date());
+  const allEvents = [...sessions, ...placeholders];
+  console.log(`Found ${sessions.length} sessions and ${placeholders.length} placeholders to sync.`);
 
   // List every event on the calendar, not just ones we manage: any
   // "default" event that doesn't match a current session is treated as

@@ -68,9 +68,6 @@
 .calendar {
   @apply mx-auto max-w-3xl p-6 py-12;
 }
-.calendar h2 {
-  @apply mb-6 text-center font-display text-2xl font-bold uppercase text-gold-dark;
-}
 .calendar__subscribe {
   @apply mb-8 flex flex-col items-center gap-3 rounded-lg border border-dashed border-gold-dark bg-gold/10 px-6 py-4 text-center sm:flex-row sm:text-left;
 }
