@@ -23,7 +23,10 @@
   @apply flex flex-col gap-1;
 }
 .cartell__price-line {
-  @apply font-body text-[15pt] font-semibold uppercase text-black;
+  @apply font-display text-[19pt] font-semibold uppercase text-black;
+}
+.cartell__price-line strong {
+  font-weight: normal;
 }
 .cartell__price-line--free {
   @apply text-[16pt];
@@ -75,7 +78,7 @@
 .cartell__synopsis p {
   @apply font-body text-[15pt] leading-relaxed;
   display: -webkit-box;
-  -webkit-line-clamp: 11;
+  -webkit-line-clamp: 18;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
