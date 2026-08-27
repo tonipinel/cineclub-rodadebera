@@ -75,7 +75,7 @@
   </header>
   <div class="cartell__body">
     <div class="cartell__synopsis">
-      <p>{{ with .Params.sinopsi_cartell }}{{ . }}{{ else }}{{ partial "cartell-synopsis-fallback.html" . }}{{ end }}</p>
+      <p>{{ with .Params.sinopsi_cartell }}{{ . | safeHTML }}{{ else }}{{ partial "cartell-synopsis-fallback.html" . }}{{ end }}</p>
     </div>
     {{ with .Resources.GetMatch "poster*" }}
       {{ $poster := . }}
