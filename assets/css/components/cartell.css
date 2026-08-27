@@ -23,9 +23,7 @@
   @apply flex flex-col gap-1;
 }
 .cartell__price-line {
-  @apply font-display text-[19pt] font-semibold uppercase text-black;
-}
-.cartell__price-line strong {
+  @apply font-display text-[19pt] uppercase text-black;
   font-weight: normal;
 }
 .cartell__price-line--free {
