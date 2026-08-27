@@ -88,12 +88,16 @@
   flex-shrink: 0;
 }
 .cartell__filmstrip-perf {
+  @apply flex items-center justify-between;
   height: 4mm;
   flex-shrink: 0;
-  background-image: radial-gradient(circle, #fff 32%, transparent 34%);
-  background-size: 7mm 7mm;
-  background-position: center;
-  background-repeat: repeat-x;
+  padding: 0 2mm;
+}
+.cartell__filmstrip-hole {
+  @apply flex-shrink-0 bg-white;
+  width: 2.2mm;
+  height: 2.2mm;
+  border-radius: 0.6mm;
 }
 .cartell__filmstrip-track {
   @apply flex flex-1 items-stretch gap-1;
@@ -102,6 +106,7 @@
 }
 .cartell__filmstrip-image {
   @apply h-full w-full flex-1 object-cover;
+  border-radius: 1.5mm;
 }
 .cartell__footer {
   @apply flex flex-col items-center gap-2 text-center;
