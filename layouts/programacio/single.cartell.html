@@ -16,7 +16,7 @@
 {{ $entitats := .Site.Data.entitats }}
 <div class="cartell">
   <header class="cartell__header">
-    <div class="cartell__price">
+    <div class="cartell__price{{ if eq .Params.preu 0 }} cartell__price--free{{ end }}">
       {{ if eq .Params.preu 0 }}
         <span class="cartell__price-line cartell__price-line--free">Entrada gratuïta</span>
       {{ else }}

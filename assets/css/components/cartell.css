@@ -33,6 +33,9 @@
   @apply font-body text-[10pt] font-semibold text-black;
   padding-top: 7mm;
 }
+.cartell__price--free .cartell__web-url {
+  padding-top: 18mm;
+}
 .cartell__logo {
   @apply h-auto flex-shrink-0;
   width: 66mm;
