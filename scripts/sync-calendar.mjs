@@ -105,22 +105,35 @@ async function main() {
   for (const session of sessions) {
     const end = new Date(session.start.getTime() + EVENT_DURATION_HOURS * 60 * 60 * 1000);
     const description = `${session.synopsis}\n\nMés informació i entrades: ${session.url}`;
+    const resource = {
+      summary: session.title,
+      location: VENUE_NAME,
+      description,
+      start: { dateTime: session.start.toISOString() },
+      end: { dateTime: end.toISOString() },
+      source: { title: "Fitxa de la sessió", url: session.url },
+      extendedProperties: { private: { source: SOURCE_TAG } },
+    };
 
-    await calendar.events.import({
-      calendarId,
-      requestBody: {
-        iCalUID: session.uid,
-        summary: session.title,
-        location: VENUE_NAME,
-        description,
-        start: { dateTime: session.start.toISOString() },
-        end: { dateTime: end.toISOString() },
-        source: { title: "Fitxa de la sessió", url: session.url },
-        extendedProperties: { private: { source: SOURCE_TAG } },
-      },
-    });
-    console.log(`Synced: ${session.title}`);
-    managed.delete(session.uid);
+    const existing = managed.get(session.uid);
+    if (existing) {
+      // Same session, same UID: update the existing event in place
+      // (e.g. the date, synopsis or title changed) instead of creating
+      // a second copy.
+      await calendar.events.patch({ calendarId, eventId: existing.id, requestBody: resource });
+      console.log(`Updated: ${session.title}`);
+      managed.delete(session.uid);
+    } else {
+      // No event with this UID yet: either a brand-new session, or an
+      // existing session whose date changed (its UID embeds the date,
+      // so a reschedule looks like a new UID here — the stale event
+      // under the old UID gets removed below).
+      await calendar.events.insert({
+        calendarId,
+        requestBody: { ...resource, iCalUID: session.uid },
+      });
+      console.log(`Created: ${session.title}`);
+    }
   }
 
   for (const [uid, ev] of managed) {
