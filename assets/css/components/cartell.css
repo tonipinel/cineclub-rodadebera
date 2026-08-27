@@ -45,8 +45,9 @@
   justify-self: end;
 }
 .cartell__version-badge {
-  @apply font-body bg-black text-[11pt] font-semibold uppercase text-white;
-  padding: 1.5mm 3mm;
+  @apply font-body bg-black text-[10pt] font-semibold uppercase text-white;
+  padding: 1.5mm 1.5mm;
+  text-align: center;
 }
 .cartell__collab {
   @apply flex flex-col items-end gap-1;
