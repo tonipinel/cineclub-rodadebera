@@ -12,8 +12,63 @@
 </head>
 <body class="cartell-page">
 <button type="button" class="cartell-print-btn" onclick="window.print()">Imprimeix / Desa PDF</button>
+{{ $entitats := .Site.Data.entitats }}
 <div class="cartell">
-  {{ .Title }}
+  <header class="cartell__header">
+    <div class="cartell__price">
+      {{ if eq .Params.preu 0 }}
+        <span class="cartell__price-line cartell__price-line--free">Entrada gratuïta</span>
+      {{ else }}
+        <span class="cartell__price-line">Soci/a: <strong>Gratuït</strong></span>
+        <span class="cartell__price-line">No soci/a: <strong>{{ .Params.preu }}€</strong></span>
+      {{ end }}
+      <span class="cartell__web-label">Informa't al web</span>
+      <span class="cartell__web-url">www.{{ .Site.BaseURL | replaceRE "^https?://(www\\.)?" "" | replaceRE "/$" "" | upper }}</span>
+    </div>
+
+    {{ with .Site.Home.Resources.GetMatch "hero-logo.png" }}
+      <img class="cartell__logo" src="{{ .RelPermalink }}" alt="{{ $.Site.Title }}">
+    {{ end }}
+
+    <div class="cartell__version-collab">
+      {{ with .Params.versio_tipus }}
+        {{ $tipus := . }}
+        {{ $text := "" }}
+        {{ if eq $tipus "vo" }}
+          {{ $text = printf "Versió original en %s" $.Params.idioma }}
+        {{ else if eq $tipus "vose" }}
+          {{ $text = "Versió original subtitulada en espanyol" }}
+        {{ else if eq $tipus "vosc" }}
+          {{ $text = "Versió original subtitulada en català" }}
+        {{ else if eq $tipus "doblada-cat" }}
+          {{ $text = "Doblada al català" }}
+        {{ else if eq $tipus "doblada-cast" }}
+          {{ $text = "Doblada al castellà" }}
+        {{ end }}
+        <span class="cartell__version-badge">{{ $text | upper }}</span>
+      {{ end }}
+
+      {{ $collabEntities := slice }}
+      {{ with .Params.organitza }}
+        {{ if ne . "cineclub" }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
+      {{ end }}
+      {{ range .Params.participa }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
+      {{ range .Params.collabora }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
+      {{ if gt (len $collabEntities) 0 }}
+        <div class="cartell__collab">
+          <span class="cartell__collab-label">Amb la col·laboració de:</span>
+          <div class="cartell__collab-logos">
+            {{ range $collabEntities }}
+              {{ $nom := . }}
+              {{ with index $entitats $nom }}
+                <img class="cartell__collab-logo" src="{{ .logo }}" alt="{{ $nom }}">
+              {{ end }}
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </header>
 </div>
 </body>
 </html>

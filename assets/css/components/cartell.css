@@ -14,6 +14,50 @@
   margin: 12mm auto;
   box-shadow: 0 0 12mm rgba(0, 0, 0, 0.25);
 }
+.cartell__header {
+  @apply flex items-start justify-between gap-4;
+  padding: 8mm 8mm 4mm;
+}
+.cartell__price {
+  @apply flex flex-col gap-1;
+}
+.cartell__price-line {
+  @apply font-body text-[11pt] font-semibold uppercase text-black;
+}
+.cartell__price-line--free {
+  @apply text-[12pt];
+}
+.cartell__web-label {
+  @apply font-display text-[9pt] font-semibold uppercase text-gold;
+  margin-top: 3mm;
+}
+.cartell__web-url {
+  @apply font-body text-[8pt] font-semibold text-black;
+}
+.cartell__logo {
+  @apply h-auto flex-shrink-0;
+  width: 55mm;
+}
+.cartell__version-collab {
+  @apply flex flex-col items-end gap-2 text-right;
+}
+.cartell__version-badge {
+  @apply font-body bg-black text-[9pt] font-semibold uppercase text-white;
+  padding: 1mm 3mm;
+}
+.cartell__collab {
+  @apply flex flex-col items-end gap-1;
+}
+.cartell__collab-label {
+  @apply font-body text-[7pt] font-semibold uppercase text-black;
+}
+.cartell__collab-logos {
+  @apply flex flex-wrap items-center justify-end gap-2;
+}
+.cartell__collab-logo {
+  @apply w-auto object-contain;
+  height: 8mm;
+}
 
 @media print {
   .cartell-print-btn {
