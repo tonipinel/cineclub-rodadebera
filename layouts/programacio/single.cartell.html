@@ -23,7 +23,6 @@
         <span class="cartell__price-line">Soci/a: <strong>Gratuït</strong></span>
         <span class="cartell__price-line">No soci/a: <strong>{{ .Params.preu }}€</strong></span>
       {{ end }}
-      <span class="cartell__web-label">Informa't al web</span>
       <span class="cartell__web-url">www.{{ .Site.BaseURL | replaceRE "^https?://(www\\.)?" "" | replaceRE "/$" "" | upper }}</span>
     </div>
 
@@ -34,19 +33,25 @@
     <div class="cartell__version-collab">
       {{ with .Params.versio_tipus }}
         {{ $tipus := . }}
-        {{ $text := "" }}
+        {{ $line1 := "" }}
+        {{ $line2 := "" }}
         {{ if eq $tipus "vo" }}
-          {{ $text = printf "Versió original en %s" $.Params.idioma }}
+          {{ $line1 = "Versió original" }}
+          {{ $line2 = printf "en %s" $.Params.idioma }}
         {{ else if eq $tipus "vose" }}
-          {{ $text = "Versió original subtitulada en espanyol" }}
+          {{ $line1 = "Versió original subtitulada" }}
+          {{ $line2 = "en espanyol" }}
         {{ else if eq $tipus "vosc" }}
-          {{ $text = "Versió original subtitulada en català" }}
+          {{ $line1 = "Versió original subtitulada" }}
+          {{ $line2 = "en català" }}
         {{ else if eq $tipus "doblada-cat" }}
-          {{ $text = "Doblada al català" }}
+          {{ $line1 = "Doblada al català" }}
         {{ else if eq $tipus "doblada-cast" }}
-          {{ $text = "Doblada al castellà" }}
+          {{ $line1 = "Doblada al castellà" }}
         {{ end }}
-        {{ with $text }}<span class="cartell__version-badge">{{ . | upper }}</span>{{ end }}
+        {{ with $line1 }}
+          <span class="cartell__version-badge">{{ . | upper }}{{ with $line2 }}<br>{{ . | upper }}{{ end }}</span>
+        {{ end }}
       {{ end }}
 
       {{ $collabEntities := slice }}

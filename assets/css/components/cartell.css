@@ -29,17 +29,14 @@
 .cartell__price-line--free {
   @apply text-[16pt];
 }
-.cartell__web-label {
-  @apply font-display text-[22pt] font-semibold uppercase text-gold;
-  margin-top: 3mm;
-}
 .cartell__web-url {
   @apply font-body text-[10pt] font-semibold text-black;
+  padding-top: 7mm;
 }
 .cartell__logo {
   @apply h-auto flex-shrink-0;
   width: 75mm;
-  margin-top: 17mm;
+  margin-top: 0;
   position: relative;
   z-index: 1;
 }
@@ -70,7 +67,7 @@
 .cartell__body {
   @apply flex flex-1;
   min-height: 0;
-  margin-top: -23mm;
+  margin-top: -16mm;
 }
 .cartell__synopsis {
   @apply flex items-center overflow-hidden bg-black text-white;
