@@ -9,6 +9,7 @@
 @import "./components/member.css";
 @import "./components/faq.css";
 @import "./components/prose.css";
+@import "./components/cartell.css";
 
 @tailwind base;
 @tailwind components;
