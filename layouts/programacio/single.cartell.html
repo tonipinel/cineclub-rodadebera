@@ -69,6 +69,16 @@
       {{ end }}
     </div>
   </header>
+  <div class="cartell__body">
+    <div class="cartell__synopsis">
+      <p>{{ with .Params.sinopsi_cartell }}{{ . }}{{ else }}{{ partial "cartell-synopsis-fallback.html" . }}{{ end }}</p>
+    </div>
+    {{ with .Resources.GetMatch "poster*" }}
+      {{ $poster := . }}
+      {{ if gt $poster.Width 1000 }}{{ $poster = $poster.Resize "1000x" }}{{ end }}
+      <img class="cartell__poster" src="{{ $poster.RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+    {{ end }}
+  </div>
 </div>
 </body>
 </html>

@@ -1,0 +1,11 @@
+{{- $raw := .RawContent -}}
+{{- $afterHeading := "" -}}
+{{- if in $raw "## Sinopsi" -}}
+  {{- $parts := split $raw "## Sinopsi" -}}
+  {{- $afterHeading = index $parts 1 -}}
+{{- end -}}
+{{- $upToNextHeading := $afterHeading -}}
+{{- if in $afterHeading "\n## " -}}
+  {{- $upToNextHeading = index (split $afterHeading "\n## ") 0 -}}
+{{- end -}}
+{{- trim $upToNextHeading "\n " -}}
