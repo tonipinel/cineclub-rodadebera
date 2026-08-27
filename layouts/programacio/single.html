@@ -172,7 +172,7 @@
       </div>
     </div>
     {{ with .OutputFormats.Get "CARTELL" }}
-      <a class="session-cartell-banner__button" href="{{ .RelPermalink }}" target="_blank" rel="noopener">Imprimir/veure cartell de la sessió</a>
+      <a class="session-cartell-banner__button" href="{{ .RelPermalink }}" target="_blank" rel="noopener">{{ partial "icon.html" "printer" }}Imprimir/veure cartell de la sessió</a>
     {{ end }}
   </div>
 </div>

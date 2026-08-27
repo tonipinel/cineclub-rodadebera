@@ -203,7 +203,10 @@
   @apply mx-auto flex max-w-[1000px] flex-col items-center gap-4 px-6 py-6 text-center sm:flex-row sm:justify-between sm:text-left;
 }
 .session-cartell-banner__button {
-  @apply inline-block flex-shrink-0 rounded-full bg-black px-6 py-3 font-display font-bold uppercase text-white no-underline transition hover:bg-neutral-800;
+  @apply inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-black px-6 py-3 font-display font-bold uppercase text-white no-underline transition hover:bg-neutral-800;
+}
+.session-cartell-banner__button .icon {
+  @apply h-6 w-6 flex-shrink-0 text-white;
 }
 .session-cartell-banner__message {
   @apply flex items-center gap-4;
