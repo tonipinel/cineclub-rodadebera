@@ -52,14 +52,15 @@
   @apply flex flex-col items-end gap-1;
 }
 .cartell__collab-label {
-  @apply font-body text-[9pt] font-semibold uppercase text-black;
+  @apply font-body text-[8pt] font-semibold uppercase text-black;
 }
 .cartell__collab-logos {
   @apply flex flex-wrap items-center justify-end gap-2;
 }
 .cartell__collab-logo {
   @apply w-auto object-contain;
-  height: 9mm;
+  height: 15mm;
+  margin-top: -4mm;
 }
 .cartell__collab-entity {
   @apply font-body text-[9pt] font-semibold text-black;
