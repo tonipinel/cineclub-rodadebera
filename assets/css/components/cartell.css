@@ -146,8 +146,9 @@
   @apply font-display text-[30pt] font-bold uppercase text-gold;
 }
 .cartell__date-time {
-  @apply font-body text-[16pt] text-black;
+  @apply font-display text-[30pt] font-bold;
+  color: #a9a9a9;
 }
 .cartell__venue {
-  @apply font-body text-[12pt] text-neutral-600;
+  @apply text-[17pt] uppercase text-neutral-600;
 }
