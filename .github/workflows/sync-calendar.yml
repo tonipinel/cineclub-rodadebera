@@ -1,0 +1,39 @@
+name: Sync Google Calendar
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "content/programacio/**"
+      - "scripts/sync-calendar.mjs"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Log planned changes without applying them"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync-calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Sync Google Calendar
+        env:
+          GOOGLE_CALENDAR_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_CALENDAR_SERVICE_ACCOUNT_KEY }}
+          GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_CALENDAR_ID }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: npm run calendar:sync
