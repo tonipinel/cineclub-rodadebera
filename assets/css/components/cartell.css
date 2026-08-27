@@ -123,7 +123,7 @@
 }
 .cartell__collab-strip-logo {
   @apply w-auto object-contain;
-  height: 7mm;
+  height: 14mm;
 }
 .cartell__collab-strip-entity {
   @apply font-body text-[8pt] font-semibold text-black;
