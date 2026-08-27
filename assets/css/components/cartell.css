@@ -70,7 +70,7 @@
 .cartell__body {
   @apply flex flex-1;
   min-height: 0;
-  margin-top: -9mm;
+  margin-top: -23mm;
 }
 .cartell__synopsis {
   @apply flex items-center overflow-hidden bg-black text-white;
