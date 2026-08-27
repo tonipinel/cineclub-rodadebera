@@ -206,10 +206,11 @@
   @apply inline-block flex-shrink-0 rounded-full bg-black px-6 py-3 font-display font-bold uppercase text-white no-underline transition hover:bg-neutral-800;
 }
 .session-cartell-banner__message {
-  @apply flex items-center gap-4 sm:items-stretch;
+  @apply flex items-center gap-4;
 }
 .session-cartell-banner__message .icon {
-  @apply h-10 w-10 flex-shrink-0 text-black sm:h-full sm:w-auto;
+  @apply w-auto flex-shrink-0 text-black;
+  height: 5rem;
 }
 .session-cartell-banner__text {
   @apply flex flex-col justify-center gap-1 sm:max-w-md;
