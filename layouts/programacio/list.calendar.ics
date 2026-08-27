@@ -1,0 +1,33 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Cineclub Roda de Berà//Programació//CA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Cineclub Roda de Berà
+{{- range where .Site.RegularPages "Section" "programacio" }}
+{{- $synopsis := .Params.sinopsi_cartell }}
+{{- if not $synopsis }}{{ $synopsis = partial "cartell-synopsis-fallback.html" . | htmlUnescape }}{{ end }}
+{{- $synopsis = $synopsis | replaceRE "<br/?>" " " | plainify | truncate 200 | htmlUnescape }}
+{{- $description := printf "%s\n\nMés informació i entrades: %s" $synopsis .Permalink }}
+{{- $description = replace $description "\\" "\\\\" }}
+{{- $description = replace $description "," "\\," }}
+{{- $description = replace $description ";" "\\;" }}
+{{- $description = replace $description "\n" "\\n" }}
+{{- $title := replace .Title "\\" "\\\\" }}
+{{- $title = replace $title "," "\\," }}
+{{- $title = replace $title ";" "\\;" }}
+{{- $location := replace .Site.Params.venueName "\\" "\\\\" }}
+{{- $location = replace $location "," "\\," }}
+{{- $location = replace $location ";" "\\;" }}
+BEGIN:VEVENT
+UID:{{ .File.ContentBaseName }}-{{ .Date.Format "20060102" }}@cineclubrodadebera.cat
+DTSTAMP:{{ now.UTC.Format "20060102T150405Z" }}
+DTSTART:{{ .Date.UTC.Format "20060102T150405Z" }}
+DURATION:PT3H
+SUMMARY:{{ $title }}
+LOCATION:{{ $location }}
+URL:{{ .Permalink }}
+DESCRIPTION:{{ $description }}
+END:VEVENT
+{{- end }}
+END:VCALENDAR

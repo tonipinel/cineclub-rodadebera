@@ -10,6 +10,15 @@ titleCaseStyle = "none"
   mediaType = "text/html"
   isHTML = true
 
+[mediaTypes."text/calendar"]
+  suffixes = ["ics"]
+
+[outputFormats.CALENDAR]
+  baseName = "calendari"
+  mediaType = "text/calendar"
+  isPlainText = true
+  notAlternative = true
+
 [permalinks]
   programacio = "/programacio/:year/:slug/"
 
