@@ -162,6 +162,21 @@
   </div>
 </div>
 
+<div class="session-cartell-banner-wrapper">
+  <div class="session-cartell-banner">
+    <div class="session-cartell-banner__message">
+      {{ partial "icon.html" "megaphone" }}
+      <div class="session-cartell-banner__text">
+        <span class="session-cartell-banner__title">Ajuda'ns a fer difusió!</span>
+        <p class="session-cartell-banner__body">Imprimeix el cartell del cineclub i enganxa'l per la teva zona o descarrega'l en PDF i envia'l a qui vulguis.</p>
+      </div>
+    </div>
+    {{ with .OutputFormats.Get "CARTELL" }}
+      <a class="session-cartell-banner__button" href="{{ .RelPermalink }}" target="_blank" rel="noopener">Imprimir/veure cartell de la sessió</a>
+    {{ end }}
+  </div>
+</div>
+
 {{ with .Params.trailer_youtube_id }}
 <div class="session-trailer">
   <div class="session-trailer__frame">
