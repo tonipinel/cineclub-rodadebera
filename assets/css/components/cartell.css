@@ -30,7 +30,7 @@
   @apply text-[16pt];
 }
 .cartell__web-label {
-  @apply font-display text-[23pt] font-semibold uppercase text-gold;
+  @apply font-display text-[22pt] font-semibold uppercase text-gold;
   margin-top: 3mm;
 }
 .cartell__web-url {
