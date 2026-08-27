@@ -3,6 +3,7 @@ title: "20.000 especies de abejas"
 slug: "20000-especies-de-abejas"
 date: 2026-10-08T19:00:00+02:00
 titol_original: "20.000 especies de abejas"
+sinopsi_cartell: "Aitor viu amb la família a Baiona. Durant les vacances d'estiu, la mare Ane, enmig d'una crisi personal i professional, porta els fills al poble matern del País Basc, on hi ha l'àvia Lita i la tia àvia Lourdes, apicultora. Durant la nit de Sant Joan, Aitor demana que li diguin Cocó. <br/><br/> Al llarg de l'estiu, entre les tasques amb les abelles i els conflictes familiars, Cocó explorará la seva identitat de gènere."
 trailer_youtube_id: "22EdsxVNJiQ"
 directors:
   - "Estibaliz Urresola Solaguren"
