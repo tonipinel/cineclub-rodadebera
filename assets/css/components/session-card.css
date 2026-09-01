@@ -68,8 +68,23 @@
 .calendar {
   @apply mx-auto max-w-3xl p-6 py-12;
 }
-.calendar h2 {
-  @apply mb-6 text-center font-display text-2xl font-bold uppercase text-gold-dark;
+.calendar__subscribe {
+  @apply mb-8 flex flex-col items-center gap-3 rounded-lg border border-dashed border-gold-dark bg-gold/10 px-6 py-4 text-center sm:flex-row sm:text-left;
+}
+.calendar__subscribe .icon {
+  @apply h-8 w-8 flex-shrink-0 text-gold-dark;
+}
+.calendar__subscribe-text {
+  @apply flex flex-1 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2;
+}
+.calendar__subscribe-title {
+  @apply font-display text-lg font-bold uppercase text-gold-dark;
+}
+.calendar__subscribe-body {
+  @apply font-body text-sm text-black;
+}
+.calendar__subscribe-button {
+  @apply flex-shrink-0 rounded-full bg-gold-dark px-5 py-2 font-display text-sm font-bold uppercase text-white no-underline transition hover:bg-black;
 }
 .calendar__list {
   @apply divide-y divide-dashed divide-black/20;

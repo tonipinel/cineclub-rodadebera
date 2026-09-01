@@ -7,17 +7,53 @@
 {{ partial "next-sessions.html" . }}
 
 {{ $calendarItems := slice }}
+{{ $cartelleraMonths := slice }}
 {{ range where .Site.RegularPages "Section" "programacio" }}
   {{ $calendarItems = $calendarItems | append (dict "date" .Date "title" .Title "url" .RelPermalink) }}
+  {{ if eq .Params.seccio "cartellera" }}
+    {{ $cartelleraMonths = $cartelleraMonths | append (.Date.Format "2006-01") }}
+  {{ end }}
 {{ end }}
-{{ range .Params.sessions_pendents }}
-  {{ $calendarItems = $calendarItems | append (dict "date" (time.AsTime .data) "title" "Per determinar" "url" "") }}
+
+{{/* Always show 3 "Per determinar" placeholders, defaulting to the first
+     Thursday at 19:00 (Europe/Madrid) of the next months that don't
+     already have a cartellera session scheduled. */}}
+{{ $now := now }}
+{{ $startYear := $now.Year }}
+{{ $startMonth := int $now.Month }}
+{{ $placeholderCount := 0 }}
+{{ range seq 24 }}
+  {{ if lt $placeholderCount 3 }}
+    {{ $offset := sub . 1 }}
+    {{ $totalMonth := add (sub $startMonth 1) $offset }}
+    {{ $y := add $startYear (div $totalMonth 12) }}
+    {{ $m := add (mod $totalMonth 12) 1 }}
+    {{ $key := printf "%04d-%02d" $y $m }}
+    {{ if not (in $cartelleraMonths $key) }}
+      {{ $firstOfMonth := time.AsTime (printf "%04d-%02d-01T00:00:00Z" $y $m) }}
+      {{ $dow := int $firstOfMonth.Weekday }}
+      {{ $dayOffset := mod (add (sub 4 $dow) 7) 7 }}
+      {{ $day := add 1 $dayOffset }}
+      {{ $thursday := time.AsTime (printf "%04d-%02d-%02dT19:00:00" $y $m $day) "Europe/Madrid" }}
+      {{ if gt $thursday $now }}
+        {{ $calendarItems = $calendarItems | append (dict "date" $thursday "title" "Per determinar" "url" "") }}
+        {{ $placeholderCount = add $placeholderCount 1 }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
 {{ end }}
 {{ $calendarItems = sort $calendarItems "date" }}
 
 <div class="calendar-wrapper">
   <div class="calendar">
-    <h2>Calendari {{ now.Format "2006" }}</h2>
+    <div class="calendar__subscribe">
+      {{ partial "icon.html" "calendar" }}
+      <div class="calendar__subscribe-text">
+        <span class="calendar__subscribe-title">Subscriu-te al calendari</span>
+        <span class="calendar__subscribe-body">I no et perdis cap sessió</span>
+      </div>
+      <a class="calendar__subscribe-button" href="https://calendar.google.com/calendar/render?cid=a1659922865eabbdc8ea753f5996bd8025d3afabffe476fc36872643e2749be7%40group.calendar.google.com" target="_blank" rel="noopener">Subscriu-te</a>
+    </div>
     <ul class="calendar__list" data-calendar-list>
       {{ range $calendarItems }}
         <li class="calendar__item" data-calendar-date="{{ .date.Format "2006-01-02T15:04:05Z07:00" }}">

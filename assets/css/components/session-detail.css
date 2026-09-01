@@ -196,6 +196,34 @@
 .session-body {
   @apply mx-4 mb-8 max-w-3xl border-2 border-t-0 border-dashed border-black bg-white p-6 shadow-lg sm:mx-auto;
 }
+.session-cartell-banner-wrapper {
+  @apply w-full border-b-[6px] border-dashed border-black bg-gold;
+}
+.session-cartell-banner {
+  @apply mx-auto flex max-w-[1000px] flex-col items-center gap-4 px-6 py-6 text-center sm:flex-row sm:justify-between sm:text-left;
+}
+.session-cartell-banner__button {
+  @apply inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-black px-6 py-3 font-display font-bold uppercase text-white no-underline transition hover:bg-neutral-800;
+}
+.session-cartell-banner__button .icon {
+  @apply h-6 w-6 flex-shrink-0 text-white;
+}
+.session-cartell-banner__message {
+  @apply flex items-center gap-4;
+}
+.session-cartell-banner__message .icon {
+  @apply w-auto flex-shrink-0 text-black;
+  height: 5rem;
+}
+.session-cartell-banner__text {
+  @apply flex flex-col justify-center gap-1 sm:max-w-md;
+}
+.session-cartell-banner__title {
+  @apply font-display text-2xl font-bold text-black;
+}
+.session-cartell-banner__body {
+  @apply font-body text-sm font-semibold text-black;
+}
 .session-info-wrapper {
   @apply w-full border-dashed border-black bg-white;
   border-top-width: 6px;

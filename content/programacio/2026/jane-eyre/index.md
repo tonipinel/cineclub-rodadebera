@@ -3,6 +3,7 @@ title: "Jane Eyre"
 date: 2026-08-06T19:00:00+02:00
 titol_original: "Jane Eyre"
 titol_espanya: "Jane Eyre"
+sinopsi_cartell: "Jane Eyre, una jove òrfena amb una forta voluntat i un profund sentit moral, és contractada com a institutriu a Thornfield Hall, una mansió misteriosa. Allà coneix el seu enigmàtic propietari, Edward Rochester, amb qui estableix una relació intensa i complexa. Però un secret ocult amenaça de destruir el vincle entre tots dos..."
 trailer_youtube_id: "8IFsdfk3mlk"
 directors:
   - "Cary Joji Fukunaga"

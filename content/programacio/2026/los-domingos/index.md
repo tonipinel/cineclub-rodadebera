@@ -2,6 +2,7 @@
 title: "Los domingos"
 date: 2026-09-03T19:00:00+02:00
 titol_original: "Los domingos"
+sinopsi_cartell: "Ainara té disset anys, és una bona estudiant i ha crescut sense mare. Quan anuncia a la família que vol fer-se monja de clausura, la decisió sacseja tot el seu entorn: el pare es manté distant davant la notícia, mentre la tia sospita que l'Església l'està manipulant. <br/><br/> La pel·lícula explora, amb mirada íntima, el pes de la fe, la llibertat i les expectatives familiars en la construcció d'una identitat pròpia."
 trailer_youtube_id: "fSRrZVzDTVA"
 directors:
   - "Alauda Ruiz de Azúa"

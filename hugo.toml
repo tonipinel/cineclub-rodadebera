@@ -5,6 +5,11 @@ enableRobotsTXT = true
 buildFuture = true
 titleCaseStyle = "none"
 
+[outputFormats.CARTELL]
+  baseName = "cartell"
+  mediaType = "text/html"
+  isHTML = true
+
 [permalinks]
   programacio = "/programacio/:year/:slug/"
 

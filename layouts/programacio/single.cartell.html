@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartell: {{ .Title }} ({{ .Site.Title }})</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/cartell-print.css" | relURL }}">
+</head>
+<body class="cartell-page">
+<button type="button" class="cartell-print-btn" onclick="window.print()">Imprimeix / Desa PDF</button>
+{{ $entitats := .Site.Data.entitats }}
+<div class="cartell">
+  <header class="cartell__header">
+    <div class="cartell__price{{ if eq .Params.preu 0 }} cartell__price--free{{ end }}">
+      {{ if eq .Params.preu 0 }}
+        <span class="cartell__price-line cartell__price-line--free">Entrada gratuïta</span>
+      {{ else }}
+        <span class="cartell__price-line">Soci/a: <strong>Gratuït</strong></span>
+        <span class="cartell__price-line">No soci/a: <strong>{{ .Params.preu }}€</strong></span>
+      {{ end }}
+      <span class="cartell__web-url">www.{{ .Site.BaseURL | replaceRE "^https?://(www\\.)?" "" | replaceRE "/$" "" | upper }}</span>
+    </div>
+
+    {{ with .Site.Home.Resources.GetMatch "hero-logo.png" }}
+      <img class="cartell__logo" src="{{ .RelPermalink }}" alt="{{ $.Site.Title }}">
+    {{ end }}
+
+    <div class="cartell__version-collab">
+      {{ with .Params.versio_tipus }}
+        {{ $tipus := . }}
+        {{ $line1 := "" }}
+        {{ $line2 := "" }}
+        {{ if eq $tipus "vo" }}
+          {{ $line1 = "Versió original" }}
+          {{ $line2 = printf "en %s" $.Params.idioma }}
+        {{ else if eq $tipus "vose" }}
+          {{ $line1 = "Versió original subtitulada" }}
+          {{ $line2 = "en espanyol" }}
+        {{ else if eq $tipus "vosc" }}
+          {{ $line1 = "Versió original subtitulada" }}
+          {{ $line2 = "en català" }}
+        {{ else if eq $tipus "doblada-cat" }}
+          {{ $line1 = "Doblada al català" }}
+        {{ else if eq $tipus "doblada-cast" }}
+          {{ $line1 = "Doblada al castellà" }}
+        {{ end }}
+        {{ with $line1 }}
+          <span class="cartell__version-badge">{{ . | upper }}{{ with $line2 }}<br>{{ . | upper }}{{ end }}</span>
+        {{ end }}
+      {{ end }}
+
+      {{ if ne .Params.seccio "xarxa" }}
+        {{ $collabEntities := slice }}
+        {{ with .Params.organitza }}
+          {{ if and (ne . "cineclub") (ne . "Cineclub Roda de Berà") }}{{ $collabEntities = $collabEntities | append . }}{{ end }}
+        {{ end }}
+        {{ range .Params.participa }}{{ if ne . "Cineclub Roda de Berà" }}{{ $collabEntities = $collabEntities | append . }}{{ end }}{{ end }}
+        {{ range .Params.collabora }}{{ if ne . "Cineclub Roda de Berà" }}{{ $collabEntities = $collabEntities | append . }}{{ end }}{{ end }}
+        {{ if not (in $collabEntities "Ajuntament de Roda de Berà") }}{{ $collabEntities = $collabEntities | append "Ajuntament de Roda de Berà" }}{{ end }}
+        <div class="cartell__collab">
+          <span class="cartell__collab-label">Amb la col·laboració de:</span>
+          <div class="cartell__collab-logos">
+            {{ range $collabEntities }}
+              {{ partial "cartell-entity-logo.html" (dict "nom" . "entitats" $entitats "logoClass" "cartell__collab-logo" "entityClass" "cartell__collab-entity") }}
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </header>
+  <div class="cartell__body">
+    <div class="cartell__synopsis">
+      <p>{{ with .Params.sinopsi_cartell }}{{ . | safeHTML }}{{ else }}{{ partial "cartell-synopsis-fallback.html" . }}{{ end }}</p>
+    </div>
+    {{ with .Resources.GetMatch "poster*" }}
+      {{ $poster := . }}
+      {{ if gt $poster.Width 1000 }}{{ $poster = $poster.Resize "1000x" }}{{ end }}
+      <img class="cartell__poster" src="{{ $poster.RelPermalink }}" alt="{{ $.Params.titol_original | default $.Title }}">
+    {{ end }}
+  </div>
+  {{ $filmstripImages := first 4 (sort (.Resources.Match "gallery*") "Name") }}
+  {{ if gt (len $filmstripImages) 0 }}
+  <div class="cartell__filmstrip">
+    <div class="cartell__filmstrip-perf">{{ range seq 42 }}<span class="cartell__filmstrip-hole"></span>{{ end }}</div>
+    <div class="cartell__filmstrip-track">
+      {{ range $filmstripImages }}
+        {{ $img := . }}
+        {{ if gt $img.Width 400 }}{{ $img = $img.Resize "400x" }}{{ end }}
+        <img class="cartell__filmstrip-image" src="{{ $img.RelPermalink }}" alt="">
+      {{ end }}
+    </div>
+    <div class="cartell__filmstrip-perf">{{ range seq 42 }}<span class="cartell__filmstrip-hole"></span>{{ end }}</div>
+  </div>
+  {{ end }}
+  {{ if eq .Params.seccio "xarxa" }}
+    {{ $collabora := slice }}
+    {{ range .Params.collabora }}{{ if ne . "Cineclub Roda de Berà" }}{{ $collabora = $collabora | append . }}{{ end }}{{ end }}
+    {{ if not (in $collabora "Ajuntament de Roda de Berà") }}{{ $collabora = $collabora | append "Ajuntament de Roda de Berà" }}{{ end }}
+    {{ $participa := slice }}
+    {{ range .Params.participa }}{{ if ne . "Cineclub Roda de Berà" }}{{ $participa = $participa | append . }}{{ end }}{{ end }}
+    <div class="cartell__collab-strip">
+      {{ with .Params.organitza }}
+        {{ if ne . "Cineclub Roda de Berà" }}
+          <div class="cartell__collab-strip-item">
+            <span class="cartell__collab-strip-label">Organitza</span>
+            {{ partial "cartell-entity-logo.html" (dict "nom" . "entitats" $entitats "logoClass" "cartell__collab-strip-logo" "entityClass" "cartell__collab-strip-entity") }}
+          </div>
+        {{ end }}
+      {{ end }}
+      {{ with $participa }}
+        <div class="cartell__collab-strip-group">
+          <span class="cartell__collab-strip-label">Participen</span>
+          {{ range . }}
+            {{ partial "cartell-entity-logo.html" (dict "nom" . "entitats" $entitats "logoClass" "cartell__collab-strip-logo" "entityClass" "cartell__collab-strip-entity") }}
+          {{ end }}
+        </div>
+      {{ end }}
+      <div class="cartell__collab-strip-group">
+        <span class="cartell__collab-strip-label">Col·laboren</span>
+        {{ range $collabora }}
+          {{ partial "cartell-entity-logo.html" (dict "nom" . "entitats" $entitats "logoClass" "cartell__collab-strip-logo" "entityClass" "cartell__collab-strip-entity") }}
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+  <footer class="cartell__footer">
+    {{ partial "date-ca-cartell.html" . }}
+    <span class="cartell__venue">{{ .Site.Params.venueName }}</span>
+  </footer>
+</div>
+</body>
+</html>
