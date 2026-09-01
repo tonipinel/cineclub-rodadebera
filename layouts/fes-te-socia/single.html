@@ -50,18 +50,70 @@
   </div>
 </div>
 
-<section class="page-hero" data-bottom-hero>
+<section class="page-hero" data-bottom-hero id="inscriu-te">
   <h2 class="page-hero__title">{{ .Params.closing_titol }}</h2>
   {{ with .Params.closing_hook }}<p class="page-hero__hook">{{ . }}</p>{{ end }}
-  {{ partial "join-button.html" . }}
+
+  <form class="signup-form" data-fes-te-socia-form novalidate>
+    <div class="signup-form__field">
+      <label class="signup-form__label" for="nom">Nom *</label>
+      <input class="signup-form__input" type="text" id="nom" name="nom" required>
+    </div>
+    <div class="signup-form__field">
+      <label class="signup-form__label" for="cognoms">Cognoms *</label>
+      <input class="signup-form__input" type="text" id="cognoms" name="cognoms" required>
+    </div>
+    <div class="signup-form__field">
+      <label class="signup-form__label" for="dni">DNI *</label>
+      <input class="signup-form__input" type="text" id="dni" name="dni" required>
+    </div>
+    <div class="signup-form__field">
+      <label class="signup-form__label" for="poblacio">Població *</label>
+      <input class="signup-form__input" type="text" id="poblacio" name="poblacio" required>
+    </div>
+    <div class="signup-form__field">
+      <label class="signup-form__label" for="codiPostal">Codi postal *</label>
+      <input class="signup-form__input" type="text" id="codiPostal" name="codiPostal" required>
+    </div>
+    <div class="signup-form__field">
+      <label class="signup-form__label" for="telefon">Telèfon *</label>
+      <input class="signup-form__input" type="tel" id="telefon" name="telefon" required>
+    </div>
+    <div class="signup-form__field" data-email-field>
+      <label class="signup-form__label" for="correuElectronic">Correu electrònic *</label>
+      <input class="signup-form__input" type="email" id="correuElectronic" name="correuElectronic" required>
+    </div>
+    <label class="signup-form__checkbox">
+      <input type="checkbox" name="senseEmail" data-sense-email>
+      No tinc correu electrònic
+    </label>
+    <div class="signup-form__field">
+      <label class="signup-form__label" for="comentaris">Comentaris</label>
+      <textarea class="signup-form__input" id="comentaris" name="comentaris" rows="3"></textarea>
+    </div>
+    <label class="signup-form__checkbox">
+      <input type="checkbox" name="acceptaPrivacitat" required>
+      He llegit i accepto la <a href="/privacitat/">política de privacitat</a>.
+    </label>
+    <label class="signup-form__checkbox">
+      <input type="checkbox" name="acceptaDadesPersonals" required>
+      Autoritzo el tractament de les meves dades per a la gestió com a soci/a.
+    </label>
+    <p class="signup-form__error" data-form-error></p>
+    <button class="btn" type="submit" data-form-submit>Enviar sol·licitud</button>
+  </form>
+  <p class="signup-form__confirmacio" data-form-confirmacio hidden>
+    Gràcies! Hem rebut la teva sol·licitud. En breu ens posarem en contacte per confirmar l'alta.
+  </p>
 </section>
 
 <div class="floating-cta-bar" data-floating-cta>
-  <a class="floating-cta" href="{{ .Site.Params.membershipFormURL }}" target="_blank" rel="noopener">
+  <a class="floating-cta" href="{{ .Site.Params.membershipFormURL }}">
     {{ partial "icon.html" "ticket" }}
     Vull fer-me soci/a
   </a>
 </div>
+<script type="module" src="{{ "js/fes-te-socia-form.js" | relURL }}"></script>
 <script>
 (function () {
   var bar = document.querySelector("[data-floating-cta]");
