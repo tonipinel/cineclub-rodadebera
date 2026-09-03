@@ -9,8 +9,4 @@
   {{- $upToNextHeading = index (split $afterHeading "\n## ") 0 -}}
 {{- end -}}
 {{- $trimmed := trim $upToNextHeading "\n " -}}
-{{- $rendered := $trimmed | markdownify -}}
-{{- $rendered = strings.TrimPrefix "<p>" $rendered -}}
-{{- $rendered = strings.TrimSuffix "</p>\n" $rendered -}}
-{{- $rendered = strings.TrimSuffix "</p>" $rendered -}}
-{{- $rendered | safeHTML -}}
+{{- replaceRE `\[([^\]]+)\]\([^)]+\)` "$1" $trimmed -}}
