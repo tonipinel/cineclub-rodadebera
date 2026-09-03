@@ -18,7 +18,9 @@
 {{ $galleryImages := sort (.Resources.Match "gallery*") "Name" }}
 <div class="session-gallery-wrapper">
 <div class="session-gallery">
-  <button type="button" class="session-gallery__prev" aria-label="Imatge anterior">{{ partial "icon.html" "chevron-left" }}</button>
+  {{ if gt (len $galleryImages) 1 }}
+    <button type="button" class="session-gallery__prev" aria-label="Imatge anterior">{{ partial "icon.html" "chevron-left" }}</button>
+  {{ end }}
   <div class="session-gallery__track">
     {{ range $galleryImages }}
       {{ $img := . }}
@@ -28,7 +30,9 @@
       <img class="session-gallery__image" src="{{ $img.RelPermalink }}" alt="Fotograma de {{ $.Params.titol_original | default $.Title }}" loading="lazy">
     {{ end }}
   </div>
-  <button type="button" class="session-gallery__next" aria-label="Imatge següent">{{ partial "icon.html" "chevron-right" }}</button>
+  {{ if gt (len $galleryImages) 1 }}
+    <button type="button" class="session-gallery__next" aria-label="Imatge següent">{{ partial "icon.html" "chevron-right" }}</button>
+  {{ end }}
   {{ if gt (len $galleryImages) 1 }}
     <div class="session-gallery__dots" aria-hidden="true">
       {{ range $i, $e := $galleryImages }}
@@ -130,8 +134,8 @@
       {{ end }}
       {{ with .Params.guio }}<dt class="session-fitxa__label">Guió</dt><dd>{{ . }}</dd>{{ end }}
       <dt class="session-fitxa__label">País</dt><dd>{{ .Params.pais }}</dd>
-      <dt class="session-fitxa__label">Any</dt><dd>{{ .Params.any }}</dd>
-      <dt class="session-fitxa__label">Durada</dt><dd>{{ .Params.durada }} minuts</dd>
+      {{ with .Params.any }}<dt class="session-fitxa__label">Any</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.durada }}<dt class="session-fitxa__label">Durada</dt><dd>{{ . }} minuts</dd>{{ end }}
       <dt class="session-fitxa__label">Idioma</dt><dd>{{ .Params.idioma }}</dd>
       {{ with .GetTerms "generes" }}
         <dt class="session-fitxa__label">Gènere</dt>
