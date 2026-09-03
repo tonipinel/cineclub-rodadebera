@@ -41,13 +41,12 @@ titleCaseStyle = "none"
   weight = 2
 
 [[menu.main]]
-  name = "Fes-te soci/a"
-  url = "/fes-te-socia/"
-  pageRef = "/fes-te-socia"
+  name = "Propostes"
+  url = "https://associacio.cineclubrodadebera.cat/"
   weight = 3
 
 [[menu.main]]
-  name = "Preguntes freqüents"
-  url = "/preguntes-frequents/"
-  pageRef = "/preguntes-frequents"
+  name = "Fes-te soci/a"
+  url = "/fes-te-socia/"
+  pageRef = "/fes-te-socia"
   weight = 4
