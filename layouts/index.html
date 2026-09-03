@@ -36,11 +36,29 @@
   <div class="programming">
     <div class="programming__body prose-ca">
       <h2>Com funciona<br><span class="text-gold">la programació</span></h2>
-      <p>Cada mes projectem una pel·lícula en versió original subtitulada, seguida d'un col·loqui obert. Publiquem un calendari orientatiu cada any i la programació detallada amb 2-3 mesos d'antelació.</p>
-      <a class="btn" href="{{ "/programacio/" | relLangURL }}">Veure la programació</a>
+      <p>Cada mes projectem una pel·lícula en versió original subtitulada, si cal, seguida d'un col·loqui obert. Publiquem un calendari orientatiu a principi d'any i concretem la programació amb 2-3 mesos d'antelació.</p>
+      <p>La programació es construeix de manera participativa. A través de la nostra web, podeu proposar pel·lícules que us agradaria veure al Cineclub. També podeu participar en les votacions que fem al grup de WhatsApp del Cineclub, on periòdicament posem a votació dues propostes per decidir entre tots quines seran les properes sessions.</p>
+      <p>Alhora, algunes pel·lícules són proposades directament per la junta, tenint en compte criteris de programació, disponibilitat i calendari, així com possibles col·laboracions amb altres entitats o activitats especials.</p>
+      <p>D'aquesta manera, intentem combinar les preferències i propostes de les persones sòcies amb una programació variada i coherent amb la línia del Cineclub.</p>
+      <div class="programming__actions">
+        <a class="btn" href="{{ "/programacio/" | relLangURL }}">Veure la programació</a>
+        <a class="btn btn--outline" href="https://associacio.cineclubrodadebera.cat/">Veure propostes</a>
+      </div>
     </div>
     <div class="programming__mosaic">
-      {{ range first 6 (where .Site.RegularPages "Section" "programacio") }}
+      {{ $allSessions := where .Site.RegularPages "Section" "programacio" }}
+      {{ $futureSessions := (where $allSessions "Date" "ge" now).ByDate }}
+      {{ $upcoming3 := first 3 $futureSessions }}
+      {{ $upcomingPermalinks := slice }}
+      {{ range $upcoming3 }}{{ $upcomingPermalinks = $upcomingPermalinks | append .RelPermalink }}{{ end }}
+      {{ $mosaicPool := slice }}
+      {{ range $allSessions }}
+        {{ if not (in $upcomingPermalinks .RelPermalink) }}
+          {{ $mosaicPool = $mosaicPool | append . }}
+        {{ end }}
+      {{ end }}
+      {{ $mosaicFilled := $mosaicPool | append $upcoming3 }}
+      {{ range first 9 $mosaicFilled }}
         {{ with .Resources.GetMatch "poster*" }}
           {{ $thumb := . }}
           {{ if gt $thumb.Width 300 }}{{ $thumb = $thumb.Resize "300x" }}{{ end }}

@@ -167,18 +167,19 @@
   margin: 0 auto;
 }
 .programacio-year__title {
-  border-bottom-width: 2px;
-  border-style: dashed;
   padding-left: 3rem;
   padding-right: 3rem;
   padding-top: 2rem;
   font-family: Oswald, sans-serif;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+  font-size: 5rem;
+  line-height: 4.5rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.025em;
-  color: #bf9000;
-  border-color: #ffffff;
+  color: #4d4d4d;
+  border-bottom: 2px;
+  border-color: #fff;
+  border-style: dashed;
   background: #000;
+  text-align: center;
 }
