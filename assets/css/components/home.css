@@ -118,10 +118,10 @@
   text-shadow: 2px 2px 2px black;
 }
 .next-session__grid {
-  @apply grid grid-cols-1 gap-8 text-left sm:grid-cols-2 lg:grid-cols-3;
+  @apply flex flex-wrap justify-center gap-8 text-left;
 }
 .next-session__item {
-  @apply flex;
+  @apply flex w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)];
 }
 .membership-teaser-wrapper {
   @apply w-full border-t-2 border-dashed border-black;
